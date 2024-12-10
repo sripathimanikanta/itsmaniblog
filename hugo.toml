@@ -1,0 +1,34 @@
+baseURL = 'https://example.org/'
+languageCode = 'en-us'
+title = "Its Mani's Blog"
+theme = 'paper'
+author = "Manik Bhasha"
+copyright = "© 2024, itsmaniblog.github.io"
+
+[params]
+  # color style
+  color = 'linen'                           # linen, wheat, gray, light
+
+  # header social icons
+  twitter = 'msripathi035'               # twitter.com/YOUR_TWITTER_ID
+  github = 'sripathimanikanta'                 # github.com/YOUR_GITHUB_ID
+  linkedin = 'manikanta-sripathi-485297194'             # linkedin.com/in/YOUR_LINKEDIN_ID
+  monoDarkIcon = true  
+
+avatar = 'msripathi035@gmail.com'
+  name = 'MANI'
+  bio = 'Never stop asking Questions'
+
+[menu]
+  [[menu.main]]
+    identifier = "about"
+    name = "About"
+    url = "/about/"
+    weight = 10
+  [[menu.main]]
+    identifier = "contact"
+    name = "Contact"
+    url = "/contact/"
+    weight = 10
+
+
