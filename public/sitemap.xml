@@ -2,21 +2,21 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>http://localhost:1313/</loc>
+    <loc>http://localhost:1313/sripathimanikanta/itsmaniblog/</loc>
     <lastmod>2024-12-10T15:56:56+05:30</lastmod>
   </url><url>
-    <loc>http://localhost:1313/posts/my-first-blog-post/</loc>
+    <loc>http://localhost:1313/sripathimanikanta/itsmaniblog/posts/my-first-blog-post/</loc>
     <lastmod>2024-12-10T15:56:56+05:30</lastmod>
   </url><url>
-    <loc>http://localhost:1313/posts/</loc>
+    <loc>http://localhost:1313/sripathimanikanta/itsmaniblog/posts/</loc>
     <lastmod>2024-12-10T15:56:56+05:30</lastmod>
   </url><url>
-    <loc>http://localhost:1313/about/</loc>
+    <loc>http://localhost:1313/sripathimanikanta/itsmaniblog/about/</loc>
   </url><url>
-    <loc>http://localhost:1313/contact/</loc>
+    <loc>http://localhost:1313/sripathimanikanta/itsmaniblog/contact/</loc>
   </url><url>
-    <loc>http://localhost:1313/categories/</loc>
+    <loc>http://localhost:1313/sripathimanikanta/itsmaniblog/categories/</loc>
   </url><url>
-    <loc>http://localhost:1313/tags/</loc>
+    <loc>http://localhost:1313/sripathimanikanta/itsmaniblog/tags/</loc>
   </url>
 </urlset>
