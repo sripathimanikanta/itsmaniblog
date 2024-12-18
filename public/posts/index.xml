@@ -2,25 +2,25 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Posts on Its Mani&#39;s Blog</title>
-    <link>http://localhost:1313/sripathimanikanta/itsmaniblog/posts/</link>
+    <link>http://localhost:1313/itsmaniblog/posts/</link>
     <description>Recent content in Posts on Its Mani&#39;s Blog</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <copyright>© 2024, itsmaniblog.github.io</copyright>
     <lastBuildDate>Wed, 18 Dec 2024 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/sripathimanikanta/itsmaniblog/posts/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/itsmaniblog/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Learn to Create TCP Server in CPP</title>
-      <link>http://localhost:1313/sripathimanikanta/itsmaniblog/posts/creating-tcp-server-in-cpp/</link>
+      <link>http://localhost:1313/itsmaniblog/posts/creating-tcp-server-in-cpp/</link>
       <pubDate>Wed, 18 Dec 2024 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/sripathimanikanta/itsmaniblog/posts/creating-tcp-server-in-cpp/</guid>
-      <description>&lt;blockquote&gt;&#xA;&lt;p&gt;&lt;em&gt;&lt;strong&gt;DISCLAMINER:&lt;/strong&gt;&lt;/em&gt;&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;The below &lt;em&gt;&lt;strong&gt;Diagrams&lt;/strong&gt;&lt;/em&gt; are my way of seeing the following code.&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;/blockquote&gt;&#xA;&lt;p&gt;&lt;img src=&#34;http://localhost:1313/sripathimanikanta/itsmaniblog/sripathimanikanta/itsmaniblog/images/TCP/colors.svg&#34; alt=&#34;Winsock Lib&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;Welcome this is a step-by-step guide to build a server using &lt;em&gt;&lt;strong&gt;CPP&lt;/strong&gt;&lt;/em&gt; using &lt;em&gt;&lt;strong&gt;WINSOCK&lt;/strong&gt;&lt;/em&gt; (cause i&amp;rsquo;m using &lt;em&gt;&lt;strong&gt;windows&lt;/strong&gt;&lt;/em&gt; not linux).&lt;/p&gt;&#xA;&lt;h2 id=&#34;prerequisties&#34;&gt;Prerequisties:&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Windows&lt;/li&gt;&#xA;&lt;li&gt;CPP complier&lt;/li&gt;&#xA;&lt;li&gt;Basic C++ programming&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;server-process-illustration&#34;&gt;Server Process (illustration):&lt;/h2&gt;&#xA;&lt;p&gt;&lt;img src=&#34;http://localhost:1313/sripathimanikanta/itsmaniblog/sripathimanikanta/itsmaniblog/images/TCP/server_process.svg&#34; alt=&#34;Server Process&#34;&gt;&lt;/p&gt;&#xA;&lt;h2 id=&#34;what-is-tcp-server&#34;&gt;What is TCP server?&lt;/h2&gt;&#xA;&lt;p&gt;An application that listens for incoming connections on a socket and accepts them to begin communication.TCP full form is&#xA;Transmission Control Protocol,which is a standard for communication on internet.&lt;/p&gt;</description>
+      <guid>http://localhost:1313/itsmaniblog/posts/creating-tcp-server-in-cpp/</guid>
+      <description>&lt;blockquote&gt;&#xA;&lt;h3 id=&#34;disclaminer&#34;&gt;&lt;em&gt;&lt;strong&gt;DISCLAMINER:&lt;/strong&gt;&lt;/em&gt;&lt;/h3&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;The below &lt;em&gt;&lt;strong&gt;Diagrams&lt;/strong&gt;&lt;/em&gt; are my way of seeing the following code.&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;/blockquote&gt;&#xA;&lt;p&gt;&lt;img src=&#34;http://localhost:1313/itsmaniblog/itsmaniblog/images/TCP/colors.svg&#34; alt=&#34;Winsock Lib&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;Welcome this is a step-by-step guide to build a server using &lt;em&gt;&lt;strong&gt;CPP&lt;/strong&gt;&lt;/em&gt; using &lt;em&gt;&lt;strong&gt;WINSOCK&lt;/strong&gt;&lt;/em&gt; (cause i&amp;rsquo;m using &lt;em&gt;&lt;strong&gt;windows&lt;/strong&gt;&lt;/em&gt; not linux).&lt;/p&gt;&#xA;&lt;h2 id=&#34;prerequisties&#34;&gt;Prerequisties:&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Windows&lt;/li&gt;&#xA;&lt;li&gt;CPP complier&lt;/li&gt;&#xA;&lt;li&gt;Basic C++ programming&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;server-process-illustration&#34;&gt;Server Process (illustration):&lt;/h2&gt;&#xA;&lt;p&gt;&lt;img src=&#34;http://localhost:1313/itsmaniblog/itsmaniblog/images/TCP/server_process.svg&#34; alt=&#34;Server Process&#34;&gt;&lt;/p&gt;&#xA;&lt;h2 id=&#34;what-is-tcp-server&#34;&gt;What is TCP server?&lt;/h2&gt;&#xA;&lt;p&gt;An application that listens for incoming connections on a socket and accepts them to begin communication.TCP full form is&#xA;Transmission Control Protocol,which is a standard for communication on internet.&lt;/p&gt;</description>
     </item>
     <item>
       <title>My First Blog Post</title>
-      <link>http://localhost:1313/sripathimanikanta/itsmaniblog/posts/my-first-blog-post/</link>
+      <link>http://localhost:1313/itsmaniblog/posts/my-first-blog-post/</link>
       <pubDate>Tue, 10 Dec 2024 15:56:56 +0530</pubDate>
-      <guid>http://localhost:1313/sripathimanikanta/itsmaniblog/posts/my-first-blog-post/</guid>
+      <guid>http://localhost:1313/itsmaniblog/posts/my-first-blog-post/</guid>
       <description>&lt;p&gt;Introduction&lt;/p&gt;&#xA;&lt;p&gt;I know you might be thinking why am i starting a blog in 2024. But the answer is simple to me.It is for the following 2 things:&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Teaching myself (&lt;em&gt;&lt;strong&gt;Archive&lt;/strong&gt;&lt;/em&gt;)&lt;/li&gt;&#xA;&lt;li&gt;Teaching others (&lt;em&gt;&lt;strong&gt;Help&lt;/strong&gt;&lt;/em&gt;)&lt;/li&gt;&#xA;&lt;/ul&gt;</description>
     </item>
   </channel>

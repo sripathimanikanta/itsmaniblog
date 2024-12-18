@@ -3,10 +3,10 @@ title = 'Learn to Create TCP Server in CPP'
 date = '2024-12-18'
 draft = false
 +++
-> ***DISCLAMINER:***
+> ### ***DISCLAMINER:***
 > - The below ***Diagrams*** are my way of seeing the following code.
 
-![Winsock Lib](/sripathimanikanta/itsmaniblog/images/TCP/colors.svg)
+![Winsock Lib](/itsmaniblog/images/TCP/colors.svg)
 
 Welcome this is a step-by-step guide to build a server using ***CPP*** using ***WINSOCK*** (cause i'm using ***windows*** not linux).
 
@@ -16,7 +16,7 @@ Welcome this is a step-by-step guide to build a server using ***CPP*** using ***
 - Basic C++ programming
 
 ## Server Process (illustration):
-![Server Process](/sripathimanikanta/itsmaniblog/images/TCP/server_process.svg)
+![Server Process](/itsmaniblog/images/TCP/server_process.svg)
 
 ## What is TCP server?
 An application that listens for incoming connections on a socket and accepts them to begin communication.TCP full form is 
@@ -33,7 +33,7 @@ Transmission Control Protocol,which is a standard for communication on internet.
 The main winsock2.h library is [here](https://github.com/tpn/winsdk-10/blob/master/Include/10.0.10240.0/um/WinSock2.h)
 ## Step 1: Get Winsock library
 
-![Basics](/sripathimanikanta/itsmaniblog/images/TCP/basicWSAPI.svg)
+![Basics](/itsmaniblog/images/TCP/basicWSAPI.svg)
 
 #### if your beginner like me a ?? then you might be thinking what is wsa/WSA??
 
@@ -46,7 +46,7 @@ It is used to talk to ***NETWORK*** like TCP/IP.
 #### What is winsock2??
 It is the library that has all the WSA code. It is an upgrade from winsock => winsock2.
 
-![Winsock Lib](/sripathimanikanta/itsmaniblog/images/TCP/step1.svg)
+![Winsock Lib](/itsmaniblog/images/TCP/step1.svg)
 
 #### Q. How to start or call this api??
 A. we use ***WSAStartup*** function to ask OS.
@@ -109,7 +109,7 @@ Next, now we want to something WHERE WE CAN SEND DATA OR ASK DATA???
 so that something to hold on to, so that we can send or receive, that's were we get
 ***SOCKET***
 
-![Socket Visualization](/sripathimanikanta/itsmaniblog/images/TCP/step2.svg)
+![Socket Visualization](/itsmaniblog/images/TCP/step2.svg)
 
 #### Q. what is a socket??
 A. ***SOCKET*** is a endpoint(kind-aa like a BRIDGE) between server and client.
@@ -164,7 +164,7 @@ if (serverSocket == INVALID_SOCKET) {
 }
 ```
 
-![difference of SOCKET and socket](/sripathimanikanta/itsmaniblog/images/TCP/diffSocketVsSOCKET.svg)
+![difference of SOCKET and socket](/itsmaniblog/images/TCP/diffSocketVsSOCKET.svg)
 So, here we only mentioned about ***PROTOCOL*** details. Next we will give ***IP_Address*** and ***Port*** details.
 
 then we are creating server we need to ***BIND*** it.
@@ -172,7 +172,7 @@ then we are creating server we need to ***BIND*** it.
 ## Step 3: Bind the Socket
 Next, now we give address details and port details and bind it. So, that our OS can set a local address, to that SOCKET.
 
-![step3](/sripathimanikanta/itsmaniblog/images/TCP/step3.svg)
+![step3](/itsmaniblog/images/TCP/step3.svg)
 
 #### Basically what bind function takes as argument??
 it takes 3 args. 
@@ -214,7 +214,7 @@ if (bind(serverSocket, reinterpret_cast<SOCKADDR*>(&service), sizeof(service)) =
 ## Step 4: Listen for Connections
 we use listen function to do few things, first it will put all the client in a queue.
 
-![step4](/sripathimanikanta/itsmaniblog/images/TCP/step4.svg)
+![step4](/itsmaniblog/images/TCP/step4.svg)
 
 as we can see listen() function take 2 arguments,
 1. Socket
@@ -235,7 +235,7 @@ if (listen(serverSocket, 1) == SOCKET_ERROR) {
 
 ## Step 5: Accept Connections
 
-![step5](/sripathimanikanta/itsmaniblog/images/TCP/step5.svg)
+![step5](/itsmaniblog/images/TCP/step5.svg)
 
 #### What does accept do??
 It extracts the first connection request on the queue of pending connections for the
@@ -281,7 +281,7 @@ then we need accept that connection so that we can see what the client want??
 > - Use the socket API calls ***send()*** and ***recv()***.
 > - Use the Windows I/O system calls ***WriteFile()*** and ***ReadFile()***.
 
-![step6ReceiveData](/sripathimanikanta/itsmaniblog/images/TCP/recData.svg)
+![step6ReceiveData](/itsmaniblog/images/TCP/recData.svg)
 
 #### I know some people might be thinking?
 why i didnt use read or write function, cause those are POSIX I/O system calls. Basically, they are not present in
@@ -302,7 +302,7 @@ if (rbyteCount < 0) {
 }
 ```
 
-![step6SendData](/sripathimanikanta/itsmaniblog/images/TCP/sendData.svg)
+![step6SendData](/itsmaniblog/images/TCP/sendData.svg)
 
 ```cpp
 // Send a response to the client
@@ -324,6 +324,6 @@ close(acceptSocket);
 
 ## Everything in one go:
 
-![AllSteps](/sripathimanikanta/itsmaniblog/images/TCP/allSteps.svg)
+![AllSteps](/itsmaniblog/images/TCP/allSteps.svg)
 
 Next, we will learn TCP Client in the upcoming blog.
