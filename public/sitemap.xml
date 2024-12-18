@@ -3,12 +3,15 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>http://localhost:1313/sripathimanikanta/itsmaniblog/</loc>
-    <lastmod>2024-12-10T15:56:56+05:30</lastmod>
+    <lastmod>2024-12-18T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/sripathimanikanta/itsmaniblog/posts/my-first-blog-post/</loc>
-    <lastmod>2024-12-10T15:56:56+05:30</lastmod>
+    <loc>http://localhost:1313/sripathimanikanta/itsmaniblog/posts/creating-tcp-server-in-cpp/</loc>
+    <lastmod>2024-12-18T00:00:00+00:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/sripathimanikanta/itsmaniblog/posts/</loc>
+    <lastmod>2024-12-18T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/sripathimanikanta/itsmaniblog/posts/my-first-blog-post/</loc>
     <lastmod>2024-12-10T15:56:56+05:30</lastmod>
   </url><url>
     <loc>http://localhost:1313/sripathimanikanta/itsmaniblog/about/</loc>

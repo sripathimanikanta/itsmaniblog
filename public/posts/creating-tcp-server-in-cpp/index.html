@@ -1,0 +1,665 @@
+<!doctype html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html
+  class="not-ready lg:text-base"
+  style="--bg: #faf8f1"
+  lang="en-us"
+  dir="ltr"
+>
+  <head><script src="/sripathimanikanta/itsmaniblog/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=sripathimanikanta/itsmaniblog/livereload" data-no-instant defer></script>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, shrink-to-fit=no"
+  />
+
+  
+  <title>Learn to Create TCP Server in CPP - Its Mani&#39;s Blog</title>
+
+  
+  <meta name="theme-color" />
+
+  
+  
+  
+  
+  <meta name="description" content="
+DISCLAMINER:
+
+The below Diagrams are my way of seeing the following code.
+
+
+
+Welcome this is a step-by-step guide to build a server using CPP using WINSOCK (cause i&rsquo;m using windows not linux).
+Prerequisties:
+
+Windows
+CPP complier
+Basic C&#43;&#43; programming
+
+Server Process (illustration):
+
+What is TCP server?
+An application that listens for incoming connections on a socket and accepts them to begin communication.TCP full form is
+Transmission Control Protocol,which is a standard for communication on internet." />
+  <meta name="author" content="MANI" />
+  
+
+  
+  
+  
+  
+  
+  
+  <link rel="preload stylesheet" as="style" href="http://localhost:1313/sripathimanikanta/itsmaniblog/main.min.css" />
+
+  
+  
+  
+  
+  
+  <link rel="preload" as="image" href="http://localhost:1313/sripathimanikanta/itsmaniblog/theme.svg" />
+
+  
+  
+  
+  
+  <link rel="preload" as="image" href="/logo.jpg" />
+  
+  
+
+  
+  
+  <link rel="preload" as="image" href="http://localhost:1313/sripathimanikanta/itsmaniblog/twitter.svg" />
+  
+  <link rel="preload" as="image" href="http://localhost:1313/sripathimanikanta/itsmaniblog/github.svg" />
+  
+  <link rel="preload" as="image" href="http://localhost:1313/sripathimanikanta/itsmaniblog/linkedin.svg" />
+  
+  
+
+  
+  
+  <script
+    defer
+    src="http://localhost:1313/sripathimanikanta/itsmaniblog/highlight.min.js"
+    onload="hljs.initHighlightingOnLoad();"
+  ></script>
+  
+
+  
+  
+  
+
+  
+  <link
+    rel="icon"
+    href="http://localhost:1313/sripathimanikanta/itsmaniblog/favicon.ico"
+  />
+  <link
+    rel="apple-touch-icon"
+    href="http://localhost:1313/sripathimanikanta/itsmaniblog/apple-touch-icon.png"
+  />
+
+  
+  <meta name="generator" content="Hugo 0.139.4">
+
+  
+  
+  
+</head>
+
+  
+  <body class="text-black duration-200 ease-out dark:text-white">
+    <header class="mx-auto flex h-[4.5rem] max-w-[--w] px-8 lg:justify-center">
+  <div class="relative z-50 ltr:mr-auto rtl:ml-auto flex items-center">
+    <a class="-translate-y-[1px] text-2xl font-medium font-['Monaco']" href="http://localhost:1313/sripathimanikanta/itsmaniblog/"
+      >Its Mani&#39;s Blog</a
+    >
+    <div
+      class="btn-dark text-[0] ltr:ml-4 rtl:mr-4 h-6 w-6 shrink-0 cursor-pointer [background:url(./theme.svg)_left_center/cover_no-repeat] dark:invert dark:[background-position:right]"
+      role="button"
+      aria-label="Dark"
+    ></div>
+  </div>
+
+  <div
+    class="btn-menu relative z-50 ltr:-mr-8 rtl:-ml-8 flex h-[4.5rem] w-[5rem] shrink-0 cursor-pointer flex-col items-center justify-center gap-2.5 lg:hidden"
+    role="button"
+    aria-label="Menu"
+  ></div>
+
+  
+
+  <script>
+    
+    const htmlClass = document.documentElement.classList;
+    setTimeout(() => {
+      htmlClass.remove('not-ready');
+    }, 10);
+
+    
+    const btnMenu = document.querySelector('.btn-menu');
+    btnMenu.addEventListener('click', () => {
+      htmlClass.toggle('open');
+    });
+
+    
+    const metaTheme = document.querySelector('meta[name="theme-color"]');
+    const lightBg = '#faf8f1'.replace(/"/g, '');
+    const setDark = (isDark) => {
+      metaTheme.setAttribute('content', isDark ? '#000' : lightBg);
+      htmlClass[isDark ? 'add' : 'remove']('dark');
+      localStorage.setItem('dark', isDark);
+    };
+
+    
+    const darkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+    if (htmlClass.contains('dark')) {
+      setDark(true);
+    } else {
+      const darkVal = localStorage.getItem('dark');
+      setDark(darkVal ? darkVal === 'true' : darkScheme.matches);
+    }
+
+    
+    darkScheme.addEventListener('change', (event) => {
+      setDark(event.matches);
+    });
+
+    
+    const btnDark = document.querySelector('.btn-dark');
+    btnDark.addEventListener('click', () => {
+      setDark(localStorage.getItem('dark') !== 'true');
+    });
+  </script>
+
+  <div
+    class="nav-wrapper fixed inset-x-0 top-full z-40 flex h-full select-none flex-col justify-center pb-16 duration-200 dark:bg-black lg:static lg:h-auto lg:flex-row lg:!bg-transparent lg:pb-0 lg:transition-none"
+  >
+    
+    
+    <nav class="lg:ml-12 lg:flex lg:flex-row lg:items-center lg:space-x-10 rtl:space-x-reverse">
+      
+      <a
+        class="block text-center text-xl leading-[5rem] lg:text-base lg:font-normal"
+        href="/sripathimanikanta/itsmaniblog/about/"
+        >About</a
+      >
+      
+      <a
+        class="block text-center text-xl leading-[5rem] lg:text-base lg:font-normal"
+        href="/sripathimanikanta/itsmaniblog/contact/"
+        >Contact</a
+      >
+      
+    </nav>
+    
+
+    
+    <nav
+      class="mt-12 flex justify-center space-x-10 rtl:space-x-reverse dark:invert ltr:lg:ml-14 rtl:lg:mr-14 lg:mt-0 lg:items-center"
+    >
+      
+      <a
+        class="h-7 w-7 text-[0] [background:var(--url)_center_center/cover_no-repeat] lg:h-6 lg:w-6"
+        style="--url: url(./twitter.svg)"
+        href="https://twitter.com/msripathi035"
+        target="_blank"
+        rel="me"
+      >
+        twitter
+      </a>
+      
+      <a
+        class="h-7 w-7 text-[0] [background:var(--url)_center_center/cover_no-repeat] lg:h-6 lg:w-6"
+        style="--url: url(./github.svg)"
+        href="https://github.com/sripathimanikanta"
+        target="_blank"
+        rel="me"
+      >
+        github
+      </a>
+      
+      <a
+        class="h-7 w-7 text-[0] [background:var(--url)_center_center/cover_no-repeat] lg:h-6 lg:w-6"
+        style="--url: url(./linkedin.svg)"
+        href="https://linkedin.com/in/manikanta-sripathi-485297194"
+        target="_blank"
+        rel="me"
+      >
+        linkedin
+      </a>
+      
+    </nav>
+    
+  </div>
+</header>
+
+
+      
+    <main
+      class="prose prose-neutral relative mx-auto min-h-[calc(100vh-9rem)] max-w-[--w] px-8 pb-16 pt-14 dark:prose-invert"
+    >
+      
+
+<article>
+  <header class="mb-14">
+    <h1 class="!my-0 pb-2.5">Learn to Create TCP Server in CPP</h1>
+
+    
+    <div class="text-xs antialiased opacity-60">
+      
+      <time>Dec 18, 2024</time>
+      
+      
+      
+      
+    </div>
+    
+  </header>
+
+  <section><blockquote>
+<p><em><strong>DISCLAMINER:</strong></em></p>
+<ul>
+<li>The below <em><strong>Diagrams</strong></em> are my way of seeing the following code.</li>
+</ul>
+</blockquote>
+<p><img src="/sripathimanikanta/itsmaniblog/images/TCP/colors.svg" alt="Winsock Lib"></p>
+<p>Welcome this is a step-by-step guide to build a server using <em><strong>CPP</strong></em> using <em><strong>WINSOCK</strong></em> (cause i&rsquo;m using <em><strong>windows</strong></em> not linux).</p>
+<h2 id="prerequisties">Prerequisties:</h2>
+<ul>
+<li>Windows</li>
+<li>CPP complier</li>
+<li>Basic C++ programming</li>
+</ul>
+<h2 id="server-process-illustration">Server Process (illustration):</h2>
+<p><img src="/sripathimanikanta/itsmaniblog/images/TCP/server_process.svg" alt="Server Process"></p>
+<h2 id="what-is-tcp-server">What is TCP server?</h2>
+<p>An application that listens for incoming connections on a socket and accepts them to begin communication.TCP full form is
+Transmission Control Protocol,which is a standard for communication on internet.</p>
+<h2 id="steps-to-create-a-server">Steps to create a server:</h2>
+<ol>
+<li>Get Winsock library</li>
+<li>Create a socket</li>
+<li>Bind the socket</li>
+<li>Listen for connection</li>
+<li>Accept connection</li>
+<li>Receive and Send Data</li>
+</ol>
+<p>The main winsock2.h library is <a href="https://github.com/tpn/winsdk-10/blob/master/Include/10.0.10240.0/um/WinSock2.h">here</a></p>
+<h2 id="step-1-get-winsock-library">Step 1: Get Winsock library</h2>
+<p><img src="/sripathimanikanta/itsmaniblog/images/TCP/basicWSAPI.svg" alt="Basics"></p>
+<h4 id="if-your-beginner-like-me-a--then-you-might-be-thinking-what-is-wsawsa">if your beginner like me a ?? then you might be thinking what is wsa/WSA??</h4>
+<p>WSA stands for WINDOWS SOCKETS API</p>
+<h4 id="what-is-the-use-of-wsa">What is the use of WSA??</h4>
+<p>It is used to talk to <em><strong>NETWORK</strong></em> like TCP/IP.</p>
+<h4 id="what-is-winsock2">What is winsock2??</h4>
+<p>It is the library that has all the WSA code. It is an upgrade from winsock =&gt; winsock2.</p>
+<p><img src="/sripathimanikanta/itsmaniblog/images/TCP/step1.svg" alt="Winsock Lib"></p>
+<h4 id="q-how-to-start-or-call-this-api">Q. How to start or call this api??</h4>
+<p>A. we use <em><strong>WSAStartup</strong></em> function to ask OS.</p>
+<h4 id="q-but-we-need-provide-little-data-to-before-starting-wsa-so-we-use">Q. But we need provide little data to before starting wsa&hellip; so we use?</h4>
+<p>A. <em><strong>WSAData</strong></em> type provided in winsock2 library.</p>
+<h4 id="q-but-what-does-line-4-do">Q. But what does line 4 do?</h4>
+<p>A. <em><strong>wVersionedRequest</strong></em> is used to request data about the Window Sockets version and other info.</p>
+<h4 id="q-and-finally-where-we-use-szsystemstatus-do">Q. and finally where we use szSystemStatus do?</h4>
+<p>A. Gives us the status whether we go connected to WSA or not.</p>
+<h3 id="code-step-1">CODE: Step 1</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">// Line - 1
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#75715e">// Line - 2
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;winsock2.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Initialize WSA variables
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// Line - 3
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    WSADATA wsaData;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> wsaerr;
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Line - 4
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    WORD wVersionRequested <span style="color:#f92672">=</span> MAKEWORD(<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">2</span>);
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Line - 5
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    wsaerr <span style="color:#f92672">=</span> WSAStartup(wVersionRequested, <span style="color:#f92672">&amp;</span>wsaData);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Check for initialization success
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span> (wsaerr <span style="color:#f92672">!=</span> <span style="color:#ae81ff">0</span>) {
+</span></span><span style="display:flex;"><span>        std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;The Winsock dll not found!&#34;</span> <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>        std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;The Winsock dll found&#34;</span> <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl;
+</span></span><span style="display:flex;"><span>        std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;The status: &#34;</span> <span style="color:#f92672">&lt;&lt;</span> wsaData.szSystemStatus <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>to execute code using gcc compiler:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cmd" data-lang="cmd"><span style="display:flex;"><span>gcc SimpleSocket.cpp -o Simple.o -lstdc++ -lws2_32
+</span></span></code></pre></div><blockquote>
+<h3 id="note"><em><strong>Note:</strong></em></h3>
+<p><strong>i used gcc from mingw, so i had to link them manually</strong></p>
+<ul>
+<li><em><strong>-lstdc++</strong></em> is used to link <em><strong>iostream</strong></em> library</li>
+<li><em><strong>-lws2_32</strong></em> is used to link <em><strong>winsock2</strong></em> library</li>
+</ul>
+</blockquote>
+<h2 id="step-2-create-a-socket">Step 2: Create a Socket</h2>
+<p>Next, now we want to something WHERE WE CAN SEND DATA OR ASK DATA???</p>
+<p><em><strong>ENDPOINT</strong></em></p>
+<p>so that something to hold on to, so that we can send or receive, that&rsquo;s were we get
+<em><strong>SOCKET</strong></em></p>
+<p><img src="/sripathimanikanta/itsmaniblog/images/TCP/step2.svg" alt="Socket Visualization"></p>
+<h4 id="q-what-is-a-socket">Q. what is a socket??</h4>
+<p>A. <em><strong>SOCKET</strong></em> is a endpoint(kind-aa like a BRIDGE) between server and client.</p>
+<h4 id="q-but-to-create-a-socketwe-need-to-give-few-info-to-them-like">Q. But to create a socket,we need to give few info. to them like??</h4>
+<ol>
+<li>
+<p>What type of communication/Families?</p>
+<ul>
+<li>like LOCAL communication?
+<ul>
+<li>AF_UNSPEC</li>
+</ul>
+</li>
+<li>IPv4?? (normal internet)
+<ul>
+<li>AF_INET</li>
+</ul>
+</li>
+<li>IPv6?? (more. adv. ??)
+<ul>
+<li>AF_INET6</li>
+</ul>
+</li>
+<li>etc..</li>
+</ul>
+</li>
+<li>
+<p>What type of Sockets?</p>
+<ul>
+<li>reliable, but little slow, error management, two-way (send and receive at the same time)??
+<ul>
+<li>stream sockets: <em><strong>SOCK_STREAM</strong></em></li>
+<li><em><strong>Stream</strong></em> -&gt; <strong>Connection-Oriented</strong> (Ex: Yt Video)</li>
+</ul>
+</li>
+<li>unreliable, but fast
+<ul>
+<li>datagram sockets: <em><strong>SOCK_DGRAM</strong></em></li>
+<li><em><strong>Datagram</strong></em> -&gt; <strong>ConnectionLess</strong> (Ex: PUBG, Live Stream)</li>
+</ul>
+</li>
+<li>etc..</li>
+</ul>
+</li>
+<li>
+<p>what type of protocol we are using??</p>
+<ul>
+<li>tcp?
+<ul>
+<li>IPPROTO_TCP</li>
+</ul>
+</li>
+<li>udp?
+<ul>
+<li>IPPROTO_UDP</li>
+</ul>
+</li>
+<li>ip?</li>
+<li>etc&hellip;</li>
+</ul>
+</li>
+</ol>
+<p>something like this <em><strong>socket(ADDR._FAMILIES, TYPE_OF_SOCKET, TYPE_OF_PROTOCOL)</strong></em> order is important.</p>
+<h3 id="code-step-2">Code: Step 2</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">// Create a socket
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// Line - 1
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>SOCKET serverSocket;
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Line - 2
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>serverSocket <span style="color:#f92672">=</span> INVALID_SOCKET;
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Line - 3: this is a TCP IPv4 socket object
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>serverSocket <span style="color:#f92672">=</span> socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Check for socket creation success
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">if</span> (serverSocket <span style="color:#f92672">==</span> INVALID_SOCKET) {
+</span></span><span style="display:flex;"><span>    std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;Error at socket(): &#34;</span> <span style="color:#f92672">&lt;&lt;</span> WSAGetLastError() <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl;
+</span></span><span style="display:flex;"><span>    WSACleanup();
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>} <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>    std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;Socket is OK!&#34;</span> <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><img src="/sripathimanikanta/itsmaniblog/images/TCP/diffSocketVsSOCKET.svg" alt="difference of SOCKET and socket">
+So, here we only mentioned about <em><strong>PROTOCOL</strong></em> details. Next we will give <em><strong>IP_Address</strong></em> and <em><strong>Port</strong></em> details.</p>
+<p>then we are creating server we need to <em><strong>BIND</strong></em> it.</p>
+<h2 id="step-3-bind-the-socket">Step 3: Bind the Socket</h2>
+<p>Next, now we give address details and port details and bind it. So, that our OS can set a local address, to that SOCKET.</p>
+<p><img src="/sripathimanikanta/itsmaniblog/images/TCP/step3.svg" alt="step3"></p>
+<h4 id="basically-what-bind-function-takes-as-argument">Basically what bind function takes as argument??</h4>
+<p>it takes 3 args.</p>
+<ol>
+<li>Socket (that we just created above)</li>
+<li>Socket Address (here where we provide IP and Port no.)</li>
+<li>Size of Socket Address</li>
+</ol>
+<p>i.e <em><strong>bind(SOCKET, SOCKET ADDRESS, SIZEOF SOCKET ADDRESS)</strong></em></p>
+<h4 id="how-to-define-socketaddress">how to define socketaddress?</h4>
+<p>we use builtin datatype from &lt;winsock2.h&gt; known sa sockaddr_in. In which it has many variables, we provide</p>
+<ol>
+<li>sin_family : type of socket</li>
+<li>sin_addr.s_addr : IP address</li>
+<li>sin_port : port number</li>
+</ol>
+<p>i.e <em><strong>SOCKET ADDRESS = {sin_family, sin_addr.s_addr, sin_port}</strong></em></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">// Bind the socket to an IP address and port number
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>sockaddr_in service;
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// socket input family address
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>service.sin_family <span style="color:#f92672">=</span> AF_INET;
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// socket input IP address
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>service.sin_addr.s_addr <span style="color:#f92672">=</span> inet_addr(<span style="color:#e6db74">&#34;127.0.0.1&#34;</span>);  <span style="color:#75715e">// Replace with your desired IP address
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// socket input port address
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>service.sin_port <span style="color:#f92672">=</span> htons(<span style="color:#ae81ff">55555</span>);  <span style="color:#75715e">// Choose a port number
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Use the bind function
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">if</span> (bind(serverSocket, <span style="color:#66d9ef">reinterpret_cast</span><span style="color:#f92672">&lt;</span>SOCKADDR<span style="color:#f92672">*&gt;</span>(<span style="color:#f92672">&amp;</span>service), <span style="color:#66d9ef">sizeof</span>(service)) <span style="color:#f92672">==</span> SOCKET_ERROR) {
+</span></span><span style="display:flex;"><span>    std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;bind() failed: &#34;</span> <span style="color:#f92672">&lt;&lt;</span> WSAGetLastError() <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl;
+</span></span><span style="display:flex;"><span>    closesocket(serverSocket);
+</span></span><span style="display:flex;"><span>    WSACleanup();
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>} <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>    std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;bind() is OK!&#34;</span> <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="step-4-listen-for-connections">Step 4: Listen for Connections</h2>
+<p>we use listen function to do few things, first it will put all the client in a queue.</p>
+<p><img src="/sripathimanikanta/itsmaniblog/images/TCP/step4.svg" alt="step4"></p>
+<p>as we can see listen() function take 2 arguments,</p>
+<ol>
+<li>Socket</li>
+<li>No. of clients it takes in queue before it starts working.</li>
+</ol>
+<p>something like this <em><strong>listen(socket, no.of clients)</strong></em></p>
+<p>Here, i took 1 as argument.So when ever we get a client, it starts listening.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">// Listen for incoming connections
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">if</span> (listen(serverSocket, <span style="color:#ae81ff">1</span>) <span style="color:#f92672">==</span> SOCKET_ERROR) {
+</span></span><span style="display:flex;"><span>    std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;listen(): Error listening on socket: &#34;</span> <span style="color:#f92672">&lt;&lt;</span> WSAGetLastError() <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl;
+</span></span><span style="display:flex;"><span>} <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>    std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;listen() is OK! I&#39;m waiting for new connections...&#34;</span> <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="step-5-accept-connections">Step 5: Accept Connections</h2>
+<p><img src="/sripathimanikanta/itsmaniblog/images/TCP/step5.svg" alt="step5"></p>
+<h4 id="what-does-accept-do">What does accept do??</h4>
+<p>It extracts the first connection request on the queue of pending connections for the
+listening socket, sockfd, creates a new connected socket, and returns a new file descriptor referring to that socket.</p>
+<h4 id="but-if-we-get-more-than-one-request-then-what-to-do">but if we get more than one request then what to do??</h4>
+<p>should you make others to wait until the request of one is complete??? Isn&rsquo;t that wasting time and resources??</p>
+<p>so engineers are so clever that they made CONCURRENT sockets&hellip;that is when you accept a connection we get
+another instance of socket and it does it work. meanwhile, we can accept other client requests and process them,
+simultaneously.</p>
+<p>accept() function takes 3 args.
+**<em>accept(socket, <em>socket_address, <em>addr_len)</em></em></em></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">// Accept incoming connections
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>SOCKET acceptSocket;
+</span></span><span style="display:flex;"><span>acceptSocket <span style="color:#f92672">=</span> accept(serverSocket, <span style="color:#66d9ef">nullptr</span>, <span style="color:#66d9ef">nullptr</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Check for successful connection
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">if</span> (acceptSocket <span style="color:#f92672">==</span> INVALID_SOCKET) {
+</span></span><span style="display:flex;"><span>    std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;accept failed: &#34;</span> <span style="color:#f92672">&lt;&lt;</span> WSAGetLastError() <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl;
+</span></span><span style="display:flex;"><span>    WSACleanup();
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>} <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>    std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;accept() is OK!&#34;</span> <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h4 id="why-did-i-use-nullptr-in-socket_addr-and-socket_adr_len">why did i use nullptr in socket_addr and socket_adr_len???</h4>
+<h4 id="ok-after-accept-what-next">ok after accept what next???</h4>
+<p>then we need accept that connection so that we can see what the client want??</p>
+<ol>
+<li>want to his data??</li>
+<li>want html page??</li>
+<li>want his file??</li>
+<li>etc&hellip;</li>
+</ol>
+<h2 id="step-6-receive-and-send-data">Step 6: Receive and Send Data</h2>
+<blockquote>
+<h4 id="note-1">Note:</h4>
+<p>When using MinGW with Winsock, you have two options:</p>
+<ul>
+<li>Use the socket API calls <em><strong>send()</strong></em> and <em><strong>recv()</strong></em>.</li>
+<li>Use the Windows I/O system calls <em><strong>WriteFile()</strong></em> and <em><strong>ReadFile()</strong></em>.</li>
+</ul>
+</blockquote>
+<p><img src="/sripathimanikanta/itsmaniblog/images/TCP/recData.svg" alt="step6ReceiveData"></p>
+<h4 id="i-know-some-people-might-be-thinking">I know some people might be thinking?</h4>
+<p>why i didnt use read or write function, cause those are POSIX I/O system calls. Basically, they are not present in
+windows.</p>
+<p>so i used recv as read, cause difference i see in them is <em><strong>flags</strong></em> are present in recv.
+so used recv(&hellip;,<em><strong>0</strong></em>) as the last argument.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">// Receive data from the client
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">char</span> receiveBuffer[<span style="color:#ae81ff">200</span>];
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> rbyteCount <span style="color:#f92672">=</span> recv(acceptSocket, receiveBuffer, <span style="color:#ae81ff">200</span>, <span style="color:#ae81ff">0</span>);
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> (rbyteCount <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0</span>) {
+</span></span><span style="display:flex;"><span>    std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;Server recv error: &#34;</span> <span style="color:#f92672">&lt;&lt;</span> WSAGetLastError() <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>} <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>    std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;Received data: &#34;</span> <span style="color:#f92672">&lt;&lt;</span> receiveBuffer <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><img src="/sripathimanikanta/itsmaniblog/images/TCP/sendData.svg" alt="step6SendData"></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">// Send a response to the client
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">char</span> buffer[<span style="color:#ae81ff">200</span>];
+</span></span><span style="display:flex;"><span>std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;Enter the message: &#34;</span>;
+</span></span><span style="display:flex;"><span>std<span style="color:#f92672">::</span>cin.getline(buffer, <span style="color:#ae81ff">200</span>);
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> sbyteCount <span style="color:#f92672">=</span> send(acceptSocket, buffer, <span style="color:#ae81ff">200</span>, <span style="color:#ae81ff">0</span>);
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> (sbyteCount <span style="color:#f92672">==</span> SOCKET_ERROR) {
+</span></span><span style="display:flex;"><span>    std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;Server send error: &#34;</span> <span style="color:#f92672">&lt;&lt;</span> WSAGetLastError() <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>} <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>    std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;Server: Sent &#34;</span> <span style="color:#f92672">&lt;&lt;</span> sbyteCount <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34; bytes&#34;</span> <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl;
+</span></span></code></pre></div><h2 id="step-7-close-socket">Step 7: Close Socket</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>close(acceptSocket);
+</span></span></code></pre></div><h2 id="everything-in-one-go">Everything in one go:</h2>
+<p><img src="/sripathimanikanta/itsmaniblog/images/TCP/allSteps.svg" alt="AllSteps"></p>
+<p>Next, we will learn TCP Client in the upcoming blog.</p>
+</section>
+
+  
+  
+
+  
+  
+  
+  
+  <nav
+    class="mt-24 flex overflow-hidden rounded-xl bg-black/[3%] text-lg !leading-[1.2] *:flex *:w-1/2 *:items-center *:p-5 *:font-medium *:no-underline dark:bg-white/[8%] [&>*:hover]:bg-black/[2%] dark:[&>*:hover]:bg-white/[3%]"
+  >
+    
+    
+    <a class="ltr:ml-auto rtl:mr-auto justify-end pl-3" href="http://localhost:1313/sripathimanikanta/itsmaniblog/posts/my-first-blog-post/"
+      ><span>My First Blog Post</span><span class="ltr:ml-1.5 rtl:mr-1.5">→</span></a
+    >
+    
+  </nav>
+  
+  
+
+  
+  
+
+  
+  
+
+  
+
+
+  
+</article>
+
+
+    </main>
+
+    <footer
+  class="mx-auto flex h-[4.5rem] max-w-[--w] items-center px-8 text-xs uppercase tracking-wider opacity-60"
+>
+  <div class="mr-auto">
+  
+    © 2024, itsmaniblog.github.io
+  
+  </div>
+  <a class="link mx-6" href="https://gohugo.io/" rel="noopener" target="_blank"
+    >powered by hugo️️</a
+  >️
+  <a
+    class="link"
+    href="https://github.com/nanxiaobei/hugo-paper"
+    rel="noopener"
+    target="_blank"
+    >hugo-paper</a
+  >
+</footer>
+
+  </body>
+</html>
