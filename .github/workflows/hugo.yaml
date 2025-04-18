@@ -45,6 +45,8 @@ jobs:
         with:
           submodules: 'themes/papers2'
           fetch-depth: 0
+      - name: List theme directory
+        run : ls -al themes/papers2
       - name: Setup Pages
         id: pages
         uses: actions/configure-pages@v5
