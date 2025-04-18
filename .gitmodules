@@ -8,7 +8,7 @@
 # [submodule "themes/papers1"]
 # 	path = themes/papers1
 # 	url = https://github.com/sripathimanikanta/hugo-paper
-[submodule "themes/papers2"]
-	path = themes/papers2
+[submodule "themes/paper"]
+	path = themes/paper
 	url = https://github.com/sripathimanikanta/hugo-paper
 	branch = personalized

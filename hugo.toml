@@ -1,7 +1,7 @@
 baseURL = 'https://sripathimanikanta.github.io/itsmaniblog/'
 languageCode = 'en-us'
 title = "Its Mani's Blog"
-theme = 'papers2'
+theme = 'paper'
 author = "Manik Bhasha"
 copyright = "© 2024, itsmaniblog.github.io"
 
