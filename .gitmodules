@@ -1,3 +1,14 @@
-[submodule "themes/paper"]
-	path = themes/paper
+# [submodule "themes/paper"]
+	# path = themes/paper
+	#url = https://github.com/sripathimanikanta/hugo-paper/tree/bb8011ffb8b8ea574bb0d8bd3532693d3771516c
+	# url = https://github.com/sripathimanikanta/hugo-paper/tree/main
+# [submodule "themes/papers"]
+# 	path = themes/papers
+# 	url = https://github.com/sripathimanikanta/hugo-paper/
+# [submodule "themes/papers1"]
+# 	path = themes/papers1
+# 	url = https://github.com/sripathimanikanta/hugo-paper
+[submodule "themes/papers2"]
+	path = themes/papers2
 	url = https://github.com/sripathimanikanta/hugo-paper
+	branch = personalized
