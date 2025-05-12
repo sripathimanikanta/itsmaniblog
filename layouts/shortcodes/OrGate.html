@@ -1,0 +1,284 @@
+<head>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        #container1 {
+            position: relative;
+            display: flex;
+        }
+
+        #a-or {
+            position: absolute;
+            top: 5px;
+            height: 30px;
+            width: 30px;
+            border: 1px solid black;
+            background-color: rgb(199, 199, 199);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #b-or {
+            text-align: center;
+            position: absolute;
+            top: 65px;
+            height: 30px;
+            width: 30px;
+            border: 1px solid black;
+            background-color: rgb(199, 199, 199);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #a-connect-or {
+            position: absolute;
+            top: 15px;
+            left: 30px;
+            height: 10px;
+            width: 40px;
+            border: 1px solid black;
+            border-left: 0;
+            border-right: 0;
+            background-color: rgb(199, 199, 199);
+        }
+
+        #b-connect-or {
+            position: absolute;
+            top: 75px;
+            left: 30px;
+            height: 10px;
+            width: 40px;
+            border: 1px solid black;
+            border-left: 0;
+            border-right: 0;
+            background-color: rgb(199, 199, 199);
+        }
+
+       #or-gate {
+            position: relative;
+            /* top: 0px; */
+            top: 5px;
+            left: 50px;
+            height: 90px;
+            width: 100px;
+            background-color: rgb(199, 199, 199);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #or-gate{
+            clip-path: path("M 0 0 C 100 10, 100 50, 100 45 C 90 80, 20 90, 0 90 C 30 80, 30 10, 0 0");
+        }
+
+        #output-or {
+            position: absolute;
+            top: 35px;
+            left: 170px;
+            height: 30px;
+            width: 30px;
+            border: 1px solid black;
+            background-color: rgb(199, 199, 199);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #output-connect-or {
+            position: absolute;
+            top: 45px;
+            left: 149px;
+            height: 10px;
+            width: 21px;
+            border: 1px solid black;
+            border-left: 0;
+            border-right: 0;
+            background-color: rgb(199, 199, 199);
+        }
+        #table-or,
+        .or-th,
+        .or-td {
+            text-align: center;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>{{.Inner}}</h2>
+    <div id="container1">
+        <!-- <img src="./assets/images/And-Gate.png" id="and1" alt="" style="border:1px solid red;position: absolute;top: 0;" onclick="And1()" onmouseover="hover1()">
+    <img src="./assets/images/And-Gate.png" alt="" style="position: absolute;top: 110px;"> -->
+        <div id="a-or" onclick="aOr()">
+            <div id="val-a-or">0</div>
+        </div>
+        <div id="a-connect-or">
+
+        </div>
+        <div id="b-or" onclick="bOr()">
+            <div id="val-b-or">0</div>
+        </div>
+        <div id="b-connect-or">
+
+        </div>
+            <div id="or-gate">
+                <div id="or-name">OR</div>
+            </div>
+        <div id="output-or">
+            <div id="val-output-or">0</div>
+        </div>
+        <div id="output-connect-or">
+
+        </div>
+    </div>
+        <div id="div-table-or">
+        <div>Truth Table:</div>
+            <table id="table-or">
+            <thead>
+                <tr>
+                    <th class="or-th">A</th>
+                    <th class="or-th">B</th>
+                    <th class="or-th">X</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr id="or-0-0">
+                    <td class="or-td">0</td>
+                    <td class="or-td">0</td>
+                    <td class="or-td">0</td>
+                </tr>
+                <tr id="or-0-1">
+                    <td class="or-td">0</td>
+                    <td class="or-td">1</td>
+                    <td class="or-td">1</td>
+                </tr>
+                <tr id="or-1-0">
+                    <td class="or-td">1</td>
+                    <td class="or-td">0</td>
+                    <td class="or-td">1</td>
+                </tr>
+                <tr id="or-1-1">
+                    <td class="or-td">1</td>
+                    <td class="or-td">1</td>
+                    <td class="or-td">1</td>
+                </tr>
+            </tbody>
+            </table>
+        </div>
+    <script>
+        function outputOr() {
+            // console.log("output");
+            const out = document.getElementById('output-or')
+            const outcon = document.getElementById('output-connect-or')
+            const valout = document.getElementById('val-output-or')
+            const a = document.getElementById('a-or')
+            const b = document.getElementById('b-or')
+            const tablevalor00 = document.getElementById('or-0-0')
+            const tablevalor01 = document.getElementById('or-0-1')
+            const tablevalor10 = document.getElementById('or-1-0')
+            const tablevalor11 = document.getElementById('or-1-1')
+            if (a.innerText == "1" && b.innerText == "1") {
+                out.style.backgroundColor = colg
+                outcon.style.backgroundColor = colg
+                valout.innerText = "1"
+                tablevalor00.style.backgroundColor = colgr
+                tablevalor01.style.backgroundColor = colgr
+                tablevalor10.style.backgroundColor = colgr
+                tablevalor11.style.backgroundColor = colg 
+                or(a.innerText, b.innerText)
+            }else if(a.innerText == "0" && b.innerText == "0"){
+                out.style.backgroundColor = colgr
+                outcon.style.backgroundColor = colgr
+                valout.innerText = "0"
+                tablevalor00.style.backgroundColor = colg
+                tablevalor01.style.backgroundColor = colgr
+                tablevalor10.style.backgroundColor = colgr
+                tablevalor11.style.backgroundColor = colgr
+                or(a.innerText, b.innerText)
+            }
+            else if(a.innerText == "0" && b.innerText == "1"){
+                out.style.backgroundColor = colg
+                outcon.style.backgroundColor = colg
+                valout.innerText = "1"
+                tablevalor00.style.backgroundColor = colgr
+                tablevalor01.style.backgroundColor = colg
+                tablevalor10.style.backgroundColor = colgr
+                tablevalor11.style.backgroundColor = colgr
+                or(a.innerText, b.innerText)
+            }
+             else {
+                out.style.backgroundColor = colg
+                outcon.style.backgroundColor =colg
+                valout.innerText = "1"
+                tablevalor00.style.backgroundColor = colgr
+                tablevalor01.style.backgroundColor = colgr
+                tablevalor10.style.backgroundColor = colg
+                tablevalor11.style.backgroundColor = colgr
+                or(a.innerText, b.innerText)
+            }
+        }
+        function or(a, b) {
+            console.log("and");
+            const or = document.getElementById('or-gate')
+            if (a == "1" || b == "1") {
+                or.style.backgroundColor = colg
+            }
+            else {
+                or.style.backgroundColor = colgr 
+            }
+        }
+        function aOr() {
+            const a = document.getElementById('a-or')
+            const acon = document.getElementById('a-connect-or')
+            const vala = document.getElementById('val-a-or')
+            if (vala.innerText == "0") {
+                // console.log("a0");
+                a.style.backgroundColor = colg 
+                acon.style.backgroundColor = colg 
+                vala.innerText = "1"
+                a.transition = "background-color 2s ease-in"
+                acon.transition = "background-color 2s ease-in"
+                outputOr()
+            }
+            else {
+                // console.log("a1");
+                a.style.backgroundColor =colgr
+                acon.style.backgroundColor = colgr
+                vala.innerText = "0"
+                a.transition = "background-color 2s ease-in"
+                acon.transition = "background-color 2s ease-in"
+                outputOr()
+            }
+
+        }
+        function bOr() {
+            const b = document.getElementById('b-or')
+            const bcon = document.getElementById('b-connect-or')
+            const valb = document.getElementById('val-b-or')
+            if (valb.innerText == "0") {
+                // console.log("b0");
+                b.style.backgroundColor =colg 
+                bcon.style.backgroundColor =colg 
+                valb.innerText = "1"
+                b.transition = "background-color 2s ease-in"
+                bcon.transition = "background-color 2s ease-in"
+                outputOr()
+            }
+            else {
+                // console.log("b1");
+                b.style.backgroundColor =colgr 
+                bcon.style.backgroundColor =colgr 
+                valb.innerText = "0"
+                b.transition = "background-color 2s ease-in"
+                bcon.transition = "background-color 2s ease-in"
+                outputOr()
+            }
+
+        }
+    </script>
+</body>

@@ -1,0 +1,217 @@
+<head>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        #container1 {
+            /* background-color: lightblue; */
+            height: 110px;
+            /* width: 210px; */
+            position: relative;
+            display: flex;
+            /* justify-self: center; */
+        }
+
+        #x {
+            position: absolute;
+            top: 35px;
+            height: 30px;
+            width: 30px;
+            border: 1px solid black;
+            background-color: rgb(199, 199, 199);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #x-connect {
+            position: absolute;
+            top: 45px;
+            left: 31px;
+            height: 10px;
+            width: 42px;
+            border: 1px solid black;
+            border-left: 0;
+            border-right: 0;
+            background-color: rgb(199, 199, 199);
+        }
+
+        #not-circle {
+            position: absolute;
+            top: 43px;
+            left: 130px;
+            height: 15px;
+            width: 15px;
+            border: 1px solid black;
+            border-radius: 50%;
+            background-color: rgb(199, 199, 199);
+            z-index: 5;
+        }
+
+        #not-gate {
+            position: relative;
+            /* top: 0px; */
+            top: 1px;
+            left: 50px;
+            height: 90px;
+            width: 100px;
+            background-color: rgb(199, 199, 199);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #not-gate {
+            /* clip-path: path("M 0 0 C 100 10, 100 50, 100 45 C 90 80, 20 90, 0 90 C 30 80, 30 10, 0 0"); */
+            clip-path: path("M 0 0 L 100,50 L 0,90 z");
+        }
+
+        #output-x {
+            position: absolute;
+            top: 35px;
+            left: 170px;
+            height: 30px;
+            width: 30px;
+            border: 1px solid black;
+            background-color: rgb(199, 199, 199);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 3;
+        }
+
+        #output-connect-x {
+            position: absolute;
+            top: 45px;
+            left: 140px;
+            height: 10px;
+            width: 35px;
+            border: 1px solid black;
+            border-left: 0;
+            border-right: 0;
+            background-color: rgb(199, 199, 199);
+            z-index: 0;
+        }
+
+        #table-not,
+        .not-th,
+        .not-td {
+            text-align: center;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <h3>{{.Inner}}</h3>
+    <div id="container1">
+        <!-- <img src="./assets/images/And-Gate.png" id="and1" alt="" style="border:1px solid red;position: absolute;top: 0;" onclick="And1()" onmouseover="hover1()">
+    <img src="./assets/images/And-Gate.png" alt="" style="position: absolute;top: 110px;"> -->
+        <div id="x" onclick="x()">
+            <div id="val-x">0</div>
+        </div>
+        <div id="x-connect">
+
+        </div>
+        <div id="not-circle">
+
+        </div>
+        <div id="not-gate">
+            <div id="not-name">not</div>
+        </div>
+        <div id="output-x">
+            <div id="val-output-x">0</div>
+        </div>
+        <div id="output-connect-x">
+
+        </div>
+    </div>
+    <div id="div-table-not">
+        <div>Truth Table:</div>
+        <table id="table-not">
+            <thead>
+                <tr>
+                    <th class="not-th">X</th>
+                    <th class="not-th">~X</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr id="not-0">
+                    <td class="not-td">0</td>
+                    <td class="not-td">1</td>
+                </tr>
+                <tr id="not-1">
+                    <td class="not-td">1</td>
+                    <td class="not-td">0</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <script>
+        const colg = "rgb(124, 247, 132)";
+        const colgr = "rgb(199, 199, 199)";
+        function outputX() {
+            // console.log("output");
+            const out = document.getElementById('output-x')
+            const outcon = document.getElementById('output-connect-x')
+            const notout = document.getElementById('not-circle')
+            const valout = document.getElementById('val-output-x')
+            const tablevalnot = document.getElementById('not-0')
+            const tablevalnot1 = document.getElementById('not-1')
+            const a = document.getElementById('x')
+            if (a.innerText == "0") {
+                out.style.backgroundColor = colg
+                outcon.style.backgroundColor = colg
+                notout.style.backgroundColor = colg
+                tablevalnot.style.backgroundColor = colg
+                tablevalnot1.style.backgroundColor = colgr
+                valout.innerText = "1"
+                not(a.innerText)
+            } else {
+                out.style.backgroundColor = colgr
+                outcon.style.backgroundColor = colgr
+                notout.style.backgroundColor = colgr
+                tablevalnot.style.backgroundColor = colgr
+                tablevalnot1.style.backgroundColor = colg
+                valout.innerText = "0"
+                not(a.innerText)
+            }
+        }
+        function not(a) {
+            // console.log("not");
+            const not = document.getElementById('not-gate')
+            if (a == "0") {
+                not.style.backgroundColor = colg
+            }
+            else {
+                not.style.backgroundColor = colgr
+            }
+        }
+        function x() {
+            const a = document.getElementById('x')
+            const acon = document.getElementById('x-connect')
+            const vala = document.getElementById('val-x')
+            if (vala.innerText == "0") {
+                // console.log("a0");
+                a.style.backgroundColor = colg
+                acon.style.backgroundColor = colg
+                vala.innerText = "1"
+                a.transition = "background-color 2s ease-in"
+                acon.transition = "background-color 2s ease-in"
+                outputX()
+            }
+            else {
+                // console.log("a1");
+                a.style.backgroundColor = colgr
+                acon.style.backgroundColor = colgr
+                vala.innerText = "0"
+                a.transition = "background-color 2s ease-in"
+                acon.transition = "background-color 2s ease-in"
+                outputX()
+            }
+
+        }
+    </script>
+</body>
