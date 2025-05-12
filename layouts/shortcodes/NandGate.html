@@ -1,0 +1,306 @@
+<head>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        #container1 {
+            height: 120px;
+            position: relative;
+            display: flex;
+        }
+
+        #a-nand {
+            position: absolute;
+            top: 5px;
+            height: 30px;
+            width: 30px;
+            border: 1px solid black;
+            background-color: rgb(199, 199, 199);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #b-nand {
+            text-align: center;
+            position: absolute;
+            top: 65px;
+            height: 30px;
+            width: 30px;
+            border: 1px solid black;
+            background-color: rgb(199, 199, 199);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #a-connect-nand {
+            position: absolute;
+            top: 15px;
+            left: 30px;
+            height: 10px;
+            width: 20px;
+            border: 1px solid black;
+            border-left: 0;
+            border-right: 0;
+            background-color: rgb(199, 199, 199);
+        }
+
+        #b-connect-nand {
+            position: absolute;
+            top: 75px;
+            left: 30px;
+            height: 10px;
+            width: 20px;
+            border: 1px solid black;
+            border-left: 0;
+            border-right: 0;
+            background-color: rgb(199, 199, 199);
+        }
+
+        #nand-circle {
+            position: absolute;
+            top: 43px;
+            left: 140px;
+            height: 15px;
+            width: 15px;
+            border: 1px solid black;
+            border-radius: 50%;
+            background-color: rgb(199, 199, 199);
+            z-index: 5;
+        }
+
+        #nand-gate {
+            position: absolute;
+            top: 5px;
+            left: 50px;
+            height: 90px;
+            width: 100px;
+            border: 1px solid black;
+            background-color: rgb(199, 199, 199);
+            border-radius: 0em 50% 50% 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #output-nand {
+            position: absolute;
+            top: 35px;
+            left: 170px;
+            height: 30px;
+            width: 30px;
+            border: 1px solid black;
+            background-color: rgb(199, 199, 199);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #output-connect-nand {
+            position: absolute;
+            top: 45px;
+            left: 150px;
+            height: 10px;
+            width: 20px;
+            border: 1px solid black;
+            border-left: 0;
+            border-right: 0;
+            background-color: rgb(199, 199, 199);
+        }
+        #table-nand,
+        .nand-th,
+        .nand-td {
+            text-align: center;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <h3>
+ {{.Inner}}       
+    </h3>
+    <div id="container1">
+        <!-- <img src="./assets/images/And-Gate.png" id="and1" alt="" style="border:1px solid red;position: absolute;top: 0;" onclick="And1()" onmouseover="hover1()">
+    <img src="./assets/images/And-Gate.png" alt="" style="position: absolute;top: 110px;"> -->
+        <div id="a-nand" onclick="aNand()">
+            <div id="val-a-nand">0</div>
+        </div>
+        <div id="a-connect-nand">
+
+        </div>
+        <div id="b-nand" onclick="bNand()">
+            <div id="val-b-nand">0</div>
+        </div>
+        <div id="b-connect-nand">
+
+        </div>
+        <div id="nand-circle">
+
+        </div>
+        <div id="nand-gate">
+            <div id="nand-name">NAND</div>
+        </div>
+        <div id="output-nand">
+            <div id="val-output-nand">0</div>
+        </div>
+        <div id="output-connect-nand">
+
+        </div>
+    </div>
+    <div id="div-table-nand">
+        <div>Truth Table:</div>
+        <table id="table-nand">
+            <thead>
+                <tr>
+                    <th class="nand-th">A</th>
+                    <th class="nand-th">B</th>
+                    <th class="nand-th">X</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr id="nand-0-0">
+                    <td class="nand-td">0</td>
+                    <td class="nand-td">0</td>
+                    <td class="nand-td">1</td>
+                </tr>
+                <tr id="nand-0-1">
+                    <td class="nand-td">0</td>
+                    <td class="nand-td">1</td>
+                    <td class="nand-td">1</td>
+                </tr>
+                <tr id="nand-1-0">
+                    <td class="nand-td">1</td>
+                    <td class="nand-td">0</td>
+                    <td class="nand-td">1</td>
+                </tr>
+                <tr id="nand-1-1">
+                    <td class="nand-td">1</td>
+                    <td class="nand-td">1</td>
+                    <td class="nand-td">0</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <script>
+        // const colg = "rgb(124, 247, 132)";
+        // const colgr = "rgb(199, 199, 199)";
+        function outputNand(){
+            // console.log("output");
+            const out = document.getElementById('output-nand')
+            const outcon = document.getElementById('output-connect-nand')
+            const valout = document.getElementById('val-output-nand')
+            const a = document.getElementById('a-nand')
+            const b = document.getElementById('b-nand')
+            const nandcir = document.getElementById('nand-circle')
+            const tablevaland00 = document.getElementById('nand-0-0')
+            const tablevaland01 = document.getElementById('nand-0-1')
+            const tablevaland10 = document.getElementById('nand-1-0')
+            const tablevaland11 = document.getElementById('nand-1-1')
+            if(a.innerText == "1" && b.innerText == "1"){
+            out.style.backgroundColor = colgr
+            outcon.style.backgroundColor = colgr
+            nandcir.style.backgroundColor = colgr
+            tablevaland00.style.backgroundColor = colgr
+            tablevaland01.style.backgroundColor = colgr
+            tablevaland10.style.backgroundColor = colgr
+            tablevaland11.style.backgroundColor = colg 
+            valout.innerText = "0"
+            nand(a.innerText,b.innerText)
+            }else if(a.innerText == "0" && b.innerText == "0"){
+            out.style.backgroundColor = colg
+            outcon.style.backgroundColor = colg
+            nandcir.style.backgroundColor = colg
+            valout.innerText = "1"
+            tablevaland00.style.backgroundColor = colg
+            tablevaland01.style.backgroundColor = colgr
+            tablevaland10.style.backgroundColor = colgr
+            tablevaland11.style.backgroundColor = colgr
+            nand(a.innerText,b.innerText)
+            }
+            else if(a.innerText == "0" && b.innerText == "1"){
+            out.style.backgroundColor = colg
+            outcon.style.backgroundColor = colg
+            nandcir.style.backgroundColor = colg
+            valout.innerText = "1"
+            tablevaland00.style.backgroundColor = colgr
+            tablevaland01.style.backgroundColor = colg
+            tablevaland10.style.backgroundColor = colgr
+            tablevaland11.style.backgroundColor = colgr
+            nand(a.innerText,b.innerText)
+            }
+            else{
+            out.style.backgroundColor = colg
+            outcon.style.backgroundColor = colg
+            nandcir.style.backgroundColor = colg
+            valout.innerText = "1"
+            tablevaland00.style.backgroundColor = colgr
+            tablevaland01.style.backgroundColor = colgr
+            tablevaland10.style.backgroundColor = colg
+            tablevaland11.style.backgroundColor = colgr
+            nand(a.innerText,b.innerText)
+            }
+        }
+        function nand(a,b){
+            // console.log("and");
+            const and = document.getElementById('nand-gate')
+            if(a == "1" && b == "1"){
+                and.style.backgroundColor = colgr
+            }
+            else{
+                and.style.backgroundColor = colg
+            }
+        }
+        function aNand() {
+            const a = document.getElementById('a-nand')
+            const acon = document.getElementById('a-connect-nand')
+            const vala = document.getElementById('val-a-nand')
+            if (vala.innerText == "0") {
+                // console.log("a0");
+                a.style.backgroundColor = colg 
+                acon.style.backgroundColor = colg 
+                vala.innerText = "1"
+                a.transition = "background-color 2s ease-in"
+                acon.transition = "background-color 2s ease-in"
+                outputNand()
+            }
+            else {
+                // console.log("a1");
+                a.style.backgroundColor = colgr
+                acon.style.backgroundColor =colgr
+                vala.innerText = "0"
+                a.transition = "background-color 2s ease-in"
+                acon.transition = "background-color 2s ease-in"
+                outputNand()
+            }
+
+        }
+        function bNand() {
+            const b = document.getElementById('b-nand')
+            const bcon = document.getElementById('b-connect-nand')
+            const valb = document.getElementById('val-b-nand')
+            if (valb.innerText == "0") {
+                // console.log("b0");
+                b.style.backgroundColor = colg
+                bcon.style.backgroundColor =colg 
+                valb.innerText = "1"
+                b.transition = "background-color 2s ease-in"
+                bcon.transition = "background-color 2s ease-in"
+                outputNand()
+            }
+            else {
+                // console.log("b1");
+                b.style.backgroundColor = colgr
+                bcon.style.backgroundColor =colgr 
+                valb.innerText = "0"
+                b.transition = "background-color 2s ease-in"
+                bcon.transition = "background-color 2s ease-in"
+                outputNand()
+            }
+
+        }
+    </script>
+</body>

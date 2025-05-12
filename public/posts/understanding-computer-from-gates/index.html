@@ -355,200 +355,1724 @@ Digital Circuits.</p>
 <h2 id="not">NOT</h2>
 <p>Abstract Diagram:
 <img src="/itsmaniblog/images/Gates/Not_Gate.svg" alt="NOTGATE">
-Truth Table:</p>
-<table>
-  <thead>
-      <tr>
-          <th style="text-align: center">X</th>
-          <th style="text-align: center">~X</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td style="text-align: center">0</td>
-          <td style="text-align: center">1</td>
-      </tr>
-      <tr>
-          <td style="text-align: center">1</td>
-          <td style="text-align: center">0</td>
-      </tr>
-  </tbody>
-</table>
+<head>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        #container1 {
+             
+            height: 110px;
+             
+            position: relative;
+            display: flex;
+             
+        }
+
+        #x {
+            position: absolute;
+            top: 35px;
+            height: 30px;
+            width: 30px;
+            border: 1px solid black;
+            background-color: rgb(199, 199, 199);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #x-connect {
+            position: absolute;
+            top: 45px;
+            left: 31px;
+            height: 10px;
+            width: 42px;
+            border: 1px solid black;
+            border-left: 0;
+            border-right: 0;
+            background-color: rgb(199, 199, 199);
+        }
+
+        #not-circle {
+            position: absolute;
+            top: 43px;
+            left: 130px;
+            height: 15px;
+            width: 15px;
+            border: 1px solid black;
+            border-radius: 50%;
+            background-color: rgb(199, 199, 199);
+            z-index: 5;
+        }
+
+        #not-gate {
+            position: relative;
+             
+            top: 1px;
+            left: 50px;
+            height: 90px;
+            width: 100px;
+            background-color: rgb(199, 199, 199);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #not-gate {
+             
+            clip-path: path("M 0 0 L 100,50 L 0,90 z");
+        }
+
+        #output-x {
+            position: absolute;
+            top: 35px;
+            left: 170px;
+            height: 30px;
+            width: 30px;
+            border: 1px solid black;
+            background-color: rgb(199, 199, 199);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 3;
+        }
+
+        #output-connect-x {
+            position: absolute;
+            top: 45px;
+            left: 140px;
+            height: 10px;
+            width: 35px;
+            border: 1px solid black;
+            border-left: 0;
+            border-right: 0;
+            background-color: rgb(199, 199, 199);
+            z-index: 0;
+        }
+
+        #table-not,
+        .not-th,
+        .not-td {
+            text-align: center;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <h3>
+Interactive Not Gate:
+</h3>
+    <div id="container1">
+        
+        <div id="x" onclick="x()">
+            <div id="val-x">0</div>
+        </div>
+        <div id="x-connect">
+
+        </div>
+        <div id="not-circle">
+
+        </div>
+        <div id="not-gate">
+            <div id="not-name">not</div>
+        </div>
+        <div id="output-x">
+            <div id="val-output-x">0</div>
+        </div>
+        <div id="output-connect-x">
+
+        </div>
+    </div>
+    <div id="div-table-not">
+        <div>Truth Table:</div>
+        <table id="table-not">
+            <thead>
+                <tr>
+                    <th class="not-th">X</th>
+                    <th class="not-th">~X</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr id="not-0">
+                    <td class="not-td">0</td>
+                    <td class="not-td">1</td>
+                </tr>
+                <tr id="not-1">
+                    <td class="not-td">1</td>
+                    <td class="not-td">0</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <script>
+        const colg = "rgb(124, 247, 132)";
+        const colgr = "rgb(199, 199, 199)";
+        function outputX() {
+            
+            const out = document.getElementById('output-x')
+            const outcon = document.getElementById('output-connect-x')
+            const notout = document.getElementById('not-circle')
+            const valout = document.getElementById('val-output-x')
+            const tablevalnot = document.getElementById('not-0')
+            const tablevalnot1 = document.getElementById('not-1')
+            const a = document.getElementById('x')
+            if (a.innerText == "0") {
+                out.style.backgroundColor = colg
+                outcon.style.backgroundColor = colg
+                notout.style.backgroundColor = colg
+                tablevalnot.style.backgroundColor = colg
+                tablevalnot1.style.backgroundColor = colgr
+                valout.innerText = "1"
+                not(a.innerText)
+            } else {
+                out.style.backgroundColor = colgr
+                outcon.style.backgroundColor = colgr
+                notout.style.backgroundColor = colgr
+                tablevalnot.style.backgroundColor = colgr
+                tablevalnot1.style.backgroundColor = colg
+                valout.innerText = "0"
+                not(a.innerText)
+            }
+        }
+        function not(a) {
+            
+            const not = document.getElementById('not-gate')
+            if (a == "0") {
+                not.style.backgroundColor = colg
+            }
+            else {
+                not.style.backgroundColor = colgr
+            }
+        }
+        function x() {
+            const a = document.getElementById('x')
+            const acon = document.getElementById('x-connect')
+            const vala = document.getElementById('val-x')
+            if (vala.innerText == "0") {
+                
+                a.style.backgroundColor = colg
+                acon.style.backgroundColor = colg
+                vala.innerText = "1"
+                a.transition = "background-color 2s ease-in"
+                acon.transition = "background-color 2s ease-in"
+                outputX()
+            }
+            else {
+                
+                a.style.backgroundColor = colgr
+                acon.style.backgroundColor = colgr
+                vala.innerText = "0"
+                a.transition = "background-color 2s ease-in"
+                acon.transition = "background-color 2s ease-in"
+                outputX()
+            }
+
+        }
+    </script>
+</body></p>
 <h2 id="and">AND</h2>
 <p>Abstract Diagram:
 <img src="/itsmaniblog/images/Gates/And_Gate.svg" alt="ANDGATE">
-Truth Table:</p>
-<table>
-  <thead>
-      <tr>
-          <th style="text-align: center">A</th>
-          <th style="text-align: center">B</th>
-          <th style="text-align: center">X</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td style="text-align: center">0</td>
-          <td style="text-align: center">0</td>
-          <td style="text-align: center">0</td>
-      </tr>
-      <tr>
-          <td style="text-align: center">0</td>
-          <td style="text-align: center">1</td>
-          <td style="text-align: center">0</td>
-      </tr>
-      <tr>
-          <td style="text-align: center">1</td>
-          <td style="text-align: center">0</td>
-          <td style="text-align: center">0</td>
-      </tr>
-      <tr>
-          <td style="text-align: center">1</td>
-          <td style="text-align: center">1</td>
-          <td style="text-align: center">1</td>
-      </tr>
-  </tbody>
-</table>
+<head>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        #container1 {
+            height: 120px;
+            position: relative;
+            display: flex;
+        }
+
+        #a-and {
+            position: absolute;
+            top: 5px;
+            height: 30px;
+            width: 30px;
+            border: 1px solid black;
+            background-color: rgb(199, 199, 199);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #b-and {
+            text-align: center;
+            position: absolute;
+            top: 65px;
+            height: 30px;
+            width: 30px;
+            border: 1px solid black;
+            background-color: rgb(199, 199, 199);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #a-connect-and {
+            position: absolute;
+            top: 15px;
+            left: 30px;
+            height: 10px;
+            width: 20px;
+            border: 1px solid black;
+            border-left: 0;
+            border-right: 0;
+            background-color: rgb(199, 199, 199);
+        }
+
+        #b-connect-and {
+            position: absolute;
+            top: 75px;
+            left: 30px;
+            height: 10px;
+            width: 20px;
+            border: 1px solid black;
+            border-left: 0;
+            border-right: 0;
+            background-color: rgb(199, 199, 199);
+        }
+
+        #and-gate {
+            position: absolute;
+            top: 5px;
+            left: 50px;
+            height: 90px;
+            width: 100px;
+            border: 1px solid black;
+            background-color: rgb(199, 199, 199);
+            border-radius: 0em 50% 50% 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #output-and {
+            position: absolute;
+            top: 35px;
+            left: 170px;
+            height: 30px;
+            width: 30px;
+            border: 1px solid black;
+            background-color: rgb(199, 199, 199);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #output-connect-and {
+            position: absolute;
+            top: 45px;
+            left: 150px;
+            height: 10px;
+            width: 20px;
+            border: 1px solid black;
+            border-left: 0;
+            border-right: 0;
+            background-color: rgb(199, 199, 199);
+        }
+        #table-and,
+        .and-th,
+        .and-td {
+            text-align: center;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <h3>
+ 
+Interactive And Gate:
+       
+    </h3>
+    <div id="container1">
+        
+        <div id="a-and" onclick="aAnd()">
+            <div id="val-a-and">0</div>
+        </div>
+        <div id="a-connect-and">
+
+        </div>
+        <div id="b-and" onclick="bAnd()">
+            <div id="val-b-and">0</div>
+        </div>
+        <div id="b-connect-and">
+
+        </div>
+        <div id="and-gate">
+            <div id="and-name">AND</div>
+        </div>
+        <div id="output-and">
+            <div id="val-output-and">0</div>
+        </div>
+        <div id="output-connect-and">
+
+        </div>
+    </div>
+    <div id="div-table-and">
+        <div>Truth Table:</div>
+        <table id="table-and">
+            <thead>
+                <tr>
+                    <th class="and-th">A</th>
+                    <th class="and-th">B</th>
+                    <th class="and-th">X</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr id="and-0-0">
+                    <td class="and-td">0</td>
+                    <td class="and-td">0</td>
+                    <td class="and-td">0</td>
+                </tr>
+                <tr id="and-0-1">
+                    <td class="and-td">0</td>
+                    <td class="and-td">1</td>
+                    <td class="and-td">0</td>
+                </tr>
+                <tr id="and-1-0">
+                    <td class="and-td">1</td>
+                    <td class="and-td">0</td>
+                    <td class="and-td">0</td>
+                </tr>
+                <tr id="and-1-1">
+                    <td class="and-td">1</td>
+                    <td class="and-td">1</td>
+                    <td class="and-td">1</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <script>
+        
+        
+        function outputAnd(){
+            
+            const out = document.getElementById('output-and')
+            const outcon = document.getElementById('output-connect-and')
+            const valout = document.getElementById('val-output-and')
+            const a = document.getElementById('a-and')
+            const b = document.getElementById('b-and')
+            const tablevaland00 = document.getElementById('and-0-0')
+            const tablevaland01 = document.getElementById('and-0-1')
+            const tablevaland10 = document.getElementById('and-1-0')
+            const tablevaland11 = document.getElementById('and-1-1')
+            if(a.innerText == "1" && b.innerText == "1"){
+            out.style.backgroundColor = colg
+            outcon.style.backgroundColor = colg 
+            tablevaland00.style.backgroundColor = colgr
+            tablevaland01.style.backgroundColor = colgr
+            tablevaland10.style.backgroundColor = colgr
+            tablevaland11.style.backgroundColor = colg 
+            valout.innerText = "1"
+            and(a.innerText,b.innerText)
+            }else if(a.innerText == "0" && b.innerText == "0"){
+            out.style.backgroundColor = colgr
+            outcon.style.backgroundColor = colgr
+            valout.innerText = "0"
+            tablevaland00.style.backgroundColor = colg
+            tablevaland01.style.backgroundColor = colgr
+            tablevaland10.style.backgroundColor = colgr
+            tablevaland11.style.backgroundColor = colgr
+            and(a.innerText,b.innerText)
+            }
+            else if(a.innerText == "0" && b.innerText == "1"){
+            out.style.backgroundColor = colgr
+            outcon.style.backgroundColor = colgr
+            valout.innerText = "0"
+            tablevaland00.style.backgroundColor = colgr
+            tablevaland01.style.backgroundColor = colg
+            tablevaland10.style.backgroundColor = colgr
+            tablevaland11.style.backgroundColor = colgr
+            and(a.innerText,b.innerText)
+            }
+            else{
+            out.style.backgroundColor = colgr
+            outcon.style.backgroundColor = colgr
+            valout.innerText = "0"
+            tablevaland00.style.backgroundColor = colgr
+            tablevaland01.style.backgroundColor = colgr
+            tablevaland10.style.backgroundColor = colg
+            tablevaland11.style.backgroundColor = colgr
+            and(a.innerText,b.innerText)
+            }
+        }
+        function and(a,b){
+            
+            const and = document.getElementById('and-gate')
+            if(a == "1" && b == "1"){
+                and.style.backgroundColor = colg
+            }
+            else{
+                and.style.backgroundColor = colgr
+            }
+        }
+        function aAnd() {
+            const a = document.getElementById('a-and')
+            const acon = document.getElementById('a-connect-and')
+            const vala = document.getElementById('val-a-and')
+            if (vala.innerText == "0") {
+                
+                a.style.backgroundColor = colg 
+                acon.style.backgroundColor = colg 
+                vala.innerText = "1"
+                a.transition = "background-color 2s ease-in"
+                acon.transition = "background-color 2s ease-in"
+                outputAnd()
+            }
+            else {
+                
+                a.style.backgroundColor = colgr
+                acon.style.backgroundColor =colgr
+                vala.innerText = "0"
+                a.transition = "background-color 2s ease-in"
+                acon.transition = "background-color 2s ease-in"
+                outputAnd()
+            }
+
+        }
+        function bAnd() {
+            const b = document.getElementById('b-and')
+            const bcon = document.getElementById('b-connect-and')
+            const valb = document.getElementById('val-b-and')
+            if (valb.innerText == "0") {
+                
+                b.style.backgroundColor = colg
+                bcon.style.backgroundColor =colg 
+                valb.innerText = "1"
+                b.transition = "background-color 2s ease-in"
+                bcon.transition = "background-color 2s ease-in"
+                outputAnd()
+            }
+            else {
+                
+                b.style.backgroundColor = colgr
+                bcon.style.backgroundColor =colgr 
+                valb.innerText = "0"
+                b.transition = "background-color 2s ease-in"
+                bcon.transition = "background-color 2s ease-in"
+                outputAnd()
+            }
+
+        }
+    </script>
+</body></p>
 <h2 id="or">OR</h2>
 <p>Abstract Diagram:
 <img src="/itsmaniblog/images/Gates/Or_Gate.svg" alt="ORGATE">
-Truth Table:</p>
-<table>
-  <thead>
-      <tr>
-          <th style="text-align: center">A</th>
-          <th style="text-align: center">B</th>
-          <th style="text-align: center">X</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td style="text-align: center">0</td>
-          <td style="text-align: center">0</td>
-          <td style="text-align: center">0</td>
-      </tr>
-      <tr>
-          <td style="text-align: center">0</td>
-          <td style="text-align: center">1</td>
-          <td style="text-align: center">1</td>
-      </tr>
-      <tr>
-          <td style="text-align: center">1</td>
-          <td style="text-align: center">0</td>
-          <td style="text-align: center">1</td>
-      </tr>
-      <tr>
-          <td style="text-align: center">1</td>
-          <td style="text-align: center">1</td>
-          <td style="text-align: center">1</td>
-      </tr>
-  </tbody>
-</table>
+<head>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        #container1 {
+            position: relative;
+            display: flex;
+        }
+
+        #a-or {
+            position: absolute;
+            top: 5px;
+            height: 30px;
+            width: 30px;
+            border: 1px solid black;
+            background-color: rgb(199, 199, 199);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #b-or {
+            text-align: center;
+            position: absolute;
+            top: 65px;
+            height: 30px;
+            width: 30px;
+            border: 1px solid black;
+            background-color: rgb(199, 199, 199);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #a-connect-or {
+            position: absolute;
+            top: 15px;
+            left: 30px;
+            height: 10px;
+            width: 40px;
+            border: 1px solid black;
+            border-left: 0;
+            border-right: 0;
+            background-color: rgb(199, 199, 199);
+        }
+
+        #b-connect-or {
+            position: absolute;
+            top: 75px;
+            left: 30px;
+            height: 10px;
+            width: 40px;
+            border: 1px solid black;
+            border-left: 0;
+            border-right: 0;
+            background-color: rgb(199, 199, 199);
+        }
+
+       #or-gate {
+            position: relative;
+             
+            top: 5px;
+            left: 50px;
+            height: 90px;
+            width: 100px;
+            background-color: rgb(199, 199, 199);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #or-gate{
+            clip-path: path("M 0 0 C 100 10, 100 50, 100 45 C 90 80, 20 90, 0 90 C 30 80, 30 10, 0 0");
+        }
+
+        #output-or {
+            position: absolute;
+            top: 35px;
+            left: 170px;
+            height: 30px;
+            width: 30px;
+            border: 1px solid black;
+            background-color: rgb(199, 199, 199);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #output-connect-or {
+            position: absolute;
+            top: 45px;
+            left: 149px;
+            height: 10px;
+            width: 21px;
+            border: 1px solid black;
+            border-left: 0;
+            border-right: 0;
+            background-color: rgb(199, 199, 199);
+        }
+        #table-or,
+        .or-th,
+        .or-td {
+            text-align: center;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>
+Interactive Or Gate:
+</h2>
+    <div id="container1">
+        
+        <div id="a-or" onclick="aOr()">
+            <div id="val-a-or">0</div>
+        </div>
+        <div id="a-connect-or">
+
+        </div>
+        <div id="b-or" onclick="bOr()">
+            <div id="val-b-or">0</div>
+        </div>
+        <div id="b-connect-or">
+
+        </div>
+            <div id="or-gate">
+                <div id="or-name">OR</div>
+            </div>
+        <div id="output-or">
+            <div id="val-output-or">0</div>
+        </div>
+        <div id="output-connect-or">
+
+        </div>
+    </div>
+        <div id="div-table-or">
+        <div>Truth Table:</div>
+            <table id="table-or">
+            <thead>
+                <tr>
+                    <th class="or-th">A</th>
+                    <th class="or-th">B</th>
+                    <th class="or-th">X</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr id="or-0-0">
+                    <td class="or-td">0</td>
+                    <td class="or-td">0</td>
+                    <td class="or-td">0</td>
+                </tr>
+                <tr id="or-0-1">
+                    <td class="or-td">0</td>
+                    <td class="or-td">1</td>
+                    <td class="or-td">1</td>
+                </tr>
+                <tr id="or-1-0">
+                    <td class="or-td">1</td>
+                    <td class="or-td">0</td>
+                    <td class="or-td">1</td>
+                </tr>
+                <tr id="or-1-1">
+                    <td class="or-td">1</td>
+                    <td class="or-td">1</td>
+                    <td class="or-td">1</td>
+                </tr>
+            </tbody>
+            </table>
+        </div>
+    <script>
+        function outputOr() {
+            
+            const out = document.getElementById('output-or')
+            const outcon = document.getElementById('output-connect-or')
+            const valout = document.getElementById('val-output-or')
+            const a = document.getElementById('a-or')
+            const b = document.getElementById('b-or')
+            const tablevalor00 = document.getElementById('or-0-0')
+            const tablevalor01 = document.getElementById('or-0-1')
+            const tablevalor10 = document.getElementById('or-1-0')
+            const tablevalor11 = document.getElementById('or-1-1')
+            if (a.innerText == "1" && b.innerText == "1") {
+                out.style.backgroundColor = colg
+                outcon.style.backgroundColor = colg
+                valout.innerText = "1"
+                tablevalor00.style.backgroundColor = colgr
+                tablevalor01.style.backgroundColor = colgr
+                tablevalor10.style.backgroundColor = colgr
+                tablevalor11.style.backgroundColor = colg 
+                or(a.innerText, b.innerText)
+            }else if(a.innerText == "0" && b.innerText == "0"){
+                out.style.backgroundColor = colgr
+                outcon.style.backgroundColor = colgr
+                valout.innerText = "0"
+                tablevalor00.style.backgroundColor = colg
+                tablevalor01.style.backgroundColor = colgr
+                tablevalor10.style.backgroundColor = colgr
+                tablevalor11.style.backgroundColor = colgr
+                or(a.innerText, b.innerText)
+            }
+            else if(a.innerText == "0" && b.innerText == "1"){
+                out.style.backgroundColor = colg
+                outcon.style.backgroundColor = colg
+                valout.innerText = "1"
+                tablevalor00.style.backgroundColor = colgr
+                tablevalor01.style.backgroundColor = colg
+                tablevalor10.style.backgroundColor = colgr
+                tablevalor11.style.backgroundColor = colgr
+                or(a.innerText, b.innerText)
+            }
+             else {
+                out.style.backgroundColor = colg
+                outcon.style.backgroundColor =colg
+                valout.innerText = "1"
+                tablevalor00.style.backgroundColor = colgr
+                tablevalor01.style.backgroundColor = colgr
+                tablevalor10.style.backgroundColor = colg
+                tablevalor11.style.backgroundColor = colgr
+                or(a.innerText, b.innerText)
+            }
+        }
+        function or(a, b) {
+            console.log("and");
+            const or = document.getElementById('or-gate')
+            if (a == "1" || b == "1") {
+                or.style.backgroundColor = colg
+            }
+            else {
+                or.style.backgroundColor = colgr 
+            }
+        }
+        function aOr() {
+            const a = document.getElementById('a-or')
+            const acon = document.getElementById('a-connect-or')
+            const vala = document.getElementById('val-a-or')
+            if (vala.innerText == "0") {
+                
+                a.style.backgroundColor = colg 
+                acon.style.backgroundColor = colg 
+                vala.innerText = "1"
+                a.transition = "background-color 2s ease-in"
+                acon.transition = "background-color 2s ease-in"
+                outputOr()
+            }
+            else {
+                
+                a.style.backgroundColor =colgr
+                acon.style.backgroundColor = colgr
+                vala.innerText = "0"
+                a.transition = "background-color 2s ease-in"
+                acon.transition = "background-color 2s ease-in"
+                outputOr()
+            }
+
+        }
+        function bOr() {
+            const b = document.getElementById('b-or')
+            const bcon = document.getElementById('b-connect-or')
+            const valb = document.getElementById('val-b-or')
+            if (valb.innerText == "0") {
+                
+                b.style.backgroundColor =colg 
+                bcon.style.backgroundColor =colg 
+                valb.innerText = "1"
+                b.transition = "background-color 2s ease-in"
+                bcon.transition = "background-color 2s ease-in"
+                outputOr()
+            }
+            else {
+                
+                b.style.backgroundColor =colgr 
+                bcon.style.backgroundColor =colgr 
+                valb.innerText = "0"
+                b.transition = "background-color 2s ease-in"
+                bcon.transition = "background-color 2s ease-in"
+                outputOr()
+            }
+
+        }
+    </script>
+</body></p>
 <h2 id="nand">NAND</h2>
 <p>Abstract Diagram:
 <img src="/itsmaniblog/images/Gates/Nand_Gate.svg" alt="NANDGATE">
-Truth Table:</p>
-<table>
-  <thead>
-      <tr>
-          <th style="text-align: center">A</th>
-          <th style="text-align: center">B</th>
-          <th style="text-align: center">X</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td style="text-align: center">0</td>
-          <td style="text-align: center">0</td>
-          <td style="text-align: center">1</td>
-      </tr>
-      <tr>
-          <td style="text-align: center">0</td>
-          <td style="text-align: center">1</td>
-          <td style="text-align: center">1</td>
-      </tr>
-      <tr>
-          <td style="text-align: center">1</td>
-          <td style="text-align: center">0</td>
-          <td style="text-align: center">1</td>
-      </tr>
-      <tr>
-          <td style="text-align: center">1</td>
-          <td style="text-align: center">1</td>
-          <td style="text-align: center">0</td>
-      </tr>
-  </tbody>
-</table>
+<head>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        #container1 {
+            height: 120px;
+            position: relative;
+            display: flex;
+        }
+
+        #a-nand {
+            position: absolute;
+            top: 5px;
+            height: 30px;
+            width: 30px;
+            border: 1px solid black;
+            background-color: rgb(199, 199, 199);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #b-nand {
+            text-align: center;
+            position: absolute;
+            top: 65px;
+            height: 30px;
+            width: 30px;
+            border: 1px solid black;
+            background-color: rgb(199, 199, 199);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #a-connect-nand {
+            position: absolute;
+            top: 15px;
+            left: 30px;
+            height: 10px;
+            width: 20px;
+            border: 1px solid black;
+            border-left: 0;
+            border-right: 0;
+            background-color: rgb(199, 199, 199);
+        }
+
+        #b-connect-nand {
+            position: absolute;
+            top: 75px;
+            left: 30px;
+            height: 10px;
+            width: 20px;
+            border: 1px solid black;
+            border-left: 0;
+            border-right: 0;
+            background-color: rgb(199, 199, 199);
+        }
+
+        #nand-circle {
+            position: absolute;
+            top: 43px;
+            left: 140px;
+            height: 15px;
+            width: 15px;
+            border: 1px solid black;
+            border-radius: 50%;
+            background-color: rgb(199, 199, 199);
+            z-index: 5;
+        }
+
+        #nand-gate {
+            position: absolute;
+            top: 5px;
+            left: 50px;
+            height: 90px;
+            width: 100px;
+            border: 1px solid black;
+            background-color: rgb(199, 199, 199);
+            border-radius: 0em 50% 50% 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #output-nand {
+            position: absolute;
+            top: 35px;
+            left: 170px;
+            height: 30px;
+            width: 30px;
+            border: 1px solid black;
+            background-color: rgb(199, 199, 199);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #output-connect-nand {
+            position: absolute;
+            top: 45px;
+            left: 150px;
+            height: 10px;
+            width: 20px;
+            border: 1px solid black;
+            border-left: 0;
+            border-right: 0;
+            background-color: rgb(199, 199, 199);
+        }
+        #table-nand,
+        .nand-th,
+        .nand-td {
+            text-align: center;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <h3>
+ 
+Interactive Nand Gate:
+       
+    </h3>
+    <div id="container1">
+        
+        <div id="a-nand" onclick="aNand()">
+            <div id="val-a-nand">0</div>
+        </div>
+        <div id="a-connect-nand">
+
+        </div>
+        <div id="b-nand" onclick="bNand()">
+            <div id="val-b-nand">0</div>
+        </div>
+        <div id="b-connect-nand">
+
+        </div>
+        <div id="nand-circle">
+
+        </div>
+        <div id="nand-gate">
+            <div id="nand-name">NAND</div>
+        </div>
+        <div id="output-nand">
+            <div id="val-output-nand">0</div>
+        </div>
+        <div id="output-connect-nand">
+
+        </div>
+    </div>
+    <div id="div-table-nand">
+        <div>Truth Table:</div>
+        <table id="table-nand">
+            <thead>
+                <tr>
+                    <th class="nand-th">A</th>
+                    <th class="nand-th">B</th>
+                    <th class="nand-th">X</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr id="nand-0-0">
+                    <td class="nand-td">0</td>
+                    <td class="nand-td">0</td>
+                    <td class="nand-td">1</td>
+                </tr>
+                <tr id="nand-0-1">
+                    <td class="nand-td">0</td>
+                    <td class="nand-td">1</td>
+                    <td class="nand-td">1</td>
+                </tr>
+                <tr id="nand-1-0">
+                    <td class="nand-td">1</td>
+                    <td class="nand-td">0</td>
+                    <td class="nand-td">1</td>
+                </tr>
+                <tr id="nand-1-1">
+                    <td class="nand-td">1</td>
+                    <td class="nand-td">1</td>
+                    <td class="nand-td">0</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <script>
+        
+        
+        function outputNand(){
+            
+            const out = document.getElementById('output-nand')
+            const outcon = document.getElementById('output-connect-nand')
+            const valout = document.getElementById('val-output-nand')
+            const a = document.getElementById('a-nand')
+            const b = document.getElementById('b-nand')
+            const nandcir = document.getElementById('nand-circle')
+            const tablevaland00 = document.getElementById('nand-0-0')
+            const tablevaland01 = document.getElementById('nand-0-1')
+            const tablevaland10 = document.getElementById('nand-1-0')
+            const tablevaland11 = document.getElementById('nand-1-1')
+            if(a.innerText == "1" && b.innerText == "1"){
+            out.style.backgroundColor = colgr
+            outcon.style.backgroundColor = colgr
+            nandcir.style.backgroundColor = colgr
+            tablevaland00.style.backgroundColor = colgr
+            tablevaland01.style.backgroundColor = colgr
+            tablevaland10.style.backgroundColor = colgr
+            tablevaland11.style.backgroundColor = colg 
+            valout.innerText = "0"
+            nand(a.innerText,b.innerText)
+            }else if(a.innerText == "0" && b.innerText == "0"){
+            out.style.backgroundColor = colg
+            outcon.style.backgroundColor = colg
+            nandcir.style.backgroundColor = colg
+            valout.innerText = "1"
+            tablevaland00.style.backgroundColor = colg
+            tablevaland01.style.backgroundColor = colgr
+            tablevaland10.style.backgroundColor = colgr
+            tablevaland11.style.backgroundColor = colgr
+            nand(a.innerText,b.innerText)
+            }
+            else if(a.innerText == "0" && b.innerText == "1"){
+            out.style.backgroundColor = colg
+            outcon.style.backgroundColor = colg
+            nandcir.style.backgroundColor = colg
+            valout.innerText = "1"
+            tablevaland00.style.backgroundColor = colgr
+            tablevaland01.style.backgroundColor = colg
+            tablevaland10.style.backgroundColor = colgr
+            tablevaland11.style.backgroundColor = colgr
+            nand(a.innerText,b.innerText)
+            }
+            else{
+            out.style.backgroundColor = colg
+            outcon.style.backgroundColor = colg
+            nandcir.style.backgroundColor = colg
+            valout.innerText = "1"
+            tablevaland00.style.backgroundColor = colgr
+            tablevaland01.style.backgroundColor = colgr
+            tablevaland10.style.backgroundColor = colg
+            tablevaland11.style.backgroundColor = colgr
+            nand(a.innerText,b.innerText)
+            }
+        }
+        function nand(a,b){
+            
+            const and = document.getElementById('nand-gate')
+            if(a == "1" && b == "1"){
+                and.style.backgroundColor = colgr
+            }
+            else{
+                and.style.backgroundColor = colg
+            }
+        }
+        function aNand() {
+            const a = document.getElementById('a-nand')
+            const acon = document.getElementById('a-connect-nand')
+            const vala = document.getElementById('val-a-nand')
+            if (vala.innerText == "0") {
+                
+                a.style.backgroundColor = colg 
+                acon.style.backgroundColor = colg 
+                vala.innerText = "1"
+                a.transition = "background-color 2s ease-in"
+                acon.transition = "background-color 2s ease-in"
+                outputNand()
+            }
+            else {
+                
+                a.style.backgroundColor = colgr
+                acon.style.backgroundColor =colgr
+                vala.innerText = "0"
+                a.transition = "background-color 2s ease-in"
+                acon.transition = "background-color 2s ease-in"
+                outputNand()
+            }
+
+        }
+        function bNand() {
+            const b = document.getElementById('b-nand')
+            const bcon = document.getElementById('b-connect-nand')
+            const valb = document.getElementById('val-b-nand')
+            if (valb.innerText == "0") {
+                
+                b.style.backgroundColor = colg
+                bcon.style.backgroundColor =colg 
+                valb.innerText = "1"
+                b.transition = "background-color 2s ease-in"
+                bcon.transition = "background-color 2s ease-in"
+                outputNand()
+            }
+            else {
+                
+                b.style.backgroundColor = colgr
+                bcon.style.backgroundColor =colgr 
+                valb.innerText = "0"
+                b.transition = "background-color 2s ease-in"
+                bcon.transition = "background-color 2s ease-in"
+                outputNand()
+            }
+
+        }
+    </script>
+</body></p>
 <h2 id="nor">NOR</h2>
 <p>Abstract Diagram:
 <img src="/itsmaniblog/images/Gates/Nor_Gate.svg" alt="NORGATE">
-Truth Table:</p>
-<table>
-  <thead>
-      <tr>
-          <th style="text-align: center">A</th>
-          <th style="text-align: center">B</th>
-          <th style="text-align: center">X</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td style="text-align: center">0</td>
-          <td style="text-align: center">0</td>
-          <td style="text-align: center">1</td>
-      </tr>
-      <tr>
-          <td style="text-align: center">0</td>
-          <td style="text-align: center">1</td>
-          <td style="text-align: center">0</td>
-      </tr>
-      <tr>
-          <td style="text-align: center">1</td>
-          <td style="text-align: center">0</td>
-          <td style="text-align: center">0</td>
-      </tr>
-      <tr>
-          <td style="text-align: center">1</td>
-          <td style="text-align: center">1</td>
-          <td style="text-align: center">0</td>
-      </tr>
-  </tbody>
-</table>
+<head>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        #container1 {
+            position: relative;
+            display: flex;
+        }
+
+        #a-nor {
+            position: absolute;
+            top: 5px;
+            height: 30px;
+            width: 30px;
+            border: 1px solid black;
+            background-color: rgb(199, 199, 199);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #b-nor {
+            text-align: center;
+            position: absolute;
+            top: 65px;
+            height: 30px;
+            width: 30px;
+            border: 1px solid black;
+            background-color: rgb(199, 199, 199);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #a-connect-nor {
+            position: absolute;
+            top: 15px;
+            left: 30px;
+            height: 10px;
+            width: 40px;
+            border: 1px solid black;
+            border-left: 0;
+            border-right: 0;
+            background-color: rgb(199, 199, 199);
+        }
+
+        #b-connect-nor {
+            position: absolute;
+            top: 75px;
+            left: 30px;
+            height: 10px;
+            width: 40px;
+            border: 1px solid black;
+            border-left: 0;
+            border-right: 0;
+            background-color: rgb(199, 199, 199);
+        }
+
+        #nor-circle {
+            position: absolute;
+            top: 43px;
+            left: 140px;
+            height: 15px;
+            width: 15px;
+            border: 1px solid black;
+            border-radius: 50%;
+            background-color: rgb(199, 199, 199);
+            z-index: 5;
+        }
+
+       #nor-gate {
+            position: relative;
+             
+            top: 5px;
+            left: 50px;
+            height: 90px;
+            width: 100px;
+            background-color: rgb(199, 199, 199);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #nor-gate{
+            clip-path: path("M 0 0 C 100 10, 100 50, 100 45 C 90 80, 20 90, 0 90 C 30 80, 30 10, 0 0");
+        }
+
+        #output-nor {
+            position: absolute;
+            top: 35px;
+            left: 170px;
+            height: 30px;
+            width: 30px;
+            border: 1px solid black;
+            background-color: rgb(199, 199, 199);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #output-connect-nor {
+            position: absolute;
+            top: 45px;
+            left: 149px;
+            height: 10px;
+            width: 21px;
+            border: 1px solid black;
+            border-left: 0;
+            border-right: 0;
+            background-color: rgb(199, 199, 199);
+        }
+        #table-nor,
+        .nor-th,
+        .nor-td {
+            text-align: center;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>
+Interactive Nor Gate:
+</h2>
+    <div id="container1">
+        
+        <div id="a-nor" onclick="aNor()">
+            <div id="val-a-nor">0</div>
+        </div>
+        <div id="a-connect-nor">
+
+        </div>
+        <div id="b-nor" onclick="bNor()">
+            <div id="val-b-nor">0</div>
+        </div>
+        <div id="b-connect-nor">
+
+        </div>
+        <div id="nor-circle">
+
+        </div>
+            <div id="nor-gate">
+                <div id="nor-name">NOR</div>
+            </div>
+        <div id="output-nor">
+            <div id="val-output-nor">0</div>
+        </div>
+        <div id="output-connect-nor">
+
+        </div>
+    </div>
+        <div id="div-table-nor">
+        <div>Truth Table:</div>
+            <table id="table-nor">
+            <thead>
+                <tr>
+                    <th class="nor-th">A</th>
+                    <th class="nor-th">B</th>
+                    <th class="nor-th">X</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr id="nor-0-0">
+                    <td class="nor-td">0</td>
+                    <td class="nor-td">0</td>
+                    <td class="nor-td">1</td>
+                </tr>
+                <tr id="nor-0-1">
+                    <td class="nor-td">0</td>
+                    <td class="nor-td">1</td>
+                    <td class="nor-td">0</td>
+                </tr>
+                <tr id="nor-1-0">
+                    <td class="nor-td">1</td>
+                    <td class="nor-td">0</td>
+                    <td class="nor-td">0</td>
+                </tr>
+                <tr id="nor-1-1">
+                    <td class="nor-td">1</td>
+                    <td class="nor-td">1</td>
+                    <td class="nor-td">0</td>
+                </tr>
+            </tbody>
+            </table>
+        </div>
+    <script>
+        function outputNor() {
+            
+            const out = document.getElementById('output-nor')
+            const outcon = document.getElementById('output-connect-nor')
+            const valout = document.getElementById('val-output-nor')
+            const a = document.getElementById('a-nor')
+            const b = document.getElementById('b-nor')
+            const norg = document.getElementById('nor-circle')
+            const tablevalor00 = document.getElementById('nor-0-0')
+            const tablevalor01 = document.getElementById('nor-0-1')
+            const tablevalor10 = document.getElementById('nor-1-0')
+            const tablevalor11 = document.getElementById('nor-1-1')
+            if (a.innerText == "1" && b.innerText == "1") {
+                out.style.backgroundColor = colgr
+                outcon.style.backgroundColor = colgr
+                norg.style.backgroundColor = colgr
+                valout.innerText = "0"
+                tablevalor00.style.backgroundColor = colgr
+                tablevalor01.style.backgroundColor = colgr
+                tablevalor10.style.backgroundColor = colgr
+                tablevalor11.style.backgroundColor = colg 
+                nor(a.innerText, b.innerText)
+            }else if(a.innerText == "0" && b.innerText == "0"){
+                out.style.backgroundColor = colg
+                outcon.style.backgroundColor = colg
+                norg.style.backgroundColor = colg
+                valout.innerText = "1"
+                tablevalor00.style.backgroundColor = colg
+                tablevalor01.style.backgroundColor = colgr
+                tablevalor10.style.backgroundColor = colgr
+                tablevalor11.style.backgroundColor = colgr
+                nor(a.innerText, b.innerText)
+            }
+            else if(a.innerText == "0" && b.innerText == "1"){
+                out.style.backgroundColor = colgr
+                outcon.style.backgroundColor = colgr
+                norg.style.backgroundColor = colgr
+                valout.innerText = "0"
+                tablevalor00.style.backgroundColor = colgr
+                tablevalor01.style.backgroundColor = colg
+                tablevalor10.style.backgroundColor = colgr
+                tablevalor11.style.backgroundColor = colgr
+                nor(a.innerText, b.innerText)
+            }
+             else {
+                out.style.backgroundColor = colgr
+                outcon.style.backgroundColor =colgr
+                norg.style.backgroundColor = colgr
+                valout.innerText = "0"
+                tablevalor00.style.backgroundColor = colgr
+                tablevalor01.style.backgroundColor = colgr
+                tablevalor10.style.backgroundColor = colg
+                tablevalor11.style.backgroundColor = colgr
+                nor(a.innerText, b.innerText)
+            }
+        }
+        function nor(a, b) {
+            
+            const nor = document.getElementById('nor-gate')
+            if (a == "0" && b == "0") {
+                nor.style.backgroundColor = colg
+            }
+            else {
+                nor.style.backgroundColor = colgr 
+            }
+        }
+        function aNor() {
+            const a = document.getElementById('a-nor')
+            const acon = document.getElementById('a-connect-nor')
+            const vala = document.getElementById('val-a-nor')
+            if (vala.innerText == "0") {
+                
+                a.style.backgroundColor = colg 
+                acon.style.backgroundColor = colg 
+                vala.innerText = "1"
+                a.transition = "background-color 2s ease-in"
+                acon.transition = "background-color 2s ease-in"
+                outputNor()
+            }
+            else {
+                
+                a.style.backgroundColor =colgr
+                acon.style.backgroundColor = colgr
+                vala.innerText = "0"
+                a.transition = "background-color 2s ease-in"
+                acon.transition = "background-color 2s ease-in"
+                outputNor()
+            }
+
+        }
+        function bNor() {
+            const b = document.getElementById('b-nor')
+            const bcon = document.getElementById('b-connect-nor')
+            const valb = document.getElementById('val-b-nor')
+            if (valb.innerText == "0") {
+                
+                b.style.backgroundColor =colg 
+                bcon.style.backgroundColor =colg 
+                valb.innerText = "1"
+                b.transition = "background-color 2s ease-in"
+                bcon.transition = "background-color 2s ease-in"
+                outputNor()
+            }
+            else {
+                
+                b.style.backgroundColor =colgr 
+                bcon.style.backgroundColor =colgr 
+                valb.innerText = "0"
+                b.transition = "background-color 2s ease-in"
+                bcon.transition = "background-color 2s ease-in"
+                outputNor()
+            }
+
+        }
+    </script>
+</body></p>
 <h2 id="exor">EXOR</h2>
 <p>Abstract Diagram:
 <img src="/itsmaniblog/images/Gates/Exor_Gate.svg" alt="EXORGATE">
-Truth Table:</p>
-<table>
-  <thead>
-      <tr>
-          <th style="text-align: center">A</th>
-          <th style="text-align: center">B</th>
-          <th style="text-align: center">X</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td style="text-align: center">0</td>
-          <td style="text-align: center">0</td>
-          <td style="text-align: center">0</td>
-      </tr>
-      <tr>
-          <td style="text-align: center">0</td>
-          <td style="text-align: center">1</td>
-          <td style="text-align: center">1</td>
-      </tr>
-      <tr>
-          <td style="text-align: center">1</td>
-          <td style="text-align: center">0</td>
-          <td style="text-align: center">1</td>
-      </tr>
-      <tr>
-          <td style="text-align: center">1</td>
-          <td style="text-align: center">1</td>
-          <td style="text-align: center">0</td>
-      </tr>
-  </tbody>
-</table>
+<head>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        #container1 {
+            position: relative;
+            display: flex;
+        }
+
+        #a-xor {
+            position: absolute;
+            top: 5px;
+            height: 30px;
+            width: 30px;
+            border: 1px solid black;
+            background-color: rgb(199, 199, 199);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #b-xor {
+            text-align: center;
+            position: absolute;
+            top: 65px;
+            height: 30px;
+            width: 30px;
+            border: 1px solid black;
+            background-color: rgb(199, 199, 199);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #a-connect-xor {
+            position: absolute;
+            top: 15px;
+            left: 30px;
+            height: 10px;
+            width: 20px;
+            border: 1px solid black;
+            border-left: 0;
+            border-right: 0;
+            background-color: rgb(199, 199, 199);
+        }
+
+        #b-connect-xor {
+            position: absolute;
+            top: 75px;
+            left: 30px;
+            height: 10px;
+            width: 20px;
+            border: 1px solid black;
+            border-left: 0;
+            border-right: 0;
+            background-color: rgb(199, 199, 199);
+        }
+        
+        #xor-line{
+             position: relative;
+             
+            top: 5px;
+            left: 45px;
+            height: 90px;
+            width: 30px;
+            background-color: rgb(199, 199, 199);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            clip-path: path("M 0 0 C 25 0, 25 40, 25 50 C 25 50, 25 90, 0 90 C 30 80, 30 10, 0 0");
+        }
+
+        #xor-gate {
+            position: relative;
+             
+            top: 5px;
+            left: 30px;
+            height: 90px;
+            width: 100px;
+            background-color: rgb(199, 199, 199);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            clip-path: path("M 0 0 C 100 10, 100 50, 100 45 C 90 80, 20 90, 0 90 C 30 80, 30 10, 0 0");
+        }
+
+        #output-xor {
+            position: absolute;
+            top: 35px;
+            left: 180px;
+            height: 30px;
+            width: 30px;
+            border: 1px solid black;
+            background-color: rgb(199, 199, 199);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #output-connect-xor {
+            position: absolute;
+            top: 45px;
+            left: 159px;
+            height: 10px;
+            width: 21px;
+            border: 1px solid black;
+            border-left: 0;
+            border-right: 0;
+            background-color: rgb(199, 199, 199);
+        }
+
+        #table-xor,
+        .xor-th,
+        .xor-td {
+            text-align: center;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>
+Interactive Xor Gate:
+</h2>
+    <div id="container1">
+        
+        <div id="a-xor" onclick="aXor()">
+            <div id="val-a-xor">0</div>
+        </div>
+        <div id="a-connect-xor">
+
+        </div>
+        <div id="b-xor" onclick="bXor()">
+            <div id="val-b-xor">0</div>
+        </div>
+        <div id="b-connect-xor">
+
+        </div>
+        <div id="xor-line"></div>
+        <div id="xor-gate">
+            <div id="xor-name">XOR</div>
+        </div>
+        <div id="output-xor">
+            <div id="val-output-xor">0</div>
+        </div>
+        <div id="output-connect-xor">
+
+        </div>
+    </div>
+    <div id="div-table-xor">
+        <div>Truth Table:</div>
+        <table id="table-xor">
+            <thead>
+                <tr>
+                    <th class="xor-th">A</th>
+                    <th class="xor-th">B</th>
+                    <th class="xor-th">X</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr id="xor-0-0">
+                    <td class="xor-td">0</td>
+                    <td class="xor-td">0</td>
+                    <td class="xor-td">0</td>
+                </tr>
+                <tr id="xor-0-1">
+                    <td class="xor-td">0</td>
+                    <td class="xor-td">1</td>
+                    <td class="xor-td">1</td>
+                </tr>
+                <tr id="xor-1-0">
+                    <td class="xor-td">1</td>
+                    <td class="xor-td">0</td>
+                    <td class="xor-td">1</td>
+                </tr>
+                <tr id="xor-1-1">
+                    <td class="xor-td">1</td>
+                    <td class="xor-td">1</td>
+                    <td class="xor-td">0</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <script>
+        function outputXor() {
+            
+            const out = document.getElementById('output-xor')
+            const outcon = document.getElementById('output-connect-xor')
+            const valout = document.getElementById('val-output-xor')
+            const a = document.getElementById('a-xor')
+            const b = document.getElementById('b-xor')
+            const tablevalor00 = document.getElementById('xor-0-0')
+            const tablevalor01 = document.getElementById('xor-0-1')
+            const tablevalor10 = document.getElementById('xor-1-0')
+            const tablevalor11 = document.getElementById('xor-1-1')
+            if (a.innerText == "1" && b.innerText == "1") {
+                out.style.backgroundColor = colgr
+                outcon.style.backgroundColor = colgr
+                valout.innerText = "0"
+                tablevalor00.style.backgroundColor = colgr
+                tablevalor01.style.backgroundColor = colgr
+                tablevalor10.style.backgroundColor = colgr
+                tablevalor11.style.backgroundColor = colg
+                xor(a.innerText, b.innerText)
+            } else if (a.innerText == "0" && b.innerText == "0") {
+                out.style.backgroundColor = colgr
+                outcon.style.backgroundColor = colgr
+                valout.innerText = "0"
+                tablevalor00.style.backgroundColor = colg
+                tablevalor01.style.backgroundColor = colgr
+                tablevalor10.style.backgroundColor = colgr
+                tablevalor11.style.backgroundColor = colgr
+                xor(a.innerText, b.innerText)
+            }
+            else if (a.innerText == "0" && b.innerText == "1") {
+                out.style.backgroundColor = colg
+                outcon.style.backgroundColor = colg
+                valout.innerText = "1"
+                tablevalor00.style.backgroundColor = colgr
+                tablevalor01.style.backgroundColor = colg
+                tablevalor10.style.backgroundColor = colgr
+                tablevalor11.style.backgroundColor = colgr
+                xor(a.innerText, b.innerText)
+            }
+            else {
+                out.style.backgroundColor = colg
+                outcon.style.backgroundColor = colg
+                valout.innerText = "1"
+                tablevalor00.style.backgroundColor = colgr
+                tablevalor01.style.backgroundColor = colgr
+                tablevalor10.style.backgroundColor = colg
+                tablevalor11.style.backgroundColor = colgr
+                xor(a.innerText, b.innerText)
+            }
+        }
+        function xor(a, b) {
+            
+            const xor = document.getElementById('xor-gate')
+            const xorl = document.getElementById('xor-line')
+            if ((a == "1" && b == "1") || (a == "0" && b == "0")) {
+                xor.style.backgroundColor = colgr
+                xorl.style.backgroundColor = colgr
+            }
+            else {
+                xor.style.backgroundColor = colg
+                xorl.style.backgroundColor = colg
+            }
+        }
+        function aXor() {
+            const a = document.getElementById('a-xor')
+            const acon = document.getElementById('a-connect-xor')
+            const vala = document.getElementById('val-a-xor')
+            if (vala.innerText == "0") {
+                
+                a.style.backgroundColor = colg
+                acon.style.backgroundColor = colg
+                vala.innerText = "1"
+                a.transition = "background-color 2s ease-in"
+                acon.transition = "background-color 2s ease-in"
+                outputXor()
+            }
+            else {
+                
+                a.style.backgroundColor = colgr
+                acon.style.backgroundColor = colgr
+                vala.innerText = "0"
+                a.transition = "background-color 2s ease-in"
+                acon.transition = "background-color 2s ease-in"
+                outputXor()
+            }
+
+        }
+        function bXor() {
+            const b = document.getElementById('b-xor')
+            const bcon = document.getElementById('b-connect-xor')
+            const valb = document.getElementById('val-b-xor')
+            if (valb.innerText == "0") {
+                
+                b.style.backgroundColor = colg
+                bcon.style.backgroundColor = colg
+                valb.innerText = "1"
+                b.transition = "background-color 2s ease-in"
+                bcon.transition = "background-color 2s ease-in"
+                outputXor()
+            }
+            else {
+                
+                b.style.backgroundColor = colgr
+                bcon.style.backgroundColor = colgr
+                valb.innerText = "0"
+                b.transition = "background-color 2s ease-in"
+                bcon.transition = "background-color 2s ease-in"
+                outputXor()
+            }
+
+        }
+    </script>
+</body></p>
 </section>
 
   

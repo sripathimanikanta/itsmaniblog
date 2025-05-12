@@ -42,59 +42,41 @@ Digital Circuits.
 ## NOT
 Abstract Diagram:
 ![NOTGATE](/itsmaniblog/images/Gates/Not_Gate.svg)
-Truth Table:
-| X | ~X |
-|:---:|:---:|
-| 0 | 1 |
-| 1 | 0 |
+{{< NotGate >}}
+Interactive Not Gate:
+{{< /NotGate >}}
+
 ## AND
 Abstract Diagram:
 ![ANDGATE](/itsmaniblog/images/Gates/And_Gate.svg)
-Truth Table:
-| A | B | X |
-|:---:|:---:|:---:|
-| 0 | 0 | 0 |
-| 0 | 1 | 0 |
-| 1 | 0 | 0 |
-| 1 | 1 | 1 |
+{{< AndGate >}}
+Interactive And Gate:
+{{< /AndGate >}}
 
 ## OR
 Abstract Diagram:
 ![ORGATE](/itsmaniblog/images/Gates/Or_Gate.svg)
-Truth Table:
-| A | B | X |
-|:---:|:---:|:---:|
-| 0 | 0 | 0 |
-| 0 | 1 | 1 |
-| 1 | 0 | 1 |
-| 1 | 1 | 1 |
+{{< OrGate >}}
+Interactive Or Gate:
+{{< /OrGate >}}
+
 ## NAND
 Abstract Diagram:
 ![NANDGATE](/itsmaniblog/images/Gates/Nand_Gate.svg)
-Truth Table:
-| A | B | X |
-|:---:|:---:|:---:|
-| 0 | 0 | 1 |
-| 0 | 1 | 1 |
-| 1 | 0 | 1 |
-| 1 | 1 | 0 |
+{{< NandGate >}}
+Interactive Nand Gate:
+{{< /NandGate >}}
+
 ## NOR
 Abstract Diagram:
 ![NORGATE](/itsmaniblog/images/Gates/Nor_Gate.svg)
-Truth Table:
-| A | B | X |
-|:---:|:---:|:---:|
-| 0 | 0 | 1 |
-| 0 | 1 | 0 |
-| 1 | 0 | 0 |
-| 1 | 1 | 0 |
+{{< NorGate >}}
+Interactive Nor Gate:
+{{< /NorGate >}}
+
 ## EXOR
 Abstract Diagram:
 ![EXORGATE](/itsmaniblog/images/Gates/Exor_Gate.svg)
-Truth Table:
-| A | B | X |
-|:---:|:---:|:---:|
-| 0 | 0 | 0 |
-| 0 | 1 | 1 |
-| 1 | 0 | 1 |
-| 1 | 1 | 0 |
+{{< XorGate >}}
+Interactive Xor Gate:
+{{< /XorGate >}}

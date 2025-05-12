@@ -1,0 +1,286 @@
+<head>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        #container1 {
+            height: 120px;
+            position: relative;
+            display: flex;
+        }
+
+        #a-and {
+            position: absolute;
+            top: 5px;
+            height: 30px;
+            width: 30px;
+            border: 1px solid black;
+            background-color: rgb(199, 199, 199);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #b-and {
+            text-align: center;
+            position: absolute;
+            top: 65px;
+            height: 30px;
+            width: 30px;
+            border: 1px solid black;
+            background-color: rgb(199, 199, 199);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #a-connect-and {
+            position: absolute;
+            top: 15px;
+            left: 30px;
+            height: 10px;
+            width: 20px;
+            border: 1px solid black;
+            border-left: 0;
+            border-right: 0;
+            background-color: rgb(199, 199, 199);
+        }
+
+        #b-connect-and {
+            position: absolute;
+            top: 75px;
+            left: 30px;
+            height: 10px;
+            width: 20px;
+            border: 1px solid black;
+            border-left: 0;
+            border-right: 0;
+            background-color: rgb(199, 199, 199);
+        }
+
+        #and-gate {
+            position: absolute;
+            top: 5px;
+            left: 50px;
+            height: 90px;
+            width: 100px;
+            border: 1px solid black;
+            background-color: rgb(199, 199, 199);
+            border-radius: 0em 50% 50% 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #output-and {
+            position: absolute;
+            top: 35px;
+            left: 170px;
+            height: 30px;
+            width: 30px;
+            border: 1px solid black;
+            background-color: rgb(199, 199, 199);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #output-connect-and {
+            position: absolute;
+            top: 45px;
+            left: 150px;
+            height: 10px;
+            width: 20px;
+            border: 1px solid black;
+            border-left: 0;
+            border-right: 0;
+            background-color: rgb(199, 199, 199);
+        }
+        #table-and,
+        .and-th,
+        .and-td {
+            text-align: center;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <h3>
+ {{.Inner}}       
+    </h3>
+    <div id="container1">
+        <!-- <img src="./assets/images/And-Gate.png" id="and1" alt="" style="border:1px solid red;position: absolute;top: 0;" onclick="And1()" onmouseover="hover1()">
+    <img src="./assets/images/And-Gate.png" alt="" style="position: absolute;top: 110px;"> -->
+        <div id="a-and" onclick="aAnd()">
+            <div id="val-a-and">0</div>
+        </div>
+        <div id="a-connect-and">
+
+        </div>
+        <div id="b-and" onclick="bAnd()">
+            <div id="val-b-and">0</div>
+        </div>
+        <div id="b-connect-and">
+
+        </div>
+        <div id="and-gate">
+            <div id="and-name">AND</div>
+        </div>
+        <div id="output-and">
+            <div id="val-output-and">0</div>
+        </div>
+        <div id="output-connect-and">
+
+        </div>
+    </div>
+    <div id="div-table-and">
+        <div>Truth Table:</div>
+        <table id="table-and">
+            <thead>
+                <tr>
+                    <th class="and-th">A</th>
+                    <th class="and-th">B</th>
+                    <th class="and-th">X</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr id="and-0-0">
+                    <td class="and-td">0</td>
+                    <td class="and-td">0</td>
+                    <td class="and-td">0</td>
+                </tr>
+                <tr id="and-0-1">
+                    <td class="and-td">0</td>
+                    <td class="and-td">1</td>
+                    <td class="and-td">0</td>
+                </tr>
+                <tr id="and-1-0">
+                    <td class="and-td">1</td>
+                    <td class="and-td">0</td>
+                    <td class="and-td">0</td>
+                </tr>
+                <tr id="and-1-1">
+                    <td class="and-td">1</td>
+                    <td class="and-td">1</td>
+                    <td class="and-td">1</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <script>
+        // const colg = "rgb(124, 247, 132)";
+        // const colgr = "rgb(199, 199, 199)";
+        function outputAnd(){
+            // console.log("output");
+            const out = document.getElementById('output-and')
+            const outcon = document.getElementById('output-connect-and')
+            const valout = document.getElementById('val-output-and')
+            const a = document.getElementById('a-and')
+            const b = document.getElementById('b-and')
+            const tablevaland00 = document.getElementById('and-0-0')
+            const tablevaland01 = document.getElementById('and-0-1')
+            const tablevaland10 = document.getElementById('and-1-0')
+            const tablevaland11 = document.getElementById('and-1-1')
+            if(a.innerText == "1" && b.innerText == "1"){
+            out.style.backgroundColor = colg
+            outcon.style.backgroundColor = colg 
+            tablevaland00.style.backgroundColor = colgr
+            tablevaland01.style.backgroundColor = colgr
+            tablevaland10.style.backgroundColor = colgr
+            tablevaland11.style.backgroundColor = colg 
+            valout.innerText = "1"
+            and(a.innerText,b.innerText)
+            }else if(a.innerText == "0" && b.innerText == "0"){
+            out.style.backgroundColor = colgr
+            outcon.style.backgroundColor = colgr
+            valout.innerText = "0"
+            tablevaland00.style.backgroundColor = colg
+            tablevaland01.style.backgroundColor = colgr
+            tablevaland10.style.backgroundColor = colgr
+            tablevaland11.style.backgroundColor = colgr
+            and(a.innerText,b.innerText)
+            }
+            else if(a.innerText == "0" && b.innerText == "1"){
+            out.style.backgroundColor = colgr
+            outcon.style.backgroundColor = colgr
+            valout.innerText = "0"
+            tablevaland00.style.backgroundColor = colgr
+            tablevaland01.style.backgroundColor = colg
+            tablevaland10.style.backgroundColor = colgr
+            tablevaland11.style.backgroundColor = colgr
+            and(a.innerText,b.innerText)
+            }
+            else{
+            out.style.backgroundColor = colgr
+            outcon.style.backgroundColor = colgr
+            valout.innerText = "0"
+            tablevaland00.style.backgroundColor = colgr
+            tablevaland01.style.backgroundColor = colgr
+            tablevaland10.style.backgroundColor = colg
+            tablevaland11.style.backgroundColor = colgr
+            and(a.innerText,b.innerText)
+            }
+        }
+        function and(a,b){
+            // console.log("and");
+            const and = document.getElementById('and-gate')
+            if(a == "1" && b == "1"){
+                and.style.backgroundColor = colg
+            }
+            else{
+                and.style.backgroundColor = colgr
+            }
+        }
+        function aAnd() {
+            const a = document.getElementById('a-and')
+            const acon = document.getElementById('a-connect-and')
+            const vala = document.getElementById('val-a-and')
+            if (vala.innerText == "0") {
+                // console.log("a0");
+                a.style.backgroundColor = colg 
+                acon.style.backgroundColor = colg 
+                vala.innerText = "1"
+                a.transition = "background-color 2s ease-in"
+                acon.transition = "background-color 2s ease-in"
+                outputAnd()
+            }
+            else {
+                // console.log("a1");
+                a.style.backgroundColor = colgr
+                acon.style.backgroundColor =colgr
+                vala.innerText = "0"
+                a.transition = "background-color 2s ease-in"
+                acon.transition = "background-color 2s ease-in"
+                outputAnd()
+            }
+
+        }
+        function bAnd() {
+            const b = document.getElementById('b-and')
+            const bcon = document.getElementById('b-connect-and')
+            const valb = document.getElementById('val-b-and')
+            if (valb.innerText == "0") {
+                // console.log("b0");
+                b.style.backgroundColor = colg
+                bcon.style.backgroundColor =colg 
+                valb.innerText = "1"
+                b.transition = "background-color 2s ease-in"
+                bcon.transition = "background-color 2s ease-in"
+                outputAnd()
+            }
+            else {
+                // console.log("b1");
+                b.style.backgroundColor = colgr
+                bcon.style.backgroundColor =colgr 
+                valb.innerText = "0"
+                b.transition = "background-color 2s ease-in"
+                bcon.transition = "background-color 2s ease-in"
+                outputAnd()
+            }
+
+        }
+    </script>
+</body>
