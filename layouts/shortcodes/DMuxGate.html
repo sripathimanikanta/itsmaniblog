@@ -1,0 +1,348 @@
+<head>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        #container1 {
+            height: 150px;
+            position: relative;
+            display: flex;
+        }
+
+        #a-dmux {
+            position: absolute;
+            top: 15px;
+            left: 140px;
+            height: 30px;
+            width: 30px;
+            border: 1px solid black;
+            background-color: rgb(199, 199, 199);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #b-dmux {
+            text-align: center;
+            position: absolute;
+            top: 65px;
+            left: 140px;
+            height: 30px;
+            width: 30px;
+            border: 1px solid black;
+            background-color: rgb(199, 199, 199);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #sel-dmux {
+            text-align: center;
+            position: absolute;
+            top: 115px;
+            left: 80px;
+            height: 30px;
+            width: 30px;
+            border: 1px solid black;
+            background-color: rgb(199, 199, 199);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #a-connect-dmux {
+            position: absolute;
+            top: 25px;
+            left: 120px;
+            height: 10px;
+            width: 20px;
+            border: 1px solid black;
+            border-left: 0;
+            border-right: 0;
+            background-color: rgb(199, 199, 199);
+        }
+
+        #b-connect-dmux {
+            position: absolute;
+            top: 75px;
+            left: 120px;
+            height: 10px;
+            width: 20px;
+            border: 1px solid black;
+            border-left: 0;
+            border-right: 0;
+            background-color: rgb(199, 199, 199);
+        }
+
+        #sel-connect-dmux {
+            position: absolute;
+            top: 81px;
+            left: 90px;
+            height: 35px;
+            width: 10px;
+            border: 1px solid black;
+            border-left: 0;
+            border-right: 0;
+            background-color: rgb(199, 199, 199);
+        }
+
+        #dmux-gate {
+            position: absolute;
+            top: 5px;
+            left: 50px;
+            height: 100px;
+            width: 70px;
+            /* border: 1px solid black; */
+            background-color: rgb(199, 199, 199);
+            /* border-radius: 25% 25% 25% 25%; */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            clip-path: path("M 0 30 L 100,0 V 100 L 0,80 z");
+        }
+
+        #output-dmux {
+            position: absolute;
+            top: 45px;
+            left: 0px;
+            height: 30px;
+            width: 30px;
+            border: 1px solid black;
+            background-color: rgb(199, 199, 199);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #output-connect-dmux {
+            position: absolute;
+            top: 55px;
+            left: 30px;
+            height: 10px;
+            width: 20px;
+            border: 1px solid black;
+            border-left: 0;
+            border-right: 0;
+            background-color: rgb(199, 199, 199);
+        }
+
+        #table-dmux,
+        .dmux-th,
+        .dmux-td {
+            text-align: center;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <h3>
+        {{.Inner}}
+    </h3>
+    <div id="container1">
+        <!-- <img src="./assets/images/And-Gate.png" id="and1" alt="" style="border:1px solid red;position: absolute;top: 0;" onclick="And1()" onmouseover="hover1()">
+    <img src="./assets/images/And-Gate.png" alt="" style="position: absolute;top: 110px;"> -->
+        <div id="a-dmux">
+            <div id="val-a-dmux">0</div>
+        </div>
+        <div id="a-connect-dmux">
+
+        </div>
+        <div id="b-dmux">
+            <div id="val-b-dmux">0</div>
+        </div>
+        <div id="b-connect-dmux">
+
+        </div>
+        <div id="sel-dmux" onclick="selDmux()">
+            <div id="val-sel-dmux">0</div>
+        </div>
+        <div id="sel-connect-dmux">
+
+        </div>
+        <div id="dmux-gate">
+            <div id="dmux-name">DMUX</div>
+        </div>
+        <div id="output-dmux" onclick="oDmux()">
+            <div id="val-output-dmux">0</div>
+        </div>
+        <div id="output-connect-dmux">
+
+        </div>
+    </div>
+    <div id="div-table-dmux">
+        <div>Truth Table:</div>
+        <table id="table-dmux">
+            <thead>
+                <tr>
+                    <th class="dmux-th">I</th>
+                    <th class="dmux-th">Sel</th>
+                    <th class="dmux-th">A</th>
+                    <th class="dmux-th">B</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr id="dmux-0-0">
+                    <td class="dmux-td">0</td>
+                    <td class="dmux-td">0</td>
+                    <td class="dmux-td">0</td>
+                    <td class="dmux-td">0</td>
+                </tr>
+                <tr id="dmux-0-1">
+                    <td class="dmux-td">0</td>
+                    <td class="dmux-td">1</td>
+                    <td class="dmux-td">0</td>
+                    <td class="dmux-td">0</td>
+                </tr>
+                <tr id="dmux-1-0">
+                    <td class="dmux-td">1</td>
+                    <td class="dmux-td">0</td>
+                    <td class="dmux-td">1</td>
+                    <td class="dmux-td">0</td>
+                </tr>
+                <tr id="dmux-1-1">
+                    <td class="dmux-td">1</td>
+                    <td class="dmux-td">1</td>
+                    <td class="dmux-td">0</td>
+                    <td class="dmux-td">1</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <script>
+        function outputDmux() {
+            const out = document.getElementById('output-dmux')
+            const outcon = document.getElementById('output-connect-dmux')
+            const valout = document.getElementById('val-output-dmux')
+            const seldmux = document.getElementById('sel-dmux')
+            const tablevaldmux00 = document.getElementById('dmux-0-0')
+            const tablevaldmux01 = document.getElementById('dmux-0-1')
+            const tablevaldmux10 = document.getElementById('dmux-1-0')
+            const tablevaldmux11 = document.getElementById('dmux-1-1')
+            if (valout.innerText == "0" && seldmux.innerText == "0") {
+                out.style.backgroundColor = colgr
+                outcon.style.backgroundColor = colgr
+                valout.innerText = "0"
+                tablevaldmux00.style.backgroundColor = colg
+                tablevaldmux01.style.backgroundColor = colgr
+                tablevaldmux10.style.backgroundColor = colgr
+                tablevaldmux11.style.backgroundColor = colgr
+                dmux(valout.innerText, seldmux.innerText)
+            } else if (valout.innerText == "0" && seldmux.innerText == "1") {
+                out.style.backgroundColor = colgr
+                outcon.style.backgroundColor = colgr
+                valout.innerText = "0"
+                tablevaldmux00.style.backgroundColor = colgr
+                tablevaldmux01.style.backgroundColor = colg
+                tablevaldmux10.style.backgroundColor = colgr
+                tablevaldmux11.style.backgroundColor = colgr
+                dmux(valout.innerText, seldmux.innerText)
+            } else if (valout.innerText == "1" && seldmux.innerText == "0") {
+                out.style.backgroundColor = colg
+                outcon.style.backgroundColor = colg
+                valout.innerText = "1"
+                tablevaldmux00.style.backgroundColor = colgr
+                tablevaldmux01.style.backgroundColor = colgr
+                tablevaldmux10.style.backgroundColor = colg
+                tablevaldmux11.style.backgroundColor = colgr
+                dmux(valout.innerText, seldmux.innerText)
+            } else if (valout.innerText == "1" && seldmux.innerText == "1") {
+                // console.log("inside 0-1-1");
+                out.style.backgroundColor = colg
+                outcon.style.backgroundColor = colg
+                valout.innerText = "1"
+                tablevaldmux00.style.backgroundColor = colgr
+                tablevaldmux01.style.backgroundColor = colgr
+                tablevaldmux10.style.backgroundColor = colgr
+                tablevaldmux11.style.backgroundColor = colg
+                dmux(valout.innerText, seldmux.innerText)
+            }
+        }
+        function dmux(a, b) {
+            // console.log("and");
+            const ad = document.getElementById('a-dmux')
+            const acd = document.getElementById('a-connect-dmux')
+            const avd = document.getElementById('val-a-dmux')
+            const bd = document.getElementById('b-dmux')
+            const bcd = document.getElementById('b-connect-dmux')
+            const bvd = document.getElementById('val-b-dmux')
+            const outs = document.getElementById('dmux-gate')
+            if ((a == "1" && b == "0")) {
+                ad.style.backgroundColor = colg
+                acd.style.backgroundColor = colg
+                avd.innerText = "1"
+                outs.style.backgroundColor = colg
+
+                bd.style.backgroundColor = colgr
+                bcd.style.backgroundColor = colgr
+                bvd.innerText = "0"
+            }else if((a == "1" && b == "1")){
+                bd.style.backgroundColor = colg
+                bcd.style.backgroundColor = colg
+                bvd.innerText = "1"
+                outs.style.backgroundColor = colg
+
+                ad.style.backgroundColor = colgr
+                acd.style.backgroundColor = colgr
+                avd.innerText = "0"
+            }
+            else{
+                ad.style.backgroundColor = colgr
+                acd.style.backgroundColor = colgr
+                avd.innerText = "0"
+                bd.style.backgroundColor = colgr
+                bcd.style.backgroundColor = colgr
+                bvd.innerText = "0"
+                outs.style.backgroundColor = colgr
+            }
+        }
+        function oDmux() {
+            const a = document.getElementById('output-dmux')
+            const acon = document.getElementById('output-connect-dmux')
+            const vala = document.getElementById('val-output-dmux')
+            if (vala.innerText == "0") {
+                // console.log("a0");
+                a.style.backgroundColor = colg
+                acon.style.backgroundColor = colg
+                vala.innerText = "1"
+                a.transition = "background-color 2s ease-in"
+                acon.transition = "background-color 2s ease-in"
+                outputDmux()
+            }
+            else {
+                // console.log("a1");
+                a.style.backgroundColor = colgr
+                acon.style.backgroundColor = colgr
+                vala.innerText = "0"
+                a.transition = "background-color 2s ease-in"
+                acon.transition = "background-color 2s ease-in"
+                outputDmux()
+            }
+        }
+        function selDmux() {
+            const a = document.getElementById('sel-dmux')
+            const acon = document.getElementById('sel-connect-dmux')
+            const vala = document.getElementById('val-sel-dmux')
+            if (vala.innerText == "0") {
+                // console.log("a0");
+                a.style.backgroundColor = colg
+                acon.style.backgroundColor = colg
+                vala.innerText = "1"
+                a.transition = "background-color 2s ease-in"
+                acon.transition = "background-color 2s ease-in"
+                outputDmux()
+            }
+            else {
+                // console.log("a1");
+                a.style.backgroundColor = colgr
+                acon.style.backgroundColor = colgr
+                vala.innerText = "0"
+                a.transition = "background-color 2s ease-in"
+                acon.transition = "background-color 2s ease-in"
+                outputDmux()
+            }
+        }
+    </script>
+</body>
