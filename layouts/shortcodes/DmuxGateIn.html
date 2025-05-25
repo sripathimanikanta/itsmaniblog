@@ -1,0 +1,821 @@
+<head>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        #dmux-container {
+            position: relative;
+            height: 300px;
+        }
+
+        #container-not-dmux {
+            /* background-color: lightblue; */
+            height: 110px;
+            /* width: 210px; */
+            position: relative;
+            display: flex;
+            top: 60px;
+            left: 50px;
+            /* justify-self: center; */
+        }
+
+        #container-and-1-dmux {
+            height: 120px;
+            position: relative;
+            display: flex;
+            top: -80px;
+            left: 220px;
+        }
+
+        #container-and-2-dmux {
+            height: 120px;
+            position: relative;
+            display: flex;
+            top: -85px;
+            left: 220px;
+        }
+
+        #circle-in-dmux {
+            position: absolute;
+            top: 35px;
+            height: 30px;
+            width: 30px;
+            border: 1px solid black;
+            border-radius: 50%;
+            background-color: rgb(199, 199, 199);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #connect-in-and1-dmux {
+            position: absolute;
+            top: 45px;
+            left: 31px;
+            height: 10px;
+            width: 190px;
+            border: 1px solid black;
+            border-left: 0;
+            border-right: 0;
+            background-color: rgb(199, 199, 199);
+        }
+
+        #connect-in-and1-and2-dmux {
+            position: absolute;
+            top: 55px;
+            left: 40px;
+            height: 105px;
+            width: 8px;
+            border: 1px solid black;
+            border-left: 0;
+            border-right: 0;
+            background-color: rgb(199, 199, 199);
+        }
+
+        #connect-in-and2-dmux {
+            position: absolute;
+            top: 160px;
+            left: 40px;
+            height: 10px;
+            width: 180px;
+            border: 1px solid black;
+            border-left: 0;
+            border-right: 0;
+            background-color: rgb(199, 199, 199);
+        }
+
+        #circle-sel-dmux {
+            position: absolute;
+            top: 250px;
+            left: 50px;
+            height: 30px;
+            width: 30px;
+            border: 1px solid black;
+            border-radius: 50%;
+            background-color: rgb(199, 199, 199);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #connect-sel-not-1-dmux {
+            position: absolute;
+            top: 100px;
+            left: 60px;
+            height: 150px;
+            width: 10px;
+            border: 1px solid black;
+            border-left: 0;
+            border-right: 0;
+            background-color: rgb(199, 199, 199);
+        }
+
+        #connect-sel-not-2-dmux {
+            position: absolute;
+            top: 220px;
+            left: 60px;
+            height: 10px;
+            width: 190px;
+            border: 1px solid black;
+            border-left: 0;
+            border-right: 0;
+            background-color: rgb(199, 199, 199);
+        }
+
+        #x-dmux {
+            position: absolute;
+            top: 35px;
+            height: 30px;
+            width: 30px;
+            border: 1px solid black;
+            background-color: rgb(199, 199, 199);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #x-connect-dmux {
+            position: absolute;
+            top: 45px;
+            left: 31px;
+            height: 10px;
+            width: 42px;
+            border: 1px solid black;
+            border-left: 0;
+            border-right: 0;
+            background-color: rgb(199, 199, 199);
+        }
+
+        #not-circle-dmux {
+            position: absolute;
+            top: 43px;
+            left: 130px;
+            height: 15px;
+            width: 15px;
+            border: 1px solid black;
+            border-radius: 50%;
+            background-color: rgb(199, 199, 199);
+            z-index: 5;
+        }
+
+        #not-gate-dmux {
+            position: relative;
+            /* top: 0px; */
+            top: 1px;
+            left: 50px;
+            height: 90px;
+            width: 100px;
+            background-color: rgb(199, 199, 199);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #not-gate-dmux {
+            /* clip-path: path("M 0 0 C 100 10, 100 50, 100 45 C 90 80, 20 90, 0 90 C 30 80, 30 10, 0 0"); */
+            clip-path: path("M 0 0 L 100,50 L 0,90 z");
+        }
+
+        #output-x-dmux {
+            position: absolute;
+            top: 35px;
+            left: 170px;
+            height: 30px;
+            width: 30px;
+            border: 1px solid black;
+            background-color: rgb(199, 199, 199);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 3;
+        }
+
+        #output-connect-x-dmux {
+            position: absolute;
+            top: 45px;
+            left: 140px;
+            height: 10px;
+            width: 35px;
+            border: 1px solid black;
+            border-left: 0;
+            border-right: 0;
+            background-color: rgb(199, 199, 199);
+            z-index: 0;
+        }
+
+        #a-and1-dmux {
+            position: absolute;
+            top: 5px;
+            height: 30px;
+            width: 30px;
+            border: 1px solid black;
+            background-color: rgb(199, 199, 199);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #a-and2-dmux {
+            position: absolute;
+            top: 5px;
+            height: 30px;
+            width: 30px;
+            border: 1px solid black;
+            background-color: rgb(199, 199, 199);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #b-and1-dmux {
+            text-align: center;
+            position: absolute;
+            top: 65px;
+            height: 30px;
+            width: 30px;
+            border: 1px solid black;
+            background-color: rgb(199, 199, 199);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #b-and2-dmux {
+            text-align: center;
+            position: absolute;
+            top: 65px;
+            height: 30px;
+            width: 30px;
+            border: 1px solid black;
+            background-color: rgb(199, 199, 199);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #a-connect-and1-dmux {
+            position: absolute;
+            top: 15px;
+            left: 30px;
+            height: 10px;
+            width: 20px;
+            border: 1px solid black;
+            border-left: 0;
+            border-right: 0;
+            background-color: rgb(199, 199, 199);
+        }
+
+        #a-connect-and2-dmux {
+            position: absolute;
+            top: 15px;
+            left: 30px;
+            height: 10px;
+            width: 20px;
+            border: 1px solid black;
+            border-left: 0;
+            border-right: 0;
+            background-color: rgb(199, 199, 199);
+        }
+
+        #b-connect-and1-dmux {
+            position: absolute;
+            top: 75px;
+            left: 30px;
+            height: 10px;
+            width: 20px;
+            border: 1px solid black;
+            border-left: 0;
+            border-right: 0;
+            background-color: rgb(199, 199, 199);
+        }
+
+        #b-connect-and2-dmux {
+            position: absolute;
+            top: 75px;
+            left: 30px;
+            height: 10px;
+            width: 20px;
+            border: 1px solid black;
+            border-left: 0;
+            border-right: 0;
+            background-color: rgb(199, 199, 199);
+        }
+
+        #and1-gate-dmux {
+            position: absolute;
+            top: 5px;
+            left: 50px;
+            height: 90px;
+            width: 100px;
+            border: 1px solid black;
+            background-color: rgb(199, 199, 199);
+            border-radius: 0em 50% 50% 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #and2-gate-dmux {
+            position: absolute;
+            top: 5px;
+            left: 50px;
+            height: 90px;
+            width: 100px;
+            border: 1px solid black;
+            background-color: rgb(199, 199, 199);
+            border-radius: 0em 50% 50% 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #output-and1-dmux {
+            position: absolute;
+            top: 35px;
+            left: 170px;
+            height: 30px;
+            width: 30px;
+            border: 1px solid black;
+            background-color: rgb(199, 199, 199);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #output-and2-dmux {
+            position: absolute;
+            top: 35px;
+            left: 170px;
+            height: 30px;
+            width: 30px;
+            border: 1px solid black;
+            background-color: rgb(199, 199, 199);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #output-connect-and1-dmux {
+            position: absolute;
+            top: 45px;
+            left: 150px;
+            height: 10px;
+            width: 20px;
+            border: 1px solid black;
+            border-left: 0;
+            border-right: 0;
+            background-color: rgb(199, 199, 199);
+        }
+
+        #output-connect-and2-dmux {
+            position: absolute;
+            top: 45px;
+            left: 150px;
+            height: 10px;
+            width: 20px;
+            border: 1px solid black;
+            border-left: 0;
+            border-right: 0;
+            background-color: rgb(199, 199, 199);
+        }
+
+        #table-dmux-in,
+        .dmux-in-th,
+        .dmux-in-td {
+            text-align: center;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <h3>
+        {{.Inner}}
+    </h3>
+    <div id="dmux-container">
+        <div id="circle-in-dmux" onclick="circleindmux()">
+            <div id="val-in-dmux">0</div>
+        </div>
+        <div id="connect-in-and1-dmux">
+        </div>
+        <div id="connect-in-and1-and2-dmux">
+        </div>
+        <div id="connect-in-and2-dmux">
+        </div>
+        <div id="circle-sel-dmux" onclick="seldmux()">
+            <div id="val-sel-dmux">0</div>
+        </div>
+        <div id="connect-sel-not-1-dmux">
+
+        </div>
+        <div id="connect-sel-not-2-dmux">
+
+        </div>
+        <div id="container-not-dmux">
+            <div id="x-dmux">
+                <div id="val-x-dmux">0</div>
+            </div>
+            <div id="x-connect-dmux">
+
+            </div>
+            <div id="not-circle-dmux">
+
+            </div>
+            <div id="not-gate-dmux">
+                <div id="not-name-dmux">not</div>
+            </div>
+            <div id="output-x-dmux">
+                <div id="val-output-x-dmux">0</div>
+            </div>
+            <div id="output-connect-x-dmux">
+
+            </div>
+        </div>
+        <div id="container-and-1-dmux">
+            <!-- <img src="./assets/images/And-Gate.png" id="and1" alt="" style="border:1px solid red;position: absolute;top: 0;" onclick="And1()" onmouseover="hover1()">
+    <img src="./assets/images/And-Gate.png" alt="" style="position: absolute;top: 110px;"> -->
+            <div id="a-and1-dmux">
+                <div id="val-a-and1-dmux">0</div>
+            </div>
+            <div id="a-connect-and1-dmux">
+
+            </div>
+            <div id="b-and1-dmux">
+                <div id="val-b-and1-dmux">0</div>
+            </div>
+            <div id="b-connect-and1-dmux">
+
+            </div>
+            <div id="and1-gate-dmux">
+                <div id="and1-name-dmux">AND</div>
+            </div>
+            <div id="output-and1-dmux">
+                <div id="val-output-and1-dmux">0</div>
+            </div>
+            <div id="output-connect-and1-dmux">
+
+            </div>
+        </div>
+        <div id="container-and-2-dmux">
+            <div id="a-and2-dmux">
+                <div id="val-a-and2-dmux">0</div>
+            </div>
+            <div id="a-connect-and2-dmux">
+
+            </div>
+            <div id="b-and2-dmux">
+                <div id="val-b-and2-dmux">0</div>
+            </div>
+            <div id="b-connect-and2-dmux">
+
+            </div>
+            <div id="and2-gate-dmux">
+                <div id="and2-name-dmux">AND</div>
+            </div>
+            <div id="output-and2-dmux">
+                <div id="val-output-and2-dmux">0</div>
+            </div>
+            <div id="output-connect-and2-dmux">
+
+            </div>
+        </div>
+    </div>
+    <div id="div-table-in-dmux">
+        <div>Truth Table:</div>
+        <table id="table-in-dmux">
+            <thead>
+                <tr>
+                    <th class="dmux-in-th">I</th>
+                    <th class="dmux-in-th">Sel</th>
+                    <th class="dmux-in-th">A</th>
+                    <th class="dmux-in-th">B</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr id="dmux-in-0-0">
+                    <td class="dmux-in-td">0</td>
+                    <td class="dmux-in-td">0</td>
+                    <td class="dmux-in-td">0</td>
+                    <td class="dmux-in-td">0</td>
+                </tr>
+                <tr id="dmux-in-0-1">
+                    <td class="dmux-in-td">0</td>
+                    <td class="dmux-in-td">1</td>
+                    <td class="dmux-in-td">0</td>
+                    <td class="dmux-in-td">0</td>
+                </tr>
+                <tr id="dmux-in-1-0">
+                    <td class="dmux-in-td">1</td>
+                    <td class="dmux-in-td">0</td>
+                    <td class="dmux-in-td">1</td>
+                    <td class="dmux-in-td">0</td>
+                </tr>
+                <tr id="dmux-in-1-1">
+                    <td class="dmux-in-td">1</td>
+                    <td class="dmux-in-td">1</td>
+                    <td class="dmux-in-td">0</td>
+                    <td class="dmux-in-td">1</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <script>
+        function seldmux() {
+            const a = document.getElementById('circle-sel-dmux')
+            const acon1 = document.getElementById('connect-sel-not-1-dmux')
+            const acon2 = document.getElementById('connect-sel-not-2-dmux')
+            const vala = document.getElementById('val-sel-dmux')
+            if (vala.innerText == "0") {
+                // console.log("a0");
+                a.style.backgroundColor = colg
+                acon1.style.backgroundColor = colg
+                acon2.style.backgroundColor = colg
+                a.transition = "background-color 2s ease-in"
+                vala.innerText = "1"
+                xdmux()
+                bAnd2dmux()
+            }
+            else {
+                // console.log("a1");
+                a.style.backgroundColor = colgr
+                acon1.style.backgroundColor = colgr
+                acon2.style.backgroundColor = colgr
+                a.transition = "background-color 2s ease-in"
+                vala.innerText = "0"
+                xdmux()
+                bAnd2dmux()
+            }
+
+        }
+        function circleindmux() {
+            const a = document.getElementById('circle-in-dmux')
+            const acon = document.getElementById('connect-in-and1-dmux')
+            const acon1 = document.getElementById('connect-in-and1-and2-dmux')
+            const acon2 = document.getElementById('connect-in-and2-dmux')
+            const vala = document.getElementById('val-in-dmux')
+            if (vala.innerText == "0") {
+                // console.log("a0");
+                a.style.backgroundColor = colg
+                acon.style.backgroundColor = colg
+                acon1.style.backgroundColor = colg
+                acon2.style.backgroundColor = colg
+                vala.innerText = "1"
+                a.transition = "background-color 2s ease-in"
+                acon.transition = "background-color 2s ease-in"
+                aAnd1dmux()
+                aAnd2dmux()
+            }
+            else {
+                // console.log("a1");
+                a.style.backgroundColor = colgr
+                acon.style.backgroundColor = colgr
+                acon1.style.backgroundColor = colgr
+                acon2.style.backgroundColor = colgr
+                vala.innerText = "0"
+                a.transition = "background-color 2s ease-in"
+                acon.transition = "background-color 2s ease-in"
+                aAnd1dmux()
+                aAnd2dmux()
+            }
+        }
+        function outputXdmux() {
+            const out = document.getElementById('output-x-dmux')
+            const outcon = document.getElementById('output-connect-x-dmux')
+            const notout = document.getElementById('not-circle-dmux')
+            const valout = document.getElementById('val-output-x-dmux')
+            const a = document.getElementById('val-sel-dmux')
+            if (a.innerText == "0") {
+                out.style.backgroundColor = colg
+                outcon.style.backgroundColor = colg
+                notout.style.backgroundColor = colg
+                valout.innerText = "1"
+                notdmux(a.innerText)
+            } else {
+                out.style.backgroundColor = colgr
+                outcon.style.backgroundColor = colgr
+                notout.style.backgroundColor = colgr
+                valout.innerText = "0"
+                notdmux(a.innerText)
+            }
+        }
+        function notdmux(a) {
+            // console.log("not"); -->
+            let not = document.getElementById('not-gate-dmux')
+            const valb = document.getElementById('val-b-and1-dmux')
+            if (a == "0") {
+                not.style.backgroundColor = colg
+                valb.innerText = "0"
+                bAnd1dmux()
+            }
+            else {
+                not.style.backgroundColor = colgr
+                valb.innerText = "1"
+                bAnd1dmux()
+            }
+        }
+        function xdmux() {
+            const a = document.getElementById('x-dmux')
+            const acon = document.getElementById('x-connect-dmux')
+            const vala = document.getElementById('val-x-dmux')
+            if (vala.innerText == "0") {
+                // console.log("a0");
+                a.style.backgroundColor = colg
+                acon.style.backgroundColor = colg
+                a.transition = "background-color 2s ease-in"
+                acon.transition = "background-color 2s ease-in"
+                vala.innerText = "1"
+                outputXdmux()
+            }
+            else {
+                // console.log("a1");
+                a.style.backgroundColor = colgr
+                acon.style.backgroundColor = colgr
+                a.transition = "background-color 2s ease-in"
+                acon.transition = "background-color 2s ease-in"
+                vala.innerText = "0"
+                outputXdmux()
+            }
+
+        }
+        function outputAnd1dmux() {
+            // console.log("output");
+            const out = document.getElementById('output-and1-dmux')
+            const outcon = document.getElementById('output-connect-and1-dmux')
+            const valout = document.getElementById('val-output-and1-dmux')
+            const a = document.getElementById('val-a-and1-dmux')
+            const b = document.getElementById('val-b-and1-dmux')
+            if (a.innerText == "1" && b.innerText == "1") {
+                out.style.backgroundColor = colg
+                outcon.style.backgroundColor = colg
+                valout.innerText = "1"
+                and1dmux(a.innerText, b.innerText)
+            } else if (a.innerText == "0" && b.innerText == "0") {
+                out.style.backgroundColor = colgr
+                outcon.style.backgroundColor = colgr
+                valout.innerText = "0"
+                and1dmux(a.innerText, b.innerText)
+            }
+            else if (a.innerText == "0" && b.innerText == "1") {
+                out.style.backgroundColor = colgr
+                outcon.style.backgroundColor = colgr
+                valout.innerText = "0"
+                and1dmux(a.innerText, b.innerText)
+            }
+            else {
+                out.style.backgroundColor = colgr
+                outcon.style.backgroundColor = colgr
+                valout.innerText = "0"
+                and1dmux(a.innerText, b.innerText)
+            }
+        }
+        function outputAnd2dmux() {
+            // console.log("output");
+            const out = document.getElementById('output-and2-dmux')
+            const outcon = document.getElementById('output-connect-and2-dmux')
+            const valout = document.getElementById('val-output-and2-dmux')
+            const a = document.getElementById('val-a-and2-dmux')
+            const b = document.getElementById('val-b-and2-dmux')
+            if (a.innerText == "1" && b.innerText == "1") {
+                out.style.backgroundColor = colg
+                outcon.style.backgroundColor = colg
+                valout.innerText = "1"
+                and2dmux(a.innerText, b.innerText)
+            } else if (a.innerText == "0" && b.innerText == "0") {
+                out.style.backgroundColor = colgr
+                outcon.style.backgroundColor = colgr
+                valout.innerText = "0"
+                and2dmux(a.innerText, b.innerText)
+            }
+            else if (a.innerText == "0" && b.innerText == "1") {
+                out.style.backgroundColor = colgr
+                outcon.style.backgroundColor = colgr
+                valout.innerText = "0"
+                and2dmux(a.innerText, b.innerText)
+            }
+            else {
+                out.style.backgroundColor = colgr
+                outcon.style.backgroundColor = colgr
+                valout.innerText = "0"
+                and2dmux(a.innerText, b.innerText)
+            }
+        }
+        function and1dmux(a, b) {
+            // console.log("and");
+            const and = document.getElementById('and1-gate-dmux')
+            if (a == "1" && b == "1") {
+                and.style.backgroundColor = colg
+            }
+            else {
+                and.style.backgroundColor = colgr
+            }
+        }
+        function and2dmux(a, b) {
+            // console.log("and");
+            const and = document.getElementById('and2-gate-dmux')
+            if (a == "1" && b == "1") {
+                and.style.backgroundColor = colg
+            }
+            else {
+                and.style.backgroundColor = colgr
+            }
+        }
+        function aAnd1dmux() {
+            const a = document.getElementById('a-and1-dmux')
+            const acon = document.getElementById('a-connect-and1-dmux')
+            const vala = document.getElementById('val-a-and1-dmux')
+            if (vala.innerText == "0") {
+                // console.log("a0");
+                a.style.backgroundColor = colg
+                acon.style.backgroundColor = colg
+                vala.innerText = "1"
+                a.transition = "background-color 2s ease-in"
+                acon.transition = "background-color 2s ease-in"
+                outputAnd1dmux()
+            }
+            else {
+                // console.log("a1");
+                a.style.backgroundColor = colgr
+                acon.style.backgroundColor = colgr
+                vala.innerText = "0"
+                a.transition = "background-color 2s ease-in"
+                acon.transition = "background-color 2s ease-in"
+                outputAnd1dmux()
+            }
+
+        }
+        function aAnd2dmux() {
+            const a = document.getElementById('a-and2-dmux')
+            const acon = document.getElementById('a-connect-and2-dmux')
+            const vala = document.getElementById('val-a-and2-dmux')
+            if (vala.innerText == "0") {
+                // console.log("a0");
+                a.style.backgroundColor = colg
+                acon.style.backgroundColor = colg
+                vala.innerText = "1"
+                a.transition = "background-color 2s ease-in"
+                acon.transition = "background-color 2s ease-in"
+                outputAnd2dmux()
+            }
+            else {
+                // console.log("a1");
+                a.style.backgroundColor = colgr
+                acon.style.backgroundColor = colgr
+                vala.innerText = "0"
+                a.transition = "background-color 2s ease-in"
+                acon.transition = "background-color 2s ease-in"
+                outputAnd2dmux()
+            }
+
+        }
+        function bAnd1dmux() {
+            const b = document.getElementById('b-and1-dmux')
+            const bcon = document.getElementById('b-connect-and1-dmux')
+            const valb = document.getElementById('val-b-and1-dmux')
+            if (valb.innerText == "0") {
+                // console.log("b0");
+                b.style.backgroundColor = colg
+                bcon.style.backgroundColor = colg
+                valb.innerText = "1"
+                b.transition = "background-color 2s ease-in"
+                bcon.transition = "background-color 2s ease-in"
+                outputAnd1dmux()
+            }
+            else {
+                // console.log("b1");
+                b.style.backgroundColor = colgr
+                bcon.style.backgroundColor = colgr
+                valb.innerText = "0"
+                b.transition = "background-color 2s ease-in"
+                bcon.transition = "background-color 2s ease-in"
+                outputAnd1dmux()
+            }
+
+        }
+        function bAnd2dmux() {
+            const b = document.getElementById('b-and2-dmux')
+            const bcon = document.getElementById('b-connect-and2-dmux')
+            const valb = document.getElementById('val-b-and2-dmux')
+            if (valb.innerText == "0") {
+                // console.log("b0");
+                b.style.backgroundColor = colg
+                bcon.style.backgroundColor = colg
+                valb.innerText = "1"
+                b.transition = "background-color 2s ease-in"
+                bcon.transition = "background-color 2s ease-in"
+                outputAnd2dmux()
+            }
+            else {
+                // console.log("b1");
+                b.style.backgroundColor = colgr
+                bcon.style.backgroundColor = colgr
+                valb.innerText = "0"
+                b.transition = "background-color 2s ease-in"
+                bcon.transition = "background-color 2s ease-in"
+                outputAnd2dmux()
+            }
+
+        }
+    </script>
+</body>

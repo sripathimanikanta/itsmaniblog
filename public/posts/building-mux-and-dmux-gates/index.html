@@ -1,0 +1,3562 @@
+<!doctype html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html
+  class="not-ready lg:text-base"
+  style="--bg: #faf8f1"
+  lang="en-us"
+  dir="ltr"
+>
+  <head><script src="/itsmaniblog/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=itsmaniblog/livereload" data-no-instant defer></script>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, shrink-to-fit=no"
+  />
+
+  
+  <title>Building Mux and Dmux Gates - Its Mani&#39;s Blog</title>
+
+  
+  <meta name="theme-color" />
+
+  
+  
+  
+  
+  <meta name="description" content="
+DISCLAMINER:
+
+I am no expert in electrical engineering. Even though i have Bachelor&rsquo;s in Computers. I&rsquo;m just a curious learner and a teacher how is curious enough to teach.
+If i make any mistake, i happy to get it right and learn from you.
+Thank You!!!
+
+Contents:
+-Mux
+-DMux
+Mux
+What is multiplexer??
+A. Mulitpler as it called as MUX in short. It takes multiple inputs (signal/pulse) and gives single output(signals).
+Basically MUX selects one of several inputs." />
+  <meta name="author" content="MANI" />
+  
+
+  
+  
+  
+  
+  
+  
+  <link rel="preload stylesheet" as="style" href="http://localhost:1313/itsmaniblog/main.min.css" />
+
+  
+  
+  
+  
+  
+  <link rel="preload" as="image" href="http://localhost:1313/itsmaniblog/theme.svg" />
+
+  
+  
+  
+  
+  <link rel="preload" as="image" href="/logo.jpg" />
+  
+  
+
+  
+  
+  <link rel="preload" as="image" href="http://localhost:1313/itsmaniblog/twitter.svg" />
+  
+  <link rel="preload" as="image" href="http://localhost:1313/itsmaniblog/github.svg" />
+  
+  <link rel="preload" as="image" href="http://localhost:1313/itsmaniblog/linkedin.svg" />
+  
+  
+
+  
+  
+  <script
+    defer
+    src="http://localhost:1313/itsmaniblog/highlight.min.js"
+    onload="hljs.initHighlightingOnLoad();"
+  ></script>
+  
+
+  
+  
+  
+
+  
+  <link
+    rel="icon"
+    href="http://localhost:1313/itsmaniblog/favicon.ico"
+  />
+  <link
+    rel="apple-touch-icon"
+    href="http://localhost:1313/itsmaniblog/apple-touch-icon.png"
+  />
+
+  
+  <meta name="generator" content="Hugo 0.145.0">
+
+  
+  
+  
+</head>
+
+  
+  <body class="text-black duration-200 ease-out dark:text-white">
+    <header class="mx-auto flex h-[4.5rem] max-w-[--w] px-8 lg:justify-center">
+  <div class="relative z-50 ltr:mr-auto rtl:ml-auto flex items-center">
+    <a class="-translate-y-[1px] text-3xl font-bold" href="http://localhost:1313/itsmaniblog/"
+      >Its Mani&#39;s Blog</a
+    >
+    <div
+      class="btn-dark text-[0] ltr:ml-4 rtl:mr-4 h-6 w-6 shrink-0 cursor-pointer [background:url(./theme.svg)_left_center/cover_no-repeat] dark:invert dark:[background-position:right]"
+      role="button"
+      aria-label="Dark"
+    ></div>
+  </div>
+
+  <div
+    class="btn-menu relative z-50 ltr:-mr-8 rtl:-ml-8 flex h-[4.5rem] w-[5rem] shrink-0 cursor-pointer flex-col items-center justify-center gap-2.5 lg:hidden"
+    role="button"
+    aria-label="Menu"
+  ></div>
+
+  
+
+  <script>
+    
+    const htmlClass = document.documentElement.classList;
+    setTimeout(() => {
+      htmlClass.remove('not-ready');
+    }, 10);
+
+    
+    const btnMenu = document.querySelector('.btn-menu');
+    btnMenu.addEventListener('click', () => {
+      htmlClass.toggle('open');
+    });
+
+    
+    const metaTheme = document.querySelector('meta[name="theme-color"]');
+    const lightBg = '#faf8f1'.replace(/"/g, '');
+    const setDark = (isDark) => {
+      metaTheme.setAttribute('content', isDark ? '#000' : lightBg);
+      htmlClass[isDark ? 'add' : 'remove']('dark');
+      localStorage.setItem('dark', isDark);
+    };
+
+    
+    const darkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+    if (htmlClass.contains('dark')) {
+      setDark(true);
+    } else {
+      const darkVal = localStorage.getItem('dark');
+      setDark(darkVal ? darkVal === 'true' : darkScheme.matches);
+    }
+
+    
+    darkScheme.addEventListener('change', (event) => {
+      setDark(event.matches);
+    });
+
+    
+    const btnDark = document.querySelector('.btn-dark');
+    btnDark.addEventListener('click', () => {
+      setDark(localStorage.getItem('dark') !== 'true');
+    });
+  </script>
+
+  <div
+    class="nav-wrapper fixed inset-x-0 top-full z-40 flex h-full select-none flex-col justify-center pb-16 duration-200 dark:bg-black lg:static lg:h-auto lg:flex-row lg:!bg-transparent lg:pb-0 lg:transition-none"
+  >
+    
+    
+    <nav class="lg:ml-12 lg:flex lg:flex-row lg:items-center lg:space-x-10 rtl:space-x-reverse">
+      
+      <a
+        class="block text-center text-xl leading-[5rem] lg:text-base lg:font-normal"
+        href="/itsmaniblog/about/"
+        >About</a
+      >
+      
+      <a
+        class="block text-center text-xl leading-[5rem] lg:text-base lg:font-normal"
+        href="/itsmaniblog/contact/"
+        >Contact</a
+      >
+      
+    </nav>
+    
+
+    
+    <nav
+      class="mt-12 flex justify-center space-x-10 rtl:space-x-reverse dark:invert ltr:lg:ml-14 rtl:lg:mr-14 lg:mt-0 lg:items-center"
+    >
+      
+      <a
+        class="h-7 w-7 text-[0] [background:var(--url)_center_center/cover_no-repeat] lg:h-6 lg:w-6"
+        style="--url: url(./twitter.svg)"
+        href="https://twitter.com/msripathi035"
+        target="_blank"
+        rel="me"
+      >
+        twitter
+      </a>
+      
+      <a
+        class="h-7 w-7 text-[0] [background:var(--url)_center_center/cover_no-repeat] lg:h-6 lg:w-6"
+        style="--url: url(./github.svg)"
+        href="https://github.com/sripathimanikanta"
+        target="_blank"
+        rel="me"
+      >
+        github
+      </a>
+      
+      <a
+        class="h-7 w-7 text-[0] [background:var(--url)_center_center/cover_no-repeat] lg:h-6 lg:w-6"
+        style="--url: url(./linkedin.svg)"
+        href="https://linkedin.com/in/manikanta-sripathi-485297194"
+        target="_blank"
+        rel="me"
+      >
+        linkedin
+      </a>
+      
+    </nav>
+    
+  </div>
+</header>
+
+
+      
+    <main
+      class="prose prose-neutral relative mx-auto min-h-[calc(100vh-9rem)] max-w-[--w] px-8 pb-16 pt-14 dark:prose-invert"
+    >
+      
+
+<article>
+  <header class="mb-14">
+    <h1 class="!my-0 pb-2.5">Building Mux and Dmux Gates</h1>
+
+    
+    <div class="text-xs antialiased opacity-60">
+      
+      <time>May 9, 2025</time>
+      
+      
+      
+      
+    </div>
+    
+  </header>
+
+  <section><blockquote>
+<h3 id="disclaminer"><em><strong>DISCLAMINER:</strong></em></h3>
+<ul>
+<li>I am no expert in electrical engineering. Even though i have <em><strong>Bachelor&rsquo;s</strong></em> in <em><strong>Computers</strong></em>. I&rsquo;m just a curious learner and a teacher how is curious enough to teach.</li>
+<li>If i make any mistake, i happy to get it right and learn from you.</li>
+<li>Thank You!!!</li>
+</ul></blockquote>
+<h2 id="contents">Contents:</h2>
+<p>-<a href="#mux">Mux</a></p>
+<p>-<a href="#dmux">DMux</a></p>
+<h2 id="mux">Mux</h2>
+<h4 id="what-is-multiplexer">What is multiplexer??</h4>
+<p>A. Mulitpler as it called as MUX in short. It takes multiple inputs (signal/pulse) and gives single output(signals).
+Basically MUX selects one of several inputs.</p>
+<p>Abstract Diagram:
+<head>
+    <style>
+        #choose-mux {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            column-gap: 1em;
+        }
+
+        #mux-outside-butt {
+            background-color: red;
+            padding: 1em;
+            border-radius: 0.5em;
+            cursor: pointer;
+        }
+
+        #mux-inside-butt {
+            background-color: blue;
+            padding: 1em;
+            border-radius: 0.5em;
+            cursor: pointer;
+        }
+    </style>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        #mux-cont-out {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #container-mux {
+             
+            height: 150px;
+            width: 150px;
+            position: relative;
+            display: flex;
+        }
+
+        #a-mux {
+            position: absolute;
+            top: 15px;
+            height: 30px;
+            width: 30px;
+            border: 1px solid black;
+            background-color: rgb(199, 199, 199);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #b-mux {
+            text-align: center;
+            position: absolute;
+            top: 65px;
+            height: 30px;
+            width: 30px;
+            border: 1px solid black;
+            background-color: rgb(199, 199, 199);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #sel-mux {
+            text-align: center;
+            position: absolute;
+            top: 115px;
+            left: 70px;
+            height: 30px;
+            width: 30px;
+            border: 1px solid black;
+            background-color: rgb(199, 199, 199);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #a-connect-mux {
+            position: absolute;
+            top: 25px;
+            left: 30px;
+            height: 10px;
+            width: 20px;
+            border: 1px solid black;
+            border-left: 0;
+            border-right: 0;
+            background-color: rgb(199, 199, 199);
+        }
+
+        #b-connect-mux {
+            position: absolute;
+            top: 75px;
+            left: 30px;
+            height: 10px;
+            width: 20px;
+            border: 1px solid black;
+            border-left: 0;
+            border-right: 0;
+            background-color: rgb(199, 199, 199);
+        }
+
+        #sel-connect-mux {
+            position: absolute;
+            top: 81px;
+            left: 80px;
+            height: 35px;
+            width: 10px;
+            border: 1px solid black;
+            border-left: 0;
+            border-right: 0;
+            background-color: rgb(199, 199, 199);
+        }
+
+        #mux-gate {
+            position: absolute;
+            top: 5px;
+            left: 50px;
+            height: 100px;
+            width: 60px;
+             
+            background-color: rgb(199, 199, 199);
+             
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            clip-path: path("M 0 0 L 100,40 V 60 L 0,99 z");
+        }
+
+        #output-mux {
+            position: absolute;
+            top: 40px;
+            left: 120px;
+            height: 30px;
+            width: 30px;
+            border: 1px solid black;
+            background-color: rgb(199, 199, 199);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 4;
+        }
+
+        #output-connect-mux {
+            position: absolute;
+            top: 50px;
+            left: 110px;
+            height: 10px;
+            width: 20px;
+            border: 1px solid black;
+            border-left: 0;
+            border-right: 0;
+            background-color: rgb(199, 199, 199);
+        }
+
+        #table-mux,
+        .mux-th,
+        .mux-td {
+            text-align: center;
+            font-weight: bold;
+        }
+    </style>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+         
+
+         
+         
+        #mux-container {
+            position: relative;
+            height: 300px;
+            transition: 1s ease-in-out;
+            clip-path: polygon(40% 0, 58% 32%, 58% 65%, 40% 100%);
+             
+             
+        }
+
+        #container-not-mux {
+             
+            height: 110px;
+             
+            position: relative;
+            display: flex;
+            top: 60px;
+            left: 50px;
+             
+        }
+
+        #container-and-1-mux {
+            height: 120px;
+            position: relative;
+            display: flex;
+            top: -80px;
+            left: 220px;
+        }
+
+        #container-and-2-mux {
+            height: 120px;
+            position: relative;
+            display: flex;
+            top: -85px;
+            left: 220px;
+        }
+
+        #circle-a-mux {
+            position: absolute;
+            top: 35px;
+            height: 30px;
+            width: 30px;
+            border: 1px solid black;
+            border-radius: 50%;
+            background-color: rgb(199, 199, 199);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #connect-a-and1-mux {
+            position: absolute;
+            top: 45px;
+            left: 31px;
+            height: 10px;
+            width: 190px;
+            border: 1px solid black;
+            border-left: 0;
+            border-right: 0;
+            background-color: rgb(199, 199, 199);
+        }
+
+        #circle-b-mux {
+            position: absolute;
+            top: 150px;
+            height: 30px;
+            width: 30px;
+            border: 1px solid black;
+            border-radius: 50%;
+            background-color: rgb(199, 199, 199);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #connect-b-and2-mux {
+            position: absolute;
+            top: 160px;
+            left: 31px;
+            height: 10px;
+            width: 190px;
+            border: 1px solid black;
+            border-left: 0;
+            border-right: 0;
+            background-color: rgb(199, 199, 199);
+        }
+
+        #circle-sel {
+            position: absolute;
+            top: 250px;
+            left: 50px;
+            height: 30px;
+            width: 30px;
+            border: 1px solid black;
+            border-radius: 50%;
+            background-color: rgb(199, 199, 199);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #connect-sel-not-1 {
+            position: absolute;
+            top: 100px;
+            left: 60px;
+            height: 150px;
+            width: 10px;
+            border: 1px solid black;
+            border-left: 0;
+            border-right: 0;
+            background-color: rgb(199, 199, 199);
+        }
+
+        #connect-sel-not-2 {
+            position: absolute;
+            top: 220px;
+            left: 60px;
+            height: 10px;
+            width: 190px;
+            border: 1px solid black;
+            border-left: 0;
+            border-right: 0;
+            background-color: rgb(199, 199, 199);
+        }
+
+        #x-mux {
+            position: absolute;
+            top: 35px;
+            height: 30px;
+            width: 30px;
+            border: 1px solid black;
+            background-color: rgb(199, 199, 199);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #x-connect-mux {
+            position: absolute;
+            top: 45px;
+            left: 31px;
+            height: 10px;
+            width: 42px;
+            border: 1px solid black;
+            border-left: 0;
+            border-right: 0;
+            background-color: rgb(199, 199, 199);
+        }
+
+        #not-circle-mux {
+            position: absolute;
+            top: 43px;
+            left: 130px;
+            height: 15px;
+            width: 15px;
+            border: 1px solid black;
+            border-radius: 50%;
+            background-color: rgb(199, 199, 199);
+            z-index: 5;
+        }
+
+        #not-gate-mux {
+            position: relative;
+             
+            top: 1px;
+            left: 50px;
+            height: 90px;
+            width: 100px;
+            background-color: rgb(199, 199, 199);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #not-gate-mux {
+             
+            clip-path: path("M 0 0 L 100,50 L 0,90 z");
+        }
+
+        #output-x-mux {
+            position: absolute;
+            top: 35px;
+            left: 170px;
+            height: 30px;
+            width: 30px;
+            border: 1px solid black;
+            background-color: rgb(199, 199, 199);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 3;
+        }
+
+        #output-connect-x-mux {
+            position: absolute;
+            top: 45px;
+            left: 140px;
+            height: 10px;
+            width: 35px;
+            border: 1px solid black;
+            border-left: 0;
+            border-right: 0;
+            background-color: rgb(199, 199, 199);
+            z-index: 0;
+        }
+
+        #a-and1-mux {
+            position: absolute;
+            top: 5px;
+            height: 30px;
+            width: 30px;
+            border: 1px solid black;
+            background-color: rgb(199, 199, 199);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #a-and2-mux {
+            position: absolute;
+            top: 5px;
+            height: 30px;
+            width: 30px;
+            border: 1px solid black;
+            background-color: rgb(199, 199, 199);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #b-and1-mux {
+            text-align: center;
+            position: absolute;
+            top: 65px;
+            height: 30px;
+            width: 30px;
+            border: 1px solid black;
+            background-color: rgb(199, 199, 199);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #b-and2-mux {
+            text-align: center;
+            position: absolute;
+            top: 65px;
+            height: 30px;
+            width: 30px;
+            border: 1px solid black;
+            background-color: rgb(199, 199, 199);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #a-connect-and1-mux {
+            position: absolute;
+            top: 15px;
+            left: 30px;
+            height: 10px;
+            width: 20px;
+            border: 1px solid black;
+            border-left: 0;
+            border-right: 0;
+            background-color: rgb(199, 199, 199);
+        }
+
+        #a-connect-and2-mux {
+            position: absolute;
+            top: 15px;
+            left: 30px;
+            height: 10px;
+            width: 20px;
+            border: 1px solid black;
+            border-left: 0;
+            border-right: 0;
+            background-color: rgb(199, 199, 199);
+        }
+
+        #b-connect-and1-mux {
+            position: absolute;
+            top: 75px;
+            left: 30px;
+            height: 10px;
+            width: 20px;
+            border: 1px solid black;
+            border-left: 0;
+            border-right: 0;
+            background-color: rgb(199, 199, 199);
+        }
+
+        #b-connect-and2-mux {
+            position: absolute;
+            top: 75px;
+            left: 30px;
+            height: 10px;
+            width: 20px;
+            border: 1px solid black;
+            border-left: 0;
+            border-right: 0;
+            background-color: rgb(199, 199, 199);
+        }
+
+        #and1-gate-mux {
+            position: absolute;
+            top: 5px;
+            left: 50px;
+            height: 90px;
+            width: 100px;
+            border: 1px solid black;
+            background-color: rgb(199, 199, 199);
+            border-radius: 0em 50% 50% 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #and2-gate-mux {
+            position: absolute;
+            top: 5px;
+            left: 50px;
+            height: 90px;
+            width: 100px;
+            border: 1px solid black;
+            background-color: rgb(199, 199, 199);
+            border-radius: 0em 50% 50% 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #output-and1-mux {
+            position: absolute;
+            top: 35px;
+            left: 170px;
+            height: 30px;
+            width: 30px;
+            border: 1px solid black;
+            background-color: rgb(199, 199, 199);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #output-and2-mux {
+            position: absolute;
+            top: 35px;
+            left: 170px;
+            height: 30px;
+            width: 30px;
+            border: 1px solid black;
+            background-color: rgb(199, 199, 199);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #output-connect-and1-mux {
+            position: absolute;
+            top: 45px;
+            left: 150px;
+            height: 10px;
+            width: 20px;
+            border: 1px solid black;
+            border-left: 0;
+            border-right: 0;
+            background-color: rgb(199, 199, 199);
+        }
+
+        #output-connect-and2-mux {
+            position: absolute;
+            top: 45px;
+            left: 150px;
+            height: 10px;
+            width: 20px;
+            border: 1px solid black;
+            border-left: 0;
+            border-right: 0;
+            background-color: rgb(199, 199, 199);
+        }
+
+        #container-or-mux {
+            position: absolute;
+            display: flex;
+            top: 87px;
+            left: 390px
+        }
+
+        #a-or-mux {
+            position: absolute;
+            top: 5px;
+            height: 30px;
+            width: 30px;
+            border: 1px solid black;
+            background-color: rgb(199, 199, 199);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #b-or-mux {
+            text-align: center;
+            position: absolute;
+            top: 65px;
+            height: 30px;
+            width: 30px;
+            border: 1px solid black;
+            background-color: rgb(199, 199, 199);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #a-connect-or-mux {
+            position: absolute;
+            top: 15px;
+            left: 30px;
+            height: 10px;
+            width: 40px;
+            border: 1px solid black;
+            border-left: 0;
+            border-right: 0;
+            background-color: rgb(199, 199, 199);
+        }
+
+        #b-connect-or-mux {
+            position: absolute;
+            top: 75px;
+            left: 30px;
+            height: 10px;
+            width: 40px;
+            border: 1px solid black;
+            border-left: 0;
+            border-right: 0;
+            background-color: rgb(199, 199, 199);
+        }
+
+        #or-gate-mux {
+            position: relative;
+             
+            top: 5px;
+            left: 50px;
+            height: 90px;
+            width: 100px;
+            background-color: rgb(199, 199, 199);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #or-gate-mux {
+            clip-path: path("M 0 0 C 100 10, 100 50, 100 45 C 90 80, 20 90, 0 90 C 30 80, 30 10, 0 0");
+        }
+
+        #output-or-mux {
+            position: absolute;
+            top: 35px;
+            left: 170px;
+            height: 30px;
+            width: 30px;
+            border: 1px solid black;
+            background-color: rgb(199, 199, 199);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #output-connect-or-mux {
+            position: absolute;
+            top: 45px;
+            left: 149px;
+            height: 10px;
+            width: 21px;
+            border: 1px solid black;
+            border-left: 0;
+            border-right: 0;
+            background-color: rgb(199, 199, 199);
+        }
+
+        #table-mux-in,
+        .mux-th-in,
+        .mux-td-in {
+            text-align: center;
+            font-weight: bold;
+        }
+
+        #mux-cover {
+            position: absolute;
+            top: 5px;
+            left: 50px;
+            height: 100px;
+            width: 60px;
+             
+            background-color: rgb(199, 199, 199);
+            clip-path: path("M 0 0 L 100,40 V 60 L 0,99 z");
+        }
+    </style>
+    <style>
+        #mux-cover {
+            position: relative;
+             
+             
+            height: 100px;
+            width: 60px;
+             
+            background-color: rgb(199, 199, 199);
+             
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            clip-path: path("M 0 0 L 100,40 V 60 L 0,99 z");
+        }
+
+         
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 0;
+        }
+
+        .shape {
+            top: -590px;
+            left: 17px;
+            width: 5em;
+            height: 5em;
+            position: relative;
+            clip-path: url(#slice1);
+            background: rgb(199, 199, 199);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+             
+            opacity: 0;
+        }
+    </style>
+    <script>
+        window.addEventListener("load", () => {
+            firstLoad()
+        })
+    </script>
+</head>
+
+<body>
+    <h3>
+        
+Interactive Mux Gate:
+
+    </h3>
+    <h4 id="choose-mux">
+        <div id="mux-outside-butt" onclick="muxOutside()">
+            Outside
+        </div>
+        <div id="mux-inside-butt" onclick="muxInside()">
+            Inside
+        </div>
+    </h4>
+    
+    <svg width="0" height="0" viewBox="0 0 148 147" version="1.1" xmlns="http://www.w3.org/2000/svg"
+        style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+        <clipPath id="slice1" clipPathUnits="objectBoundingBox">
+            <path transform="scale(0.01, 0.01)" d="M 0 0 L 70,25 V 80 L 0,99 z" style="fill:none;" />
+        </clipPath>
+    </svg>
+    <div id="mux-outside">
+        <div id="mux-cont-out">
+            <div id="container-mux">
+                
+                <div id="a-mux" onclick="aMux()">
+                    <div id="val-a-out-mux">0</div>
+                </div>
+                <div id="a-connect-mux">
+
+                </div>
+                <div id="b-mux" onclick="bMux()">
+                    <div id="val-b-out-mux">0</div>
+                </div>
+                <div id="b-connect-mux">
+
+                </div>
+                <div id="sel-mux" onclick="selMux()">
+                    <div id="val-sel-out-mux">0</div>
+                </div>
+                <div id="sel-connect-mux">
+
+                </div>
+                <div id="mux-gate">
+                    <div id="mux-name">MUX</div>
+                </div>
+                <div id="output-mux">
+                    <div id="val-output-out-mux">0</div>
+                </div>
+                <div id="output-connect-mux">
+
+                </div>
+            </div>
+        </div>
+        <div id="div-table-mux">
+            <div>Truth Table:</div>
+            <table id="table-mux">
+                <thead>
+                    <tr>
+                        <th class="mux-th">A</th>
+                        <th class="mux-th">B</th>
+                        <th class="mux-th">Sel</th>
+                        <th class="mux-th">X</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr id="mux-0-0-0">
+                        <td class="mux-td">0</td>
+                        <td class="mux-td">0</td>
+                        <td class="mux-td">0</td>
+                        <td class="mux-td">0</td>
+                    </tr>
+                    <tr id="mux-0-0-1">
+                        <td class="mux-td">0</td>
+                        <td class="mux-td">0</td>
+                        <td class="mux-td">1</td>
+                        <td class="mux-td">0</td>
+                    </tr>
+                    <tr id="mux-0-1-0">
+                        <td class="mux-td">0</td>
+                        <td class="mux-td">1</td>
+                        <td class="mux-td">0</td>
+                        <td class="mux-td">0</td>
+                    </tr>
+                    <tr id="mux-0-1-1">
+                        <td class="mux-td">0</td>
+                        <td class="mux-td">1</td>
+                        <td class="mux-td">1</td>
+                        <td class="mux-td">1</td>
+                    </tr>
+                    <tr id="mux-1-0-0">
+                        <td class="mux-td">1</td>
+                        <td class="mux-td">0</td>
+                        <td class="mux-td">0</td>
+                        <td class="mux-td">1</td>
+                    </tr>
+                    <tr id="mux-1-0-1">
+                        <td class="mux-td">1</td>
+                        <td class="mux-td">0</td>
+                        <td class="mux-td">1</td>
+                        <td class="mux-td">0</td>
+                    </tr>
+                    <tr id="mux-1-1-0">
+                        <td class="mux-td">1</td>
+                        <td class="mux-td">1</td>
+                        <td class="mux-td">0</td>
+                        <td class="mux-td">1</td>
+                    </tr>
+                    <tr id="mux-1-1-1">
+                        <td class="mux-td">1</td>
+                        <td class="mux-td">1</td>
+                        <td class="mux-td">1</td>
+                        <td class="mux-td">1</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div id="mux-inside">
+        <div id="mux-container">
+            <div id="circle-a-mux" onclick="circleamux()">
+                <div id="val-a-in-mux">0</div>
+            </div>
+            <div id="connect-a-and1-mux">
+            </div>
+            <div id="circle-b-mux" onclick="circlebmux()">
+                <div id="val-b-in-mux">0</div>
+            </div>
+            <div id="connect-b-and2-mux">
+
+            </div>
+            <div id="circle-sel" onclick="selmux()">
+                <div id="val-sel-in-mux">0</div>
+            </div>
+            <div id="connect-sel-not-1">
+
+            </div>
+            <div id="connect-sel-not-2">
+
+            </div>
+            <div id="container-not-mux">
+                <div id="x-mux">
+                    <div id="val-x-mux">0</div>
+                </div>
+                <div id="x-connect-mux">
+
+                </div>
+                <div id="not-circle-mux">
+
+                </div>
+                <div id="not-gate-mux">
+                    <div id="not-name-mux">not</div>
+                </div>
+                <div id="output-x-mux">
+                    <div id="val-output-x-mux">0</div>
+                </div>
+                <div id="output-connect-x-mux">
+
+                </div>
+            </div>
+            <div id="container-and-1-mux">
+                
+                <div id="a-and1-mux">
+                    <div id="val-a-and1-mux">0</div>
+                </div>
+                <div id="a-connect-and1-mux">
+
+                </div>
+                <div id="b-and1-mux">
+                    <div id="val-b-and1-mux">0</div>
+                </div>
+                <div id="b-connect-and1-mux">
+
+                </div>
+                <div id="and1-gate-mux">
+                    <div id="and1-name-mux">AND</div>
+                </div>
+                <div id="output-and1-mux">
+                    <div id="val-output-and1-mux">0</div>
+                </div>
+                <div id="output-connect-and1-mux">
+
+                </div>
+            </div>
+            <div id="container-and-2-mux">
+                <div id="a-and2-mux">
+                    <div id="val-a-and2-mux">0</div>
+                </div>
+                <div id="a-connect-and2-mux">
+
+                </div>
+                <div id="b-and2-mux">
+                    <div id="val-b-and2-mux">0</div>
+                </div>
+                <div id="b-connect-and2-mux">
+
+                </div>
+                <div id="and2-gate-mux">
+                    <div id="and2-name-mux">AND</div>
+                </div>
+                <div id="output-and2-mux">
+                    <div id="val-output-and2-mux">0</div>
+                </div>
+                <div id="output-connect-and2-mux">
+
+                </div>
+            </div>
+            <div id="container-or-mux">
+                
+                <div id="a-or-mux">
+                    <div id="val-a-or-mux">0</div>
+                </div>
+                <div id="a-connect-or-mux">
+
+                </div>
+                <div id="b-or-mux">
+                    <div id="val-b-or-mux">0</div>
+                </div>
+                <div id="b-connect-or-mux">
+
+                </div>
+                <div id="or-gate-mux">
+                    <div id="or-name-mux">OR</div>
+                </div>
+                <div id="output-or-mux">
+                    <div id="val-output-or-mux">0</div>
+                </div>
+                <div id="output-connect-or-mux">
+
+                </div>
+            </div>
+            
+        </div>
+
+        <div id="div-table-mux-in">
+            <div>Truth Table:</div>
+            <table id="table-mux-in">
+                <thead>
+                    <tr>
+                        <th class="mux-th-in">A</th>
+                        <th class="mux-th-in">B</th>
+                        <th class="mux-th-in">Sel</th>
+                        <th class="mux-th-in">X</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr id="mux-0-0-0-in">
+                        <td class="mux-td-in">0</td>
+                        <td class="mux-td-in">0</td>
+                        <td class="mux-td-in">0</td>
+                        <td class="mux-td-in">0</td>
+                    </tr>
+                    <tr id="mux-0-0-1-in">
+                        <td class="mux-td-in">0</td>
+                        <td class="mux-td-in">0</td>
+                        <td class="mux-td-in">1</td>
+                        <td class="mux-td-in">0</td>
+                    </tr>
+                    <tr id="mux-0-1-0-in">
+                        <td class="mux-td-in">0</td>
+                        <td class="mux-td-in">1</td>
+                        <td class="mux-td-in">0</td>
+                        <td class="mux-td-in">0</td>
+                    </tr>
+                    <tr id="mux-0-1-1-in">
+                        <td class="mux-td-in">0</td>
+                        <td class="mux-td-in">1</td>
+                        <td class="mux-td-in">1</td>
+                        <td class="mux-td-in">1</td>
+                    </tr>
+                    <tr id="mux-1-0-0-in">
+                        <td class="mux-td-in">1</td>
+                        <td class="mux-td-in">0</td>
+                        <td class="mux-td-in">0</td>
+                        <td class="mux-td-in">1</td>
+                    </tr>
+                    <tr id="mux-1-0-1-in">
+                        <td class="mux-td-in">1</td>
+                        <td class="mux-td-in">0</td>
+                        <td class="mux-td-in">1</td>
+                        <td class="mux-td-in">0</td>
+                    </tr>
+                    <tr id="mux-1-1-0-in">
+                        <td class="mux-td-in">1</td>
+                        <td class="mux-td-in">1</td>
+                        <td class="mux-td-in">0</td>
+                        <td class="mux-td-in">1</td>
+                    </tr>
+                    <tr id="mux-1-1-1-in">
+                        <td class="mux-td-in">1</td>
+                        <td class="mux-td-in">1</td>
+                        <td class="mux-td-in">1</td>
+                        <td class="mux-td-in">1</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="container">
+        <div class='shape'></div>
+    </div>
+    <script>
+        const colg = "rgb(124, 247, 132)";
+        const colgr = "rgb(199, 199, 199)";
+        function firstLoad() {
+            const muxoutside = document.getElementById('mux-outside')
+            const muxinside = document.getElementById('mux-inside')
+            muxoutside.style.display = "block"
+            muxinside.style.display = "none"
+        }
+        function muxOutside() {
+            const muxoutside = document.getElementById('mux-outside')
+            const muxinside = document.getElementById('mux-inside')
+            const contmux = document.getElementById('container-mux')
+            const muxcont = document.getElementById('mux-container')
+            const muxshape = document.getElementsByClassName('shape')
+            muxcont.style.clipPath = "polygon(40% 0, 58% 32%, 58% 65%, 40% 100%)";
+            muxcont.style.transition = "all 2s ease-in"
+            muxcont.addEventListener('transitionend', () => {
+                muxcont.style.opacity = "0"
+                muxcont.style.transition = "all 2s ease-in"
+                setTimeout(() => {
+
+                    muxshape[0].style.opacity = 1
+                    muxshape[0].style.display = "block"
+                    muxshape[0].style.transition = "all 2s ease-in"
+                    setTimeout(() => {
+                        muxshape[0].style.height = "5em"
+                        muxshape[0].style.width = "5em"
+                        muxshape[0].style.top = "-750px"
+                        muxshape[0].style.transition = "all 2s ease-in"
+                        muxoutside.style.opacity = 1
+                        muxoutside.style.display = "block"
+                        muxoutside.style.transition = "all 2s ease-in"
+                        muxinside.style.display = "none"
+                        muxshape[0].addEventListener('transitionend', () => {
+                            contmux.style.opacity = 1
+                            contmux.style.height = "150px"
+                            contmux.style.transition = "all 1s ease-in"
+                            setTimeout(() => {
+                                muxshape[0].style.opacity = 0
+                                muxshape[0].style.display = "none"
+                                muxshape[0].style.transition = "all 2s ease-in"
+                            }, 200);
+                        })
+                    }, 200)
+                }, 200);
+            })
+        }
+        function muxInside() {
+            const muxoutside = document.getElementById('mux-outside')
+            const muxinside = document.getElementById('mux-inside')
+            const muxcont = document.getElementById('container-mux')
+            const muxshape = document.getElementsByClassName('shape')
+            const contmux = document.getElementById('mux-container')
+
+            muxcont.style.opacity = 0
+            muxcont.style.height = "16em"
+            muxcont.style.transition = "all 2s ease-in"
+            muxshape[0].style.opacity = 1
+            muxshape[0].style.width = "10em"
+            muxshape[0].style.height = "10em"
+            muxshape[0].style.top = "-650px"
+            muxshape[0].style.transition = "all 2s ease-in"
+            function next() {
+                setTimeout(() => {
+                    muxshape[0].style.opacity = 0
+                    muxshape[0].style.transition = "opacity 0.2s ease-in"
+                    muxoutside.style.display = "none"
+                    muxinside.style.display = "block"
+                    setTimeout(() => {
+                        muxshape[0].style.display = "none"
+                        muxshape[0].style.transition = "display 0.2s ease-in"
+                        contmux.style.clipPath = "polygon(0 0, 250% 0%, 250% 100%, 0% 100%)"
+                        contmux.style.transition = "all 2s ease-in"
+
+                        muxshape[0].removeEventListener('transitionend', next);
+                    }, 20)
+                }, 50);
+            }
+            muxshape[0].addEventListener('transitionend', next)
+        }
+        function outputMux() {
+            
+            const out = document.getElementById('output-mux')
+            const outcon = document.getElementById('output-connect-mux')
+            const valout = document.getElementById('val-output-out-mux')
+            const a = document.getElementById('a-mux')
+            const b = document.getElementById('b-mux')
+            const selmux = document.getElementById('sel-mux')
+            const tablevalmux000 = document.getElementById('mux-0-0-0')
+            const tablevalmux001 = document.getElementById('mux-0-0-1')
+            const tablevalmux010 = document.getElementById('mux-0-1-0')
+            const tablevalmux011 = document.getElementById('mux-0-1-1')
+            const tablevalmux100 = document.getElementById('mux-1-0-0')
+            const tablevalmux101 = document.getElementById('mux-1-0-1')
+            const tablevalmux110 = document.getElementById('mux-1-1-0')
+            const tablevalmux111 = document.getElementById('mux-1-1-1')
+            if (a.innerText == "0" && b.innerText == "0" && selmux.innerText == "0") {
+                out.style.backgroundColor = colgr
+                outcon.style.backgroundColor = colgr
+                valout.innerText = "0"
+                tablevalmux000.style.backgroundColor = colg
+                tablevalmux001.style.backgroundColor = colgr
+                tablevalmux010.style.backgroundColor = colgr
+                tablevalmux011.style.backgroundColor = colgr
+                tablevalmux100.style.backgroundColor = colgr
+                tablevalmux101.style.backgroundColor = colgr
+                tablevalmux110.style.backgroundColor = colgr
+                tablevalmux111.style.backgroundColor = colgr
+                mux(a.innerText, b.innerText, selmux.innerText)
+            } else if (a.innerText == "0" && b.innerText == "0" && selmux.innerText == "1") {
+                out.style.backgroundColor = colgr
+                outcon.style.backgroundColor = colgr
+                valout.innerText = "0"
+                tablevalmux000.style.backgroundColor = colgr
+                tablevalmux001.style.backgroundColor = colg
+                tablevalmux010.style.backgroundColor = colgr
+                tablevalmux011.style.backgroundColor = colgr
+                tablevalmux100.style.backgroundColor = colgr
+                tablevalmux101.style.backgroundColor = colgr
+                tablevalmux110.style.backgroundColor = colgr
+                tablevalmux111.style.backgroundColor = colgr
+                mux(a.innerText, b.innerText, selmux.innerText)
+            } else if (a.innerText == "0" && b.innerText == "1" && selmux.innerText == "0") {
+                out.style.backgroundColor = colgr
+                outcon.style.backgroundColor = colgr
+                valout.innerText = "0"
+                tablevalmux000.style.backgroundColor = colgr
+                tablevalmux001.style.backgroundColor = colgr
+                tablevalmux010.style.backgroundColor = colg
+                tablevalmux011.style.backgroundColor = colgr
+                tablevalmux100.style.backgroundColor = colgr
+                tablevalmux101.style.backgroundColor = colgr
+                tablevalmux110.style.backgroundColor = colgr
+                tablevalmux111.style.backgroundColor = colgr
+                mux(a.innerText, b.innerText, selmux.innerText)
+            } else if (a.innerText == "0" && b.innerText == "1" && selmux.innerText == "1") {
+                
+                out.style.backgroundColor = colg
+                outcon.style.backgroundColor = colg
+                valout.innerText = "1"
+                tablevalmux000.style.backgroundColor = colgr
+                tablevalmux001.style.backgroundColor = colgr
+                tablevalmux010.style.backgroundColor = colgr
+                tablevalmux011.style.backgroundColor = colg
+                tablevalmux100.style.backgroundColor = colgr
+                tablevalmux101.style.backgroundColor = colgr
+                tablevalmux110.style.backgroundColor = colgr
+                tablevalmux111.style.backgroundColor = colgr
+                mux(a.innerText, b.innerText, selmux.innerText)
+            } else if (a.innerText == "1" && b.innerText == "0" && selmux.innerText == "0") {
+                
+                out.style.backgroundColor = colg
+                outcon.style.backgroundColor = colg
+                valout.innerText = "1"
+                tablevalmux000.style.backgroundColor = colgr
+                tablevalmux001.style.backgroundColor = colgr
+                tablevalmux010.style.backgroundColor = colgr
+                tablevalmux011.style.backgroundColor = colgr
+                tablevalmux100.style.backgroundColor = colg
+                tablevalmux101.style.backgroundColor = colgr
+                tablevalmux110.style.backgroundColor = colgr
+                tablevalmux111.style.backgroundColor = colgr
+                mux(a.innerText, b.innerText, selmux.innerText)
+            } else if (a.innerText == "1" && b.innerText == "0" && selmux.innerText == "1") {
+                
+                out.style.backgroundColor = colgr
+                outcon.style.backgroundColor = colgr
+                valout.innerText = "0"
+                tablevalmux000.style.backgroundColor = colgr
+                tablevalmux001.style.backgroundColor = colgr
+                tablevalmux010.style.backgroundColor = colgr
+                tablevalmux011.style.backgroundColor = colgr
+                tablevalmux100.style.backgroundColor = colgr
+                tablevalmux101.style.backgroundColor = colg
+                tablevalmux110.style.backgroundColor = colgr
+                tablevalmux111.style.backgroundColor = colgr
+                mux(a.innerText, b.innerText, selmux.innerText)
+            } else if (a.innerText == "1" && b.innerText == "1" && selmux.innerText == "0") {
+                
+                out.style.backgroundColor = colg
+                outcon.style.backgroundColor = colg
+                valout.innerText = "1"
+                tablevalmux000.style.backgroundColor = colgr
+                tablevalmux001.style.backgroundColor = colgr
+                tablevalmux010.style.backgroundColor = colgr
+                tablevalmux011.style.backgroundColor = colgr
+                tablevalmux100.style.backgroundColor = colgr
+                tablevalmux101.style.backgroundColor = colgr
+                tablevalmux110.style.backgroundColor = colg
+                tablevalmux111.style.backgroundColor = colgr
+                mux(a.innerText, b.innerText, selmux.innerText)
+            } else if (a.innerText == "1" && b.innerText == "1" && selmux.innerText == "1") {
+                
+                out.style.backgroundColor = colg
+                outcon.style.backgroundColor = colg
+                valout.innerText = "1"
+                tablevalmux000.style.backgroundColor = colgr
+                tablevalmux001.style.backgroundColor = colgr
+                tablevalmux010.style.backgroundColor = colgr
+                tablevalmux011.style.backgroundColor = colgr
+                tablevalmux100.style.backgroundColor = colgr
+                tablevalmux101.style.backgroundColor = colgr
+                tablevalmux110.style.backgroundColor = colgr
+                tablevalmux111.style.backgroundColor = colg
+                mux(a.innerText, b.innerText, selmux.innerText)
+            }
+        }
+        function mux(a, b, c) {
+            
+            const and = document.getElementById('mux-gate')
+            if ((b == "1" && c == "1") || (a == "1" && c == "0") || (a == "1" && b == "1") || (a == "1" && b == "1" && c == "1")) {
+                and.style.backgroundColor = colg
+            }
+            else {
+                and.style.backgroundColor = colgr
+            }
+        }
+        function aMux() {
+            const a = document.getElementById('a-mux')
+            const acon = document.getElementById('a-connect-mux')
+            const vala = document.getElementById('val-a-out-mux')
+            if (vala.innerText == "0") {
+                
+                a.style.backgroundColor = colg
+                acon.style.backgroundColor = colg
+                vala.innerText = "1"
+                a.transition = "background-color 2s ease-in"
+                acon.transition = "background-color 2s ease-in"
+                outputMux()
+            }
+            else {
+                
+                a.style.backgroundColor = colgr
+                acon.style.backgroundColor = colgr
+                vala.innerText = "0"
+                a.transition = "background-color 2s ease-in"
+                acon.transition = "background-color 2s ease-in"
+                outputMux()
+            }
+
+        }
+        function bMux() {
+            const b = document.getElementById('b-mux')
+            const bcon = document.getElementById('b-connect-mux')
+            const valb = document.getElementById('val-b-out-mux')
+            if (valb.innerText == "0") {
+                
+                b.style.backgroundColor = colg
+                bcon.style.backgroundColor = colg
+                valb.innerText = "1"
+                b.transition = "background-color 2s ease-in"
+                bcon.transition = "background-color 2s ease-in"
+                outputMux()
+            }
+            else {
+                
+                b.style.backgroundColor = colgr
+                bcon.style.backgroundColor = colgr
+                valb.innerText = "0"
+                b.transition = "background-color 2s ease-in"
+                bcon.transition = "background-color 2s ease-in"
+                outputMux()
+            }
+
+        }
+        function selMux() {
+            const a = document.getElementById('sel-mux')
+            const acon = document.getElementById('sel-connect-mux')
+            const vala = document.getElementById('val-sel-out-mux')
+            if (vala.innerText == "0") {
+                
+                a.style.backgroundColor = colg
+                acon.style.backgroundColor = colg
+                vala.innerText = "1"
+                a.transition = "background-color 2s ease-in"
+                acon.transition = "background-color 2s ease-in"
+                outputMux()
+            }
+            else {
+                
+                a.style.backgroundColor = colgr
+                acon.style.backgroundColor = colgr
+                vala.innerText = "0"
+                a.transition = "background-color 2s ease-in"
+                acon.transition = "background-color 2s ease-in"
+                outputMux()
+            }
+
+        }
+    </script>
+    <script>
+        function selmux() {
+            const a = document.getElementById('circle-sel')
+            const acon1 = document.getElementById('connect-sel-not-1')
+            const acon2 = document.getElementById('connect-sel-not-2')
+            const vala = document.getElementById('val-sel-in-mux')
+            if (vala.innerText == "0") {
+                
+                a.style.backgroundColor = colg
+                acon1.style.backgroundColor = colg
+                acon2.style.backgroundColor = colg
+                a.transition = "background-color 2s ease-in"
+                vala.innerText = "1"
+                xmux()
+                bAnd2mux()
+            }
+            else {
+                
+                a.style.backgroundColor = colgr
+                acon1.style.backgroundColor = colgr
+                acon2.style.backgroundColor = colgr
+                a.transition = "background-color 2s ease-in"
+                vala.innerText = "0"
+                xmux()
+                bAnd2mux()
+            }
+
+        }
+        function circleamux() {
+            const a = document.getElementById('circle-a-mux')
+            const acon = document.getElementById('connect-a-and1-mux')
+            const vala = document.getElementById('val-a-in-mux')
+            if (vala.innerText == "0") {
+                
+                a.style.backgroundColor = colg
+                acon.style.backgroundColor = colg
+                vala.innerText = "1"
+                a.transition = "background-color 2s ease-in"
+                acon.transition = "background-color 2s ease-in"
+                aAnd1mux()
+            }
+            else {
+                
+                a.style.backgroundColor = colgr
+                acon.style.backgroundColor = colgr
+                vala.innerText = "0"
+                a.transition = "background-color 2s ease-in"
+                acon.transition = "background-color 2s ease-in"
+                aAnd1mux()
+            }
+        }
+        function circlebmux() {
+            const a = document.getElementById('circle-b-mux')
+            const acon = document.getElementById('connect-b-and2-mux')
+            const vala = document.getElementById('val-b-in-mux')
+            if (vala.innerText == "0") {
+                
+                a.style.backgroundColor = colg
+                acon.style.backgroundColor = colg
+                vala.innerText = "1"
+                a.transition = "background-color 2s ease-in"
+                acon.transition = "background-color 2s ease-in"
+                aAnd2mux()
+            }
+            else {
+                
+                a.style.backgroundColor = colgr
+                acon.style.backgroundColor = colgr
+                vala.innerText = "0"
+                a.transition = "background-color 2s ease-in"
+                acon.transition = "background-color 2s ease-in"
+                aAnd2mux()
+            }
+        }
+        function outputXmux() {
+            
+            const out = document.getElementById('output-x-mux')
+            const outcon = document.getElementById('output-connect-x-mux')
+            const notout = document.getElementById('not-circle-mux')
+            const valout = document.getElementById('val-output-x-mux')
+            const a = document.getElementById('val-sel-in-mux')
+            if (a.innerText == "0") {
+                out.style.backgroundColor = colg
+                outcon.style.backgroundColor = colg
+                notout.style.backgroundColor = colg
+                valout.innerText = "1"
+                notmux(a.innerText)
+            } else {
+                out.style.backgroundColor = colgr
+                outcon.style.backgroundColor = colgr
+                notout.style.backgroundColor = colgr
+                valout.innerText = "0"
+                notmux(a.innerText)
+            }
+        }
+        function notmux(a) {
+            
+            let not = document.getElementById('not-gate-mux')
+            const valb = document.getElementById('val-b-and1-mux')
+            if (a == "0") {
+                not.style.backgroundColor = colg
+                valb.innerText = "0"
+                bAnd1mux()
+            }
+            else {
+                not.style.backgroundColor = colgr
+                valb.innerText = "1"
+                bAnd1mux()
+            }
+        }
+        function xmux() {
+            const a = document.getElementById('x-mux')
+            const acon = document.getElementById('x-connect-mux')
+            const vala = document.getElementById('val-x-mux')
+            if (vala.innerText == "0") {
+                
+                a.style.backgroundColor = colg
+                acon.style.backgroundColor = colg
+                a.transition = "background-color 2s ease-in"
+                acon.transition = "background-color 2s ease-in"
+                vala.innerText = "1"
+                outputXmux()
+            }
+            else {
+                
+                a.style.backgroundColor = colgr
+                acon.style.backgroundColor = colgr
+                a.transition = "background-color 2s ease-in"
+                acon.transition = "background-color 2s ease-in"
+                vala.innerText = "0"
+                outputXmux()
+            }
+
+        }
+        function outputAnd1mux() {
+            
+            const out = document.getElementById('output-and1-mux')
+            const outcon = document.getElementById('output-connect-and1-mux')
+            const valout = document.getElementById('val-output-and1-mux')
+            const a = document.getElementById('a-and1-mux')
+            const b = document.getElementById('b-and1-mux')
+            if (a.innerText == "1" && b.innerText == "1") {
+                out.style.backgroundColor = colg
+                outcon.style.backgroundColor = colg
+                valout.innerText = "1"
+                and1mux(a.innerText, b.innerText)
+            } else if (a.innerText == "0" && b.innerText == "0") {
+                out.style.backgroundColor = colgr
+                outcon.style.backgroundColor = colgr
+                valout.innerText = "0"
+                and1mux(a.innerText, b.innerText)
+            }
+            else if (a.innerText == "0" && b.innerText == "1") {
+                out.style.backgroundColor = colgr
+                outcon.style.backgroundColor = colgr
+                valout.innerText = "0"
+                and1mux(a.innerText, b.innerText)
+            }
+            else {
+                out.style.backgroundColor = colgr
+                outcon.style.backgroundColor = colgr
+                valout.innerText = "0"
+                and1mux(a.innerText, b.innerText)
+            }
+        }
+        function outputAnd2mux() {
+            
+            const out = document.getElementById('output-and2-mux')
+            const outcon = document.getElementById('output-connect-and2-mux')
+            const valout = document.getElementById('val-output-and2-mux')
+            const a = document.getElementById('a-and2-mux')
+            const b = document.getElementById('b-and2-mux')
+            const valb = document.getElementById('val-b-or-mux')
+            if (a.innerText == "1" && b.innerText == "1") {
+                out.style.backgroundColor = colg
+                outcon.style.backgroundColor = colg
+                valout.innerText = "1"
+                and2mux(a.innerText, b.innerText)
+            } else if (a.innerText == "0" && b.innerText == "0") {
+                out.style.backgroundColor = colgr
+                outcon.style.backgroundColor = colgr
+                valout.innerText = "0"
+                and2mux(a.innerText, b.innerText)
+            }
+            else if (a.innerText == "0" && b.innerText == "1") {
+                out.style.backgroundColor = colgr
+                outcon.style.backgroundColor = colgr
+                valout.innerText = "0"
+                and2mux(a.innerText, b.innerText)
+            }
+            else {
+                out.style.backgroundColor = colgr
+                outcon.style.backgroundColor = colgr
+                valout.innerText = "0"
+                and2mux(a.innerText, b.innerText)
+            }
+        }
+        function and1mux(a, b) {
+            
+            const and = document.getElementById('and1-gate-mux')
+            const vala = document.getElementById('val-a-or-mux')
+            if (a == "1" && b == "1") {
+                and.style.backgroundColor = colg
+                vala.innerText = "0"
+                aOrmux()
+            }
+            else {
+                and.style.backgroundColor = colgr
+                vala.innerText = "1"
+                aOrmux()
+            }
+        }
+        function and2mux(a, b) {
+            
+            const and = document.getElementById('and2-gate-mux')
+            const valb = document.getElementById('val-b-or-mux')
+            if (a == "1" && b == "1") {
+                and.style.backgroundColor = colg
+                valb.innerText = "0"
+                bOrmux()
+            }
+            else {
+                and.style.backgroundColor = colgr
+                valb.innerText = "1"
+                bOrmux()
+            }
+        }
+        function aAnd1mux() {
+            const a = document.getElementById('a-and1-mux')
+            const acon = document.getElementById('a-connect-and1-mux')
+            const vala = document.getElementById('val-a-and1-mux')
+            if (vala.innerText == "0") {
+                
+                a.style.backgroundColor = colg
+                acon.style.backgroundColor = colg
+                vala.innerText = "1"
+                a.transition = "background-color 2s ease-in"
+                acon.transition = "background-color 2s ease-in"
+                outputAnd1mux()
+            }
+            else {
+                
+                a.style.backgroundColor = colgr
+                acon.style.backgroundColor = colgr
+                vala.innerText = "0"
+                a.transition = "background-color 2s ease-in"
+                acon.transition = "background-color 2s ease-in"
+                outputAnd1mux()
+            }
+
+        }
+        function aAnd2mux() {
+            const a = document.getElementById('a-and2-mux')
+            const acon = document.getElementById('a-connect-and2-mux')
+            const vala = document.getElementById('val-a-and2-mux')
+            if (vala.innerText == "0") {
+                
+                a.style.backgroundColor = colg
+                acon.style.backgroundColor = colg
+                vala.innerText = "1"
+                a.transition = "background-color 2s ease-in"
+                acon.transition = "background-color 2s ease-in"
+                outputAnd2mux()
+            }
+            else {
+                
+                a.style.backgroundColor = colgr
+                acon.style.backgroundColor = colgr
+                vala.innerText = "0"
+                a.transition = "background-color 2s ease-in"
+                acon.transition = "background-color 2s ease-in"
+                outputAnd2mux()
+            }
+
+        }
+        function bAnd1mux() {
+            const b = document.getElementById('b-and1-mux')
+            const bcon = document.getElementById('b-connect-and1-mux')
+            const valb = document.getElementById('val-b-and1-mux')
+            if (valb.innerText == "0") {
+                
+                b.style.backgroundColor = colg
+                bcon.style.backgroundColor = colg
+                valb.innerText = "1"
+                b.transition = "background-color 2s ease-in"
+                bcon.transition = "background-color 2s ease-in"
+                outputAnd1mux()
+            }
+            else {
+                
+                b.style.backgroundColor = colgr
+                bcon.style.backgroundColor = colgr
+                valb.innerText = "0"
+                b.transition = "background-color 2s ease-in"
+                bcon.transition = "background-color 2s ease-in"
+                outputAnd1mux()
+            }
+
+        }
+        function bAnd2mux() {
+            console.log("bAnd2Mux")
+            const b = document.getElementById('b-and2-mux')
+            const bcon = document.getElementById('b-connect-and2-mux')
+            const valb = document.getElementById('val-b-and2-mux')
+            if (valb.innerText == "0") {
+                
+                b.style.backgroundColor = colg
+                bcon.style.backgroundColor = colg
+                valb.innerText = "1"
+                b.transition = "background-color 2s ease-in"
+                bcon.transition = "background-color 2s ease-in"
+                outputAnd2mux()
+            }
+            else {
+                
+                b.style.backgroundColor = colgr
+                bcon.style.backgroundColor = colgr
+                valb.innerText = "0"
+                b.transition = "background-color 2s ease-in"
+                bcon.transition = "background-color 2s ease-in"
+                outputAnd2mux()
+            }
+
+        }
+        function outputOrmux() {
+            
+            const out = document.getElementById('output-or-mux')
+            const outcon = document.getElementById('output-connect-or-mux')
+            const valout = document.getElementById('val-output-or-mux')
+            const a = document.getElementById('a-or-mux')
+            const b = document.getElementById('b-or-mux')
+            if (a.innerText == "1" && b.innerText == "1") {
+                out.style.backgroundColor = colg
+                outcon.style.backgroundColor = colg
+                valout.innerText = "1"
+                ormux(a.innerText, b.innerText)
+            } else if (a.innerText == "0" && b.innerText == "0") {
+                out.style.backgroundColor = colgr
+                outcon.style.backgroundColor = colgr
+                valout.innerText = "0"
+                ormux(a.innerText, b.innerText)
+            }
+            else if (a.innerText == "0" && b.innerText == "1") {
+                out.style.backgroundColor = colg
+                outcon.style.backgroundColor = colg
+                valout.innerText = "1"
+                ormux(a.innerText, b.innerText)
+            }
+            else {
+                out.style.backgroundColor = colg
+                outcon.style.backgroundColor = colg
+                valout.innerText = "1"
+                ormux(a.innerText, b.innerText)
+            }
+        }
+        function ormux(a, b) {
+            const or = document.getElementById('or-gate-mux')
+            if (a == "1" || b == "1") {
+                or.style.backgroundColor = colg
+                outputInMux()
+            }
+            else {
+                or.style.backgroundColor = colgr
+                outputInMux()
+            }
+        }
+        function outputInMux() {
+            const valsel = document.getElementById('val-sel-in-mux')
+            const vala = document.getElementById('val-a-in-mux')
+            const valb = document.getElementById('val-b-in-mux')
+            const tablevalmux000 = document.getElementById('mux-0-0-0-in')
+            const tablevalmux001 = document.getElementById('mux-0-0-1-in')
+            const tablevalmux010 = document.getElementById('mux-0-1-0-in')
+            const tablevalmux011 = document.getElementById('mux-0-1-1-in')
+            const tablevalmux100 = document.getElementById('mux-1-0-0-in')
+            const tablevalmux101 = document.getElementById('mux-1-0-1-in')
+            const tablevalmux110 = document.getElementById('mux-1-1-0-in')
+            const tablevalmux111 = document.getElementById('mux-1-1-1-in')
+            if (vala.innerText === "0" && valb.innerText === "0" && valsel.innerText === "0") {
+                tablevalmux000.style.backgroundColor = colg
+                tablevalmux001.style.backgroundColor = colgr
+                tablevalmux010.style.backgroundColor = colgr
+                tablevalmux011.style.backgroundColor = colgr
+                tablevalmux100.style.backgroundColor = colgr
+                tablevalmux101.style.backgroundColor = colgr
+                tablevalmux110.style.backgroundColor = colgr
+                tablevalmux111.style.backgroundColor = colgr
+            } else if (vala.innerText === "0" && valb.innerText === "0" && valsel.innerText === "1") {
+                tablevalmux000.style.backgroundColor = colgr
+                tablevalmux001.style.backgroundColor = colg
+                tablevalmux010.style.backgroundColor = colgr
+                tablevalmux011.style.backgroundColor = colgr
+                tablevalmux100.style.backgroundColor = colgr
+                tablevalmux101.style.backgroundColor = colgr
+                tablevalmux110.style.backgroundColor = colgr
+                tablevalmux111.style.backgroundColor = colgr
+            } else if (vala.innerText === "0" && valb.innerText === "1" && valsel.innerText === "0") {
+                tablevalmux000.style.backgroundColor = colgr
+                tablevalmux001.style.backgroundColor = colgr
+                tablevalmux010.style.backgroundColor = colg
+                tablevalmux011.style.backgroundColor = colgr
+                tablevalmux100.style.backgroundColor = colgr
+                tablevalmux101.style.backgroundColor = colgr
+                tablevalmux110.style.backgroundColor = colgr
+                tablevalmux111.style.backgroundColor = colgr
+            } else if (vala.innerText === "0" && valb.innerText === "1" && valsel.innerText === "1") {
+                tablevalmux000.style.backgroundColor = colgr
+                tablevalmux001.style.backgroundColor = colgr
+                tablevalmux010.style.backgroundColor = colgr
+                tablevalmux011.style.backgroundColor = colg
+                tablevalmux100.style.backgroundColor = colgr
+                tablevalmux101.style.backgroundColor = colgr
+                tablevalmux110.style.backgroundColor = colgr
+                tablevalmux111.style.backgroundColor = colgr
+            } else if (vala.innerText === "1" && valb.innerText === "0" && valsel.innerText === "0") {
+                tablevalmux000.style.backgroundColor = colgr
+                tablevalmux001.style.backgroundColor = colgr
+                tablevalmux010.style.backgroundColor = colgr
+                tablevalmux011.style.backgroundColor = colgr
+                tablevalmux100.style.backgroundColor = colg
+                tablevalmux101.style.backgroundColor = colgr
+                tablevalmux110.style.backgroundColor = colgr
+                tablevalmux111.style.backgroundColor = colgr
+            } else if (vala.innerText === "1" && valb.innerText === "0" && valsel.innerText === "1") {
+                tablevalmux000.style.backgroundColor = colgr
+                tablevalmux001.style.backgroundColor = colgr
+                tablevalmux010.style.backgroundColor = colgr
+                tablevalmux011.style.backgroundColor = colgr
+                tablevalmux100.style.backgroundColor = colgr
+                tablevalmux101.style.backgroundColor = colg
+                tablevalmux110.style.backgroundColor = colgr
+                tablevalmux111.style.backgroundColor = colgr
+            } else if (vala.innerText === "1" && valb.innerText === "1" && valsel.innerText === "0") {
+                tablevalmux000.style.backgroundColor = colgr
+                tablevalmux001.style.backgroundColor = colgr
+                tablevalmux010.style.backgroundColor = colgr
+                tablevalmux011.style.backgroundColor = colgr
+                tablevalmux100.style.backgroundColor = colgr
+                tablevalmux101.style.backgroundColor = colgr
+                tablevalmux110.style.backgroundColor = colg
+                tablevalmux111.style.backgroundColor = colgr
+            } else if (vala.innerText === "1" && valb.innerText === "1" && valsel.innerText === "1") {
+                tablevalmux000.style.backgroundColor = colgr
+                tablevalmux001.style.backgroundColor = colgr
+                tablevalmux010.style.backgroundColor = colgr
+                tablevalmux011.style.backgroundColor = colgr
+                tablevalmux100.style.backgroundColor = colgr
+                tablevalmux101.style.backgroundColor = colgr
+                tablevalmux110.style.backgroundColor = colgr
+                tablevalmux111.style.backgroundColor = colg
+            }
+        }
+        function aOrmux() {
+            const a = document.getElementById('a-or-mux')
+            const acon = document.getElementById('a-connect-or-mux')
+            const vala = document.getElementById('val-a-or-mux')
+            if (vala.innerText == "0") {
+                
+                a.style.backgroundColor = colg
+                acon.style.backgroundColor = colg
+                vala.innerText = "1"
+                a.transition = "background-color 2s ease-in"
+                acon.transition = "background-color 2s ease-in"
+                outputOrmux()
+            }
+            else {
+                
+                a.style.backgroundColor = colgr
+                acon.style.backgroundColor = colgr
+                vala.innerText = "0"
+                a.transition = "background-color 2s ease-in"
+                acon.transition = "background-color 2s ease-in"
+                outputOrmux()
+            }
+
+        }
+        function bOrmux() {
+            const b = document.getElementById('b-or-mux')
+            const bcon = document.getElementById('b-connect-or-mux')
+            const valb = document.getElementById('val-b-or-mux')
+            if (valb.innerText == "0") {
+                
+                b.style.backgroundColor = colg
+                bcon.style.backgroundColor = colg
+                valb.innerText = "1"
+                b.transition = "background-color 2s ease-in"
+                bcon.transition = "background-color 2s ease-in"
+                outputOrmux()
+            }
+            else {
+                
+                b.style.backgroundColor = colgr
+                bcon.style.backgroundColor = colgr
+                valb.innerText = "0"
+                b.transition = "background-color 2s ease-in"
+                bcon.transition = "background-color 2s ease-in"
+                outputOrmux()
+            }
+
+        }
+    </script>
+</body></p>
+<h2 id="dmux">DMux</h2>
+<h4 id="what-is-demultiplex">What is demultiplex??</h4>
+<p>A. As you might have guessed by the name,its quiet opposite to mux.De-Mulitpler as it called as DMUX in short. It takes single input (signal/pulse) and gives multiple outputs(signals).
+Basically DMUX routes single input to the right output.</p>
+<p>Abstract Diagram:
+<head>
+    <style>
+        #choose-dmux {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            column-gap: 1em;
+        }
+
+        #dmux-outside-butt {
+            background-color: red;
+            padding: 1em;
+            border-radius: 0.5em;
+            cursor: pointer;
+        }
+
+        #dmux-inside-butt {
+            background-color: blue;
+            padding: 1em;
+            border-radius: 0.5em;
+            cursor: pointer;
+        }
+    </style>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        #dmux-cont-out {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #container-dmux {
+            height: 150px;
+            width: 150px;
+            position: relative;
+            display: flex;
+        }
+
+        #a-dmux {
+            position: absolute;
+            top: 15px;
+            left: 140px;
+            height: 30px;
+            width: 30px;
+            border: 1px solid black;
+            background-color: rgb(199, 199, 199);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #b-dmux {
+            text-align: center;
+            position: absolute;
+            top: 65px;
+            left: 140px;
+            height: 30px;
+            width: 30px;
+            border: 1px solid black;
+            background-color: rgb(199, 199, 199);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #sel-dmux {
+            text-align: center;
+            position: absolute;
+            top: 115px;
+            left: 80px;
+            height: 30px;
+            width: 30px;
+            border: 1px solid black;
+            background-color: rgb(199, 199, 199);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #a-connect-dmux {
+            position: absolute;
+            top: 25px;
+            left: 120px;
+            height: 10px;
+            width: 20px;
+            border: 1px solid black;
+            border-left: 0;
+            border-right: 0;
+            background-color: rgb(199, 199, 199);
+        }
+
+        #b-connect-dmux {
+            position: absolute;
+            top: 75px;
+            left: 120px;
+            height: 10px;
+            width: 20px;
+            border: 1px solid black;
+            border-left: 0;
+            border-right: 0;
+            background-color: rgb(199, 199, 199);
+        }
+
+        #sel-connect-dmux {
+            position: absolute;
+            top: 81px;
+            left: 90px;
+            height: 35px;
+            width: 10px;
+            border: 1px solid black;
+            border-left: 0;
+            border-right: 0;
+            background-color: rgb(199, 199, 199);
+        }
+
+        #dmux-gate {
+            position: absolute;
+            top: 5px;
+            left: 50px;
+            height: 100px;
+            width: 70px;
+             
+            background-color: rgb(199, 199, 199);
+             
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            clip-path: path("M 0 30 L 100,0 V 100 L 0,80 z");
+        }
+
+        #output-dmux {
+            position: absolute;
+            top: 45px;
+            left: 0px;
+            height: 30px;
+            width: 30px;
+            border: 1px solid black;
+            background-color: rgb(199, 199, 199);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #output-connect-dmux {
+            position: absolute;
+            top: 55px;
+            left: 30px;
+            height: 10px;
+            width: 20px;
+            border: 1px solid black;
+            border-left: 0;
+            border-right: 0;
+            background-color: rgb(199, 199, 199);
+        }
+
+        #table-dmux,
+        .dmux-th,
+        .dmux-td {
+            text-align: center;
+            font-weight: bold;
+        }
+    </style>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+        #dmux-cont-out{
+            display: flex;
+            justify-self: center;
+            align-items: center;
+        }
+         
+        #dmux-container {
+            position: relative;
+            height: 300px;
+            clip-path: polygon(40% 25%, 65% 0%, 65% 100%, 40% 63%);
+            transition: 4s ease-in-out;
+             
+             
+             
+             
+             
+        }
+
+        #container-not-dmux {
+             
+            height: 110px;
+             
+            position: relative;
+            display: flex;
+            top: 60px;
+            left: 50px;
+             
+        }
+
+        #container-and-1-dmux {
+            height: 120px;
+             
+            position: relative;
+            display: flex;
+            top: -80px;
+            left: 220px;
+        }
+
+        #container-and-2-dmux {
+            height: 120px;
+             
+            position: relative;
+            display: flex;
+            top: -85px;
+            left: 220px;
+        }
+
+        #circle-in-dmux {
+            position: absolute;
+            top: 35px;
+            height: 30px;
+            width: 30px;
+            border: 1px solid black;
+            border-radius: 50%;
+            background-color: rgb(199, 199, 199);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #connect-in-and1-dmux {
+            position: absolute;
+            top: 45px;
+            left: 31px;
+            height: 10px;
+            width: 190px;
+            border: 1px solid black;
+            border-left: 0;
+            border-right: 0;
+            background-color: rgb(199, 199, 199);
+        }
+
+        #connect-in-and1-and2-dmux {
+            position: absolute;
+            top: 55px;
+            left: 40px;
+            height: 105px;
+            width: 8px;
+            border: 1px solid black;
+            border-left: 0;
+            border-right: 0;
+            background-color: rgb(199, 199, 199);
+        }
+
+        #connect-in-and2-dmux {
+            position: absolute;
+            top: 160px;
+            left: 40px;
+            height: 10px;
+            width: 180px;
+            border: 1px solid black;
+            border-left: 0;
+            border-right: 0;
+            background-color: rgb(199, 199, 199);
+        }
+
+        #circle-sel-dmux {
+            position: absolute;
+            top: 250px;
+            left: 50px;
+            height: 30px;
+            width: 30px;
+            border: 1px solid black;
+            border-radius: 50%;
+            background-color: rgb(199, 199, 199);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #connect-sel-not-1-dmux {
+            position: absolute;
+            top: 100px;
+            left: 60px;
+            height: 150px;
+            width: 10px;
+            border: 1px solid black;
+            border-left: 0;
+            border-right: 0;
+            background-color: rgb(199, 199, 199);
+        }
+
+        #connect-sel-not-2-dmux {
+            position: absolute;
+            top: 220px;
+            left: 60px;
+            height: 10px;
+            width: 190px;
+            border: 1px solid black;
+            border-left: 0;
+            border-right: 0;
+            background-color: rgb(199, 199, 199);
+        }
+
+        #x-dmux {
+            position: absolute;
+            top: 35px;
+            height: 30px;
+            width: 30px;
+            border: 1px solid black;
+            background-color: rgb(199, 199, 199);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #x-connect-dmux {
+            position: absolute;
+            top: 45px;
+            left: 31px;
+            height: 10px;
+            width: 42px;
+            border: 1px solid black;
+            border-left: 0;
+            border-right: 0;
+            background-color: rgb(199, 199, 199);
+        }
+
+        #not-circle-dmux {
+            position: absolute;
+            top: 43px;
+            left: 130px;
+            height: 15px;
+            width: 15px;
+            border: 1px solid black;
+            border-radius: 50%;
+            background-color: rgb(199, 199, 199);
+            z-index: 5;
+        }
+
+        #not-gate-dmux {
+            position: relative;
+             
+            top: 1px;
+            left: 50px;
+            height: 90px;
+            width: 100px;
+            background-color: rgb(199, 199, 199);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #not-gate-dmux {
+             
+            clip-path: path("M 0 0 L 100,50 L 0,90 z");
+        }
+
+        #output-x-dmux {
+            position: absolute;
+            top: 35px;
+            left: 170px;
+            height: 30px;
+            width: 30px;
+            border: 1px solid black;
+            background-color: rgb(199, 199, 199);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 3;
+        }
+
+        #output-connect-x-dmux {
+            position: absolute;
+            top: 45px;
+            left: 140px;
+            height: 10px;
+            width: 35px;
+            border: 1px solid black;
+            border-left: 0;
+            border-right: 0;
+            background-color: rgb(199, 199, 199);
+            z-index: 0;
+        }
+
+        #a-and1-dmux {
+            position: absolute;
+            top: 5px;
+            height: 30px;
+            width: 30px;
+            border: 1px solid black;
+            background-color: rgb(199, 199, 199);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #a-and2-dmux {
+            position: absolute;
+            top: 5px;
+            height: 30px;
+            width: 30px;
+            border: 1px solid black;
+            background-color: rgb(199, 199, 199);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #b-and1-dmux {
+            text-align: center;
+            position: absolute;
+            top: 65px;
+            height: 30px;
+            width: 30px;
+            border: 1px solid black;
+            background-color: rgb(199, 199, 199);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #b-and2-dmux {
+            text-align: center;
+            position: absolute;
+            top: 65px;
+            height: 30px;
+            width: 30px;
+            border: 1px solid black;
+            background-color: rgb(199, 199, 199);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #a-connect-and1-dmux {
+            position: absolute;
+            top: 15px;
+            left: 30px;
+            height: 10px;
+            width: 20px;
+            border: 1px solid black;
+            border-left: 0;
+            border-right: 0;
+            background-color: rgb(199, 199, 199);
+        }
+
+        #a-connect-and2-dmux {
+            position: absolute;
+            top: 15px;
+            left: 30px;
+            height: 10px;
+            width: 20px;
+            border: 1px solid black;
+            border-left: 0;
+            border-right: 0;
+            background-color: rgb(199, 199, 199);
+        }
+
+        #b-connect-and1-dmux {
+            position: absolute;
+            top: 75px;
+            left: 30px;
+            height: 10px;
+            width: 20px;
+            border: 1px solid black;
+            border-left: 0;
+            border-right: 0;
+            background-color: rgb(199, 199, 199);
+        }
+
+        #b-connect-and2-dmux {
+            position: absolute;
+            top: 75px;
+            left: 30px;
+            height: 10px;
+            width: 20px;
+            border: 1px solid black;
+            border-left: 0;
+            border-right: 0;
+            background-color: rgb(199, 199, 199);
+        }
+
+        #and1-gate-dmux {
+            position: absolute;
+            top: 5px;
+            left: 50px;
+            height: 90px;
+            width: 100px;
+            border: 1px solid black;
+            background-color: rgb(199, 199, 199);
+            border-radius: 0em 50% 50% 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #and2-gate-dmux {
+            position: absolute;
+            top: 5px;
+            left: 50px;
+            height: 90px;
+            width: 100px;
+            border: 1px solid black;
+            background-color: rgb(199, 199, 199);
+            border-radius: 0em 50% 50% 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #output-and1-dmux {
+            position: absolute;
+            top: 35px;
+            left: 170px;
+            height: 30px;
+            width: 30px;
+            border: 1px solid black;
+            background-color: rgb(199, 199, 199);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #output-and2-dmux {
+            position: absolute;
+            top: 35px;
+            left: 170px;
+            height: 30px;
+            width: 30px;
+            border: 1px solid black;
+            background-color: rgb(199, 199, 199);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #output-connect-and1-dmux {
+            position: absolute;
+            top: 45px;
+            left: 150px;
+            height: 10px;
+            width: 20px;
+            border: 1px solid black;
+            border-left: 0;
+            border-right: 0;
+            background-color: rgb(199, 199, 199);
+        }
+
+        #output-connect-and2-dmux {
+            position: absolute;
+            top: 45px;
+            left: 150px;
+            height: 10px;
+            width: 20px;
+            border: 1px solid black;
+            border-left: 0;
+            border-right: 0;
+            background-color: rgb(199, 199, 199);
+        }
+
+        #table-dmux-in,
+        .dmux-in-th,
+        .dmux-in-td {
+            text-align: center;
+            font-weight: bold;
+        }
+    </style>
+    <style>
+        .containerdmux {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 0;
+        }
+
+        .shapedmux {
+            top: -390px;
+            left: 17px;
+            width: 5em;
+            height: 5em;
+            position: relative;
+            clip-path: url(#slice2);
+            background: rgb(199, 199, 199);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+             
+            opacity: 0;
+        }
+    </style>
+    <script>
+        window.addEventListener("load", () => {
+            firstDmux()
+        })
+    </script>
+</head>
+
+<body>
+    <h3>
+        
+Interactive DMux Gate:
+
+    </h3>
+    <h4 id="choose-dmux">
+        <div id="dmux-outside-butt" onclick="dmuxOutside()">
+            Outside
+        </div>
+        <div id="dmux-inside-butt" onclick="dmuxInside()">
+            Inside
+        </div>
+    </h4>
+    <svg width="0" height="0" viewBox="0 0 148 147" version="1.1" xmlns="http://www.w3.org/2000/svg"
+        style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+        <clipPath id="slice2" clipPathUnits="objectBoundingBox">
+            <path transform="scale(0.01, 0.01)" d="M 0 30 L 100,0 V 100 L 0,80 z" style="fill:none;" />
+        </clipPath>
+    </svg>
+    <div id="dmux-outside">
+        <div id="dmux-cont-out">
+            <div id="container-dmux">
+                <div id="a-dmux">
+                    <div id="val-a-dmux">0</div>
+                </div>
+                <div id="a-connect-dmux">
+
+                </div>
+                <div id="b-dmux">
+                    <div id="val-b-dmux">0</div>
+                </div>
+                <div id="b-connect-dmux">
+
+                </div>
+                <div id="sel-dmux" onclick="selDmux()">
+                    <div id="val-sel-dmux">0</div>
+                </div>
+                <div id="sel-connect-dmux">
+
+                </div>
+                <div id="dmux-gate">
+                    <div id="dmux-name">DMUX</div>
+                </div>
+                <div id="output-dmux" onclick="oDmux()">
+                    <div id="val-output-dmux">0</div>
+                </div>
+                <div id="output-connect-dmux">
+
+                </div>
+            </div>
+        </div>
+        <div id="div-table-dmux">
+            <div>Truth Table:</div>
+            <table id="table-dmux">
+                <thead>
+                    <tr>
+                        <th class="dmux-th">I</th>
+                        <th class="dmux-th">Sel</th>
+                        <th class="dmux-th">A</th>
+                        <th class="dmux-th">B</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr id="dmux-0-0">
+                        <td class="dmux-td">0</td>
+                        <td class="dmux-td">0</td>
+                        <td class="dmux-td">0</td>
+                        <td class="dmux-td">0</td>
+                    </tr>
+                    <tr id="dmux-0-1">
+                        <td class="dmux-td">0</td>
+                        <td class="dmux-td">1</td>
+                        <td class="dmux-td">0</td>
+                        <td class="dmux-td">0</td>
+                    </tr>
+                    <tr id="dmux-1-0">
+                        <td class="dmux-td">1</td>
+                        <td class="dmux-td">0</td>
+                        <td class="dmux-td">1</td>
+                        <td class="dmux-td">0</td>
+                    </tr>
+                    <tr id="dmux-1-1">
+                        <td class="dmux-td">1</td>
+                        <td class="dmux-td">1</td>
+                        <td class="dmux-td">0</td>
+                        <td class="dmux-td">1</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div id="dmux-inside">
+        
+         <div id="dmux-container">
+            <div id="circle-in-dmux" onclick="circleindmux()">
+                <div id="val-in-dmux">0</div>
+            </div>
+            <div id="connect-in-and1-dmux">
+            </div>
+            <div id="connect-in-and1-and2-dmux">
+            </div>
+            <div id="connect-in-and2-dmux">
+            </div>
+            <div id="circle-sel-dmux" onclick="seldmux()">
+                <div id="val-sel-dmux">0</div>
+            </div>
+            <div id="connect-sel-not-1-dmux">
+
+            </div>
+            <div id="connect-sel-not-2-dmux">
+
+            </div>
+            <div id="container-not-dmux">
+                <div id="x-dmux">
+                    <div id="val-x-dmux">0</div>
+                </div>
+                <div id="x-connect-dmux">
+
+                </div>
+                <div id="not-circle-dmux">
+
+                </div>
+                <div id="not-gate-dmux">
+                    <div id="not-name-dmux">not</div>
+                </div>
+                <div id="output-x-dmux">
+                    <div id="val-output-x-dmux">0</div>
+                </div>
+                <div id="output-connect-x-dmux">
+
+                </div>
+            </div>
+            <div id="container-and-1-dmux">
+                
+                <div id="a-and1-dmux">
+                    <div id="val-a-and1-dmux">0</div>
+                </div>
+                <div id="a-connect-and1-dmux">
+
+                </div>
+                <div id="b-and1-dmux">
+                    <div id="val-b-and1-dmux">0</div>
+                </div>
+                <div id="b-connect-and1-dmux">
+
+                </div>
+                <div id="and1-gate-dmux">
+                    <div id="and1-name-dmux">AND</div>
+                </div>
+                <div id="output-and1-dmux">
+                    <div id="val-output-and1-dmux">0</div>
+                </div>
+                <div id="output-connect-and1-dmux">
+
+                </div>
+            </div>
+            <div id="container-and-2-dmux">
+                <div id="a-and2-dmux">
+                    <div id="val-a-and2-dmux">0</div>
+                </div>
+                <div id="a-connect-and2-dmux">
+
+                </div>
+                <div id="b-and2-dmux">
+                    <div id="val-b-and2-dmux">0</div>
+                </div>
+                <div id="b-connect-and2-dmux">
+
+                </div>
+                <div id="and2-gate-dmux">
+                    <div id="and2-name-dmux">AND</div>
+                </div>
+                <div id="output-and2-dmux">
+                    <div id="val-output-and2-dmux">0</div>
+                </div>
+                <div id="output-connect-and2-dmux">
+
+                </div>
+            </div>
+        </div>           
+        
+        <div id="div-table-in-dmux">
+            <div>Truth Table:</div>
+            <table id="table-in-dmux">
+                <thead>
+                    <tr>
+                        <th class="dmux-in-th">I</th>
+                        <th class="dmux-in-th">Sel</th>
+                        <th class="dmux-in-th">A</th>
+                        <th class="dmux-in-th">B</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr id="dmux-in-0-0">
+                        <td class="dmux-in-td">0</td>
+                        <td class="dmux-in-td">0</td>
+                        <td class="dmux-in-td">0</td>
+                        <td class="dmux-in-td">0</td>
+                    </tr>
+                    <tr id="dmux-in-0-1">
+                        <td class="dmux-in-td">0</td>
+                        <td class="dmux-in-td">1</td>
+                        <td class="dmux-in-td">0</td>
+                        <td class="dmux-in-td">0</td>
+                    </tr>
+                    <tr id="dmux-in-1-0">
+                        <td class="dmux-in-td">1</td>
+                        <td class="dmux-in-td">0</td>
+                        <td class="dmux-in-td">1</td>
+                        <td class="dmux-in-td">0</td>
+                    </tr>
+                    <tr id="dmux-in-1-1">
+                        <td class="dmux-in-td">1</td>
+                        <td class="dmux-in-td">1</td>
+                        <td class="dmux-in-td">0</td>
+                        <td class="dmux-in-td">1</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="containerdmux">
+        <div class='shapedmux'></div>
+    </div>
+    <script>
+        function firstDmux() {
+            const dmuxoutside = document.getElementById('dmux-outside')
+            const dmuxinside = document.getElementById('dmux-inside')
+            dmuxoutside.style.display = "block"
+            dmuxinside.style.display = "none"
+        }
+        function dmuxOutside() {
+            const dmuxoutside = document.getElementById('dmux-outside')
+            const dmuxinside = document.getElementById('dmux-inside')
+            const contdmux = document.getElementById('container-dmux')
+            const dmuxshape = document.getElementsByClassName('shapedmux')
+            const dmuxcont = document.getElementById('dmux-container')
+
+            dmuxcont.style.clipPath = "polygon(40% 25%, 65% 0%, 65% 100%, 40% 63%)";
+            dmuxcont.style.transition = "all 2s ease-in"
+            dmuxcont.addEventListener('transitionend', () => {
+                dmuxcont.style.opacity = "0"
+                dmuxcont.style.transition = "all 2s ease-in"
+                setTimeout(() => {
+
+                    dmuxshape[0].style.opacity = 1
+                    dmuxshape[0].style.display = "block"
+                    dmuxshape[0].style.transition = "all 2s ease-in"
+                    setTimeout(() => {
+                        dmuxshape[0].style.height = "5em"
+                        dmuxshape[0].style.width = "5em"
+                        dmuxshape[0].style.top = "-550px"
+                        dmuxshape[0].style.transition = "all 2s ease-in"
+                        dmuxoutside.style.opacity = 1
+                        dmuxoutside.style.display = "block"
+                        dmuxoutside.style.transition = "all 2s ease-in"
+                        dmuxinside.style.display = "none"
+                        dmuxshape[0].addEventListener('transitionend', () => {
+                            contdmux.style.opacity = 1
+                            contdmux.style.height = "150px"
+                            contdmux.style.transition = "all 1s ease-in"
+                            setTimeout(() => {
+                                dmuxshape[0].style.opacity = 0
+                                dmuxshape[0].style.display = "none"
+                                dmuxshape[0].style.transition = "all 2s ease-in"
+                            }, 200);
+                        })
+                    }, 200)
+                }, 200);
+            })
+        }
+        function dmuxInside() {
+            const dmuxoutside = document.getElementById('dmux-outside')
+            const dmuxinside = document.getElementById('dmux-inside')
+            const contdmux = document.getElementById('container-dmux')
+            const dmuxshape = document.getElementsByClassName('shapedmux')
+            const dmuxcont = document.getElementById('dmux-container')
+
+            
+            
+            contdmux.style.opacity = 0
+            contdmux.style.height = "16em"
+            contdmux.style.transition = "all 2s ease-in"
+            dmuxshape[0].style.opacity = 1
+            dmuxshape[0].style.width = "10em"
+            dmuxshape[0].style.height = "10em"
+            dmuxshape[0].style.top = "-490px"
+            dmuxshape[0].style.transition = "all 2s ease-in"
+            function nextdmux() {
+                setTimeout(() => {
+                    dmuxshape[0].style.opacity = 0
+                    dmuxshape[0].style.transition = "opacity 0.2s ease-in"
+                    dmuxoutside.style.display = "none"
+                    dmuxinside.style.display = "block"
+                    setTimeout(() => {
+                        dmuxshape[0].style.display = "none"
+                        dmuxshape[0].style.transition = "display 0.2s ease-in"
+                        dmuxcont.style.clipPath = "polygon(0% 0%, 150% 0%, 150% 100%, 0% 100%)"
+                        dmuxcont.style.transition = "all 2s ease-in"
+                        dmuxshape[0].removeEventListener('transitionend', nextdmux);
+                    }, 20)
+                }, 50);
+            }
+            dmuxshape[0].addEventListener('transitionend', nextdmux)
+        }
+    </script>
+    <script>
+        function outputDmux() {
+            const out = document.getElementById('output-dmux')
+            const outcon = document.getElementById('output-connect-dmux')
+            const valout = document.getElementById('val-output-dmux')
+            const seldmux = document.getElementById('sel-dmux')
+            const tablevaldmux00 = document.getElementById('dmux-0-0')
+            const tablevaldmux01 = document.getElementById('dmux-0-1')
+            const tablevaldmux10 = document.getElementById('dmux-1-0')
+            const tablevaldmux11 = document.getElementById('dmux-1-1')
+            if (valout.innerText == "0" && seldmux.innerText == "0") {
+                out.style.backgroundColor = colgr
+                outcon.style.backgroundColor = colgr
+                valout.innerText = "0"
+                tablevaldmux00.style.backgroundColor = colg
+                tablevaldmux01.style.backgroundColor = colgr
+                tablevaldmux10.style.backgroundColor = colgr
+                tablevaldmux11.style.backgroundColor = colgr
+                dmux(valout.innerText, seldmux.innerText)
+            } else if (valout.innerText == "0" && seldmux.innerText == "1") {
+                out.style.backgroundColor = colgr
+                outcon.style.backgroundColor = colgr
+                valout.innerText = "0"
+                tablevaldmux00.style.backgroundColor = colgr
+                tablevaldmux01.style.backgroundColor = colg
+                tablevaldmux10.style.backgroundColor = colgr
+                tablevaldmux11.style.backgroundColor = colgr
+                dmux(valout.innerText, seldmux.innerText)
+            } else if (valout.innerText == "1" && seldmux.innerText == "0") {
+                out.style.backgroundColor = colg
+                outcon.style.backgroundColor = colg
+                valout.innerText = "1"
+                tablevaldmux00.style.backgroundColor = colgr
+                tablevaldmux01.style.backgroundColor = colgr
+                tablevaldmux10.style.backgroundColor = colg
+                tablevaldmux11.style.backgroundColor = colgr
+                dmux(valout.innerText, seldmux.innerText)
+            } else if (valout.innerText == "1" && seldmux.innerText == "1") {
+                
+                out.style.backgroundColor = colg
+                outcon.style.backgroundColor = colg
+                valout.innerText = "1"
+                tablevaldmux00.style.backgroundColor = colgr
+                tablevaldmux01.style.backgroundColor = colgr
+                tablevaldmux10.style.backgroundColor = colgr
+                tablevaldmux11.style.backgroundColor = colg
+                dmux(valout.innerText, seldmux.innerText)
+            }
+        }
+        function dmux(a, b) {
+            
+            const ad = document.getElementById('a-dmux')
+            const acd = document.getElementById('a-connect-dmux')
+            const avd = document.getElementById('val-a-dmux')
+            const bd = document.getElementById('b-dmux')
+            const bcd = document.getElementById('b-connect-dmux')
+            const bvd = document.getElementById('val-b-dmux')
+            const outs = document.getElementById('dmux-gate')
+            if ((a == "1" && b == "0")) {
+                ad.style.backgroundColor = colg
+                acd.style.backgroundColor = colg
+                avd.innerText = "1"
+                outs.style.backgroundColor = colg
+
+                bd.style.backgroundColor = colgr
+                bcd.style.backgroundColor = colgr
+                bvd.innerText = "0"
+            } else if ((a == "1" && b == "1")) {
+                bd.style.backgroundColor = colg
+                bcd.style.backgroundColor = colg
+                bvd.innerText = "1"
+                outs.style.backgroundColor = colg
+
+                ad.style.backgroundColor = colgr
+                acd.style.backgroundColor = colgr
+                avd.innerText = "0"
+            }
+            else {
+                ad.style.backgroundColor = colgr
+                acd.style.backgroundColor = colgr
+                avd.innerText = "0"
+                bd.style.backgroundColor = colgr
+                bcd.style.backgroundColor = colgr
+                bvd.innerText = "0"
+                outs.style.backgroundColor = colgr
+            }
+        }
+        function oDmux() {
+            const a = document.getElementById('output-dmux')
+            const acon = document.getElementById('output-connect-dmux')
+            const vala = document.getElementById('val-output-dmux')
+            if (vala.innerText == "0") {
+                
+                a.style.backgroundColor = colg
+                acon.style.backgroundColor = colg
+                vala.innerText = "1"
+                a.transition = "background-color 2s ease-in"
+                acon.transition = "background-color 2s ease-in"
+                outputDmux()
+            }
+            else {
+                
+                a.style.backgroundColor = colgr
+                acon.style.backgroundColor = colgr
+                vala.innerText = "0"
+                a.transition = "background-color 2s ease-in"
+                acon.transition = "background-color 2s ease-in"
+                outputDmux()
+            }
+        }
+        function selDmux() {
+            const a = document.getElementById('sel-dmux')
+            const acon = document.getElementById('sel-connect-dmux')
+            const vala = document.getElementById('val-sel-dmux')
+            if (vala.innerText == "0") {
+                
+                a.style.backgroundColor = colg
+                acon.style.backgroundColor = colg
+                vala.innerText = "1"
+                a.transition = "background-color 2s ease-in"
+                acon.transition = "background-color 2s ease-in"
+                outputDmux()
+            }
+            else {
+                
+                a.style.backgroundColor = colgr
+                acon.style.backgroundColor = colgr
+                vala.innerText = "0"
+                a.transition = "background-color 2s ease-in"
+                acon.transition = "background-color 2s ease-in"
+                outputDmux()
+            }
+        }
+    </script>
+    <script>
+        function seldmux() {
+            const a = document.getElementById('circle-sel-dmux')
+            const acon1 = document.getElementById('connect-sel-not-1-dmux')
+            const acon2 = document.getElementById('connect-sel-not-2-dmux')
+            const vala = document.getElementById('val-sel-dmux')
+            if (vala.innerText == "0") {
+                
+                a.style.backgroundColor = colg
+                acon1.style.backgroundColor = colg
+                acon2.style.backgroundColor = colg
+                a.transition = "background-color 2s ease-in"
+                vala.innerText = "1"
+                xdmux()
+                bAnd2dmux()
+            }
+            else {
+                
+                a.style.backgroundColor = colgr
+                acon1.style.backgroundColor = colgr
+                acon2.style.backgroundColor = colgr
+                a.transition = "background-color 2s ease-in"
+                vala.innerText = "0"
+                xdmux()
+                bAnd2dmux()
+            }
+
+        }
+        function circleindmux() {
+            const a = document.getElementById('circle-in-dmux')
+            const acon = document.getElementById('connect-in-and1-dmux')
+            const acon1 = document.getElementById('connect-in-and1-and2-dmux')
+            const acon2 = document.getElementById('connect-in-and2-dmux')
+            const vala = document.getElementById('val-in-dmux')
+            if (vala.innerText == "0") {
+                
+                a.style.backgroundColor = colg
+                acon.style.backgroundColor = colg
+                acon1.style.backgroundColor = colg
+                acon2.style.backgroundColor = colg
+                vala.innerText = "1"
+                a.transition = "background-color 2s ease-in"
+                acon.transition = "background-color 2s ease-in"
+                aAnd1dmux()
+                aAnd2dmux()
+            }
+            else {
+                
+                a.style.backgroundColor = colgr
+                acon.style.backgroundColor = colgr
+                acon1.style.backgroundColor = colgr
+                acon2.style.backgroundColor = colgr
+                vala.innerText = "0"
+                a.transition = "background-color 2s ease-in"
+                acon.transition = "background-color 2s ease-in"
+                aAnd1dmux()
+                aAnd2dmux()
+            }
+        }
+        function outputXdmux() {
+            const out = document.getElementById('output-x-dmux')
+            const outcon = document.getElementById('output-connect-x-dmux')
+            const notout = document.getElementById('not-circle-dmux')
+            const valout = document.getElementById('val-output-x-dmux')
+            const a = document.getElementById('val-sel-dmux')
+            if (a.innerText == "0") {
+                out.style.backgroundColor = colg
+                outcon.style.backgroundColor = colg
+                notout.style.backgroundColor = colg
+                valout.innerText = "1"
+                notdmux(a.innerText)
+            } else {
+                out.style.backgroundColor = colgr
+                outcon.style.backgroundColor = colgr
+                notout.style.backgroundColor = colgr
+                valout.innerText = "0"
+                notdmux(a.innerText)
+            }
+        }
+        function notdmux(a) {
+            
+            let not = document.getElementById('not-gate-dmux')
+            const valb = document.getElementById('val-b-and1-dmux')
+            if (a == "0") {
+                not.style.backgroundColor = colg
+                valb.innerText = "0"
+                bAnd1dmux()
+            }
+            else {
+                not.style.backgroundColor = colgr
+                valb.innerText = "1"
+                bAnd1dmux()
+            }
+        }
+        function xdmux() {
+            const a = document.getElementById('x-dmux')
+            const acon = document.getElementById('x-connect-dmux')
+            const vala = document.getElementById('val-x-dmux')
+            if (vala.innerText == "0") {
+                
+                a.style.backgroundColor = colg
+                acon.style.backgroundColor = colg
+                a.transition = "background-color 2s ease-in"
+                acon.transition = "background-color 2s ease-in"
+                vala.innerText = "1"
+                outputXdmux()
+            }
+            else {
+                
+                a.style.backgroundColor = colgr
+                acon.style.backgroundColor = colgr
+                a.transition = "background-color 2s ease-in"
+                acon.transition = "background-color 2s ease-in"
+                vala.innerText = "0"
+                outputXdmux()
+            }
+
+        }
+        function outputAnd1dmux() {
+            
+            const out = document.getElementById('output-and1-dmux')
+            const outcon = document.getElementById('output-connect-and1-dmux')
+            const valout = document.getElementById('val-output-and1-dmux')
+            const a = document.getElementById('val-a-and1-dmux')
+            const b = document.getElementById('val-b-and1-dmux')
+            if (a.innerText == "1" && b.innerText == "1") {
+                out.style.backgroundColor = colg
+                outcon.style.backgroundColor = colg
+                valout.innerText = "1"
+                and1dmux(a.innerText, b.innerText)
+            } else if (a.innerText == "0" && b.innerText == "0") {
+                out.style.backgroundColor = colgr
+                outcon.style.backgroundColor = colgr
+                valout.innerText = "0"
+                and1dmux(a.innerText, b.innerText)
+            }
+            else if (a.innerText == "0" && b.innerText == "1") {
+                out.style.backgroundColor = colgr
+                outcon.style.backgroundColor = colgr
+                valout.innerText = "0"
+                and1dmux(a.innerText, b.innerText)
+            }
+            else {
+                out.style.backgroundColor = colgr
+                outcon.style.backgroundColor = colgr
+                valout.innerText = "0"
+                and1dmux(a.innerText, b.innerText)
+            }
+        }
+        function outputAnd2dmux() {
+            
+            const out = document.getElementById('output-and2-dmux')
+            const outcon = document.getElementById('output-connect-and2-dmux')
+            const valout = document.getElementById('val-output-and2-dmux')
+            const a = document.getElementById('val-a-and2-dmux')
+            const b = document.getElementById('val-b-and2-dmux')
+            if (a.innerText == "1" && b.innerText == "1") {
+                out.style.backgroundColor = colg
+                outcon.style.backgroundColor = colg
+                valout.innerText = "1"
+                and2dmux(a.innerText, b.innerText)
+            } else if (a.innerText == "0" && b.innerText == "0") {
+                out.style.backgroundColor = colgr
+                outcon.style.backgroundColor = colgr
+                valout.innerText = "0"
+                and2dmux(a.innerText, b.innerText)
+            }
+            else if (a.innerText == "0" && b.innerText == "1") {
+                out.style.backgroundColor = colgr
+                outcon.style.backgroundColor = colgr
+                valout.innerText = "0"
+                and2dmux(a.innerText, b.innerText)
+            }
+            else {
+                out.style.backgroundColor = colgr
+                outcon.style.backgroundColor = colgr
+                valout.innerText = "0"
+                and2dmux(a.innerText, b.innerText)
+            }
+        }
+        function and1dmux(a, b) {
+            
+            const and = document.getElementById('and1-gate-dmux')
+            if (a == "1" && b == "1") {
+                and.style.backgroundColor = colg
+                outputDmuxIn()
+            }
+            else {
+                and.style.backgroundColor = colgr
+                outputDmuxIn()
+            }
+        }
+        function and2dmux(a, b) {
+            
+            const and = document.getElementById('and2-gate-dmux')
+            if (a == "1" && b == "1") {
+                and.style.backgroundColor = colg
+                outputDmuxIn()
+            }
+            else {
+                and.style.backgroundColor = colgr
+                outputDmuxIn()
+            }
+        }
+        function aAnd1dmux() {
+            const a = document.getElementById('a-and1-dmux')
+            const acon = document.getElementById('a-connect-and1-dmux')
+            const vala = document.getElementById('val-a-and1-dmux')
+            if (vala.innerText == "0") {
+                
+                a.style.backgroundColor = colg
+                acon.style.backgroundColor = colg
+                vala.innerText = "1"
+                a.transition = "background-color 2s ease-in"
+                acon.transition = "background-color 2s ease-in"
+                outputAnd1dmux()
+            }
+            else {
+                
+                a.style.backgroundColor = colgr
+                acon.style.backgroundColor = colgr
+                vala.innerText = "0"
+                a.transition = "background-color 2s ease-in"
+                acon.transition = "background-color 2s ease-in"
+                outputAnd1dmux()
+            }
+
+        }
+        function aAnd2dmux() {
+            const a = document.getElementById('a-and2-dmux')
+            const acon = document.getElementById('a-connect-and2-dmux')
+            const vala = document.getElementById('val-a-and2-dmux')
+            if (vala.innerText == "0") {
+                
+                a.style.backgroundColor = colg
+                acon.style.backgroundColor = colg
+                vala.innerText = "1"
+                a.transition = "background-color 2s ease-in"
+                acon.transition = "background-color 2s ease-in"
+                outputAnd2dmux()
+            }
+            else {
+                
+                a.style.backgroundColor = colgr
+                acon.style.backgroundColor = colgr
+                vala.innerText = "0"
+                a.transition = "background-color 2s ease-in"
+                acon.transition = "background-color 2s ease-in"
+                outputAnd2dmux()
+            }
+
+        }
+        function bAnd1dmux() {
+            const b = document.getElementById('b-and1-dmux')
+            const bcon = document.getElementById('b-connect-and1-dmux')
+            const valb = document.getElementById('val-b-and1-dmux')
+            if (valb.innerText == "0") {
+                
+                b.style.backgroundColor = colg
+                bcon.style.backgroundColor = colg
+                valb.innerText = "1"
+                b.transition = "background-color 2s ease-in"
+                bcon.transition = "background-color 2s ease-in"
+                outputAnd1dmux()
+            }
+            else {
+                
+                b.style.backgroundColor = colgr
+                bcon.style.backgroundColor = colgr
+                valb.innerText = "0"
+                b.transition = "background-color 2s ease-in"
+                bcon.transition = "background-color 2s ease-in"
+                outputAnd1dmux()
+            }
+
+        }
+        function bAnd2dmux() {
+            const b = document.getElementById('b-and2-dmux')
+            const bcon = document.getElementById('b-connect-and2-dmux')
+            const valb = document.getElementById('val-b-and2-dmux')
+            if (valb.innerText == "0") {
+                
+                b.style.backgroundColor = colg
+                bcon.style.backgroundColor = colg
+                valb.innerText = "1"
+                b.transition = "background-color 2s ease-in"
+                bcon.transition = "background-color 2s ease-in"
+                outputAnd2dmux()
+            }
+            else {
+                
+                b.style.backgroundColor = colgr
+                bcon.style.backgroundColor = colgr
+                valb.innerText = "0"
+                b.transition = "background-color 2s ease-in"
+                bcon.transition = "background-color 2s ease-in"
+                outputAnd2dmux()
+            }
+
+        }
+        function outputDmuxIn() {
+            const tablevaldmux00 = document.getElementById('dmux-in-0-0')
+            const tablevaldmux01 = document.getElementById('dmux-in-0-1')
+            const tablevaldmux10 = document.getElementById('dmux-in-1-0')
+            const tablevaldmux11 = document.getElementById('dmux-in-1-1')
+            const valin = document.getElementById('val-in-dmux')
+            const valsel = document.getElementById('val-sel-dmux')
+            if (valin.innerText == "0" && valsel.innerText == "0") {
+                tablevaldmux00.style.backgroundColor = colg
+                tablevaldmux01.style.backgroundColor = colgr
+                tablevaldmux10.style.backgroundColor = colgr
+                tablevaldmux11.style.backgroundColor = colgr
+            }
+            else if (valin.innerText == "0" && valsel.innerText == "1") {
+                tablevaldmux00.style.backgroundColor = colgr
+                tablevaldmux01.style.backgroundColor = colg
+                tablevaldmux10.style.backgroundColor = colgr
+                tablevaldmux11.style.backgroundColor = colgr
+            }
+            else if (valin.innerText == "1" && valsel.innerText == "0") {
+                tablevaldmux00.style.backgroundColor = colgr
+                tablevaldmux01.style.backgroundColor = colgr
+                tablevaldmux10.style.backgroundColor = colg
+                tablevaldmux11.style.backgroundColor = colgr
+            }
+            else if (valin.innerText == "1" && valsel.innerText == "1") {
+                tablevaldmux00.style.backgroundColor = colgr
+                tablevaldmux01.style.backgroundColor = colgr
+                tablevaldmux10.style.backgroundColor = colgr
+                tablevaldmux11.style.backgroundColor = colg
+            }
+        }
+    </script>
+</body></p>
+</section>
+
+  
+  
+
+  
+  
+  
+  
+  <nav
+    class="mt-24 flex overflow-hidden rounded-xl bg-black/[3%] text-lg !leading-[1.2] *:flex *:w-1/2 *:items-center *:p-5 *:font-medium *:no-underline dark:bg-white/[8%] [&>*:hover]:bg-black/[2%] dark:[&>*:hover]:bg-white/[3%]"
+  >
+    
+    
+    <a class="ltr:ml-auto rtl:mr-auto justify-end pl-3" href="http://localhost:1313/itsmaniblog/posts/understanding-computer-from-gates/"
+      ><span>Understanding Basics Of Gates to Build Computer</span><span class="ltr:ml-1.5 rtl:mr-1.5">→</span></a
+    >
+    
+  </nav>
+  
+  
+
+  
+  
+
+  
+  
+
+  
+
+
+  
+</article>
+
+
+    </main>
+
+    <footer
+  class="mx-auto flex h-[4.5rem] max-w-[--w] items-center px-8 text-xs uppercase tracking-wider opacity-60"
+>
+  <div class="mr-auto">
+  
+    © 2024, itsmaniblog.github.io
+  
+  </div>
+  <a class="link mx-6" href="https://gohugo.io/" rel="noopener" target="_blank"
+    >powered by hugo️️</a
+  >️
+  <a
+    class="link"
+    href="https://github.com/nanxiaobei/hugo-paper"
+    rel="noopener"
+    target="_blank"
+    >hugo-paper</a
+  >
+</footer>
+
+  </body>
+</html>

@@ -7,8 +7,15 @@
     <generator>Hugo</generator>
     <language>en-us</language>
     <copyright>© 2024, itsmaniblog.github.io</copyright>
-    <lastBuildDate>Fri, 18 Apr 2025 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 09 May 2025 09:54:31 +0530</lastBuildDate>
     <atom:link href="http://localhost:1313/itsmaniblog/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Building Mux and Dmux Gates</title>
+      <link>http://localhost:1313/itsmaniblog/posts/building-mux-and-dmux-gates/</link>
+      <pubDate>Fri, 09 May 2025 09:54:31 +0530</pubDate>
+      <guid>http://localhost:1313/itsmaniblog/posts/building-mux-and-dmux-gates/</guid>
+      <description>&lt;blockquote&gt;&#xA;&lt;h3 id=&#34;disclaminer&#34;&gt;&lt;em&gt;&lt;strong&gt;DISCLAMINER:&lt;/strong&gt;&lt;/em&gt;&lt;/h3&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;I am no expert in electrical engineering. Even though i have &lt;em&gt;&lt;strong&gt;Bachelor&amp;rsquo;s&lt;/strong&gt;&lt;/em&gt; in &lt;em&gt;&lt;strong&gt;Computers&lt;/strong&gt;&lt;/em&gt;. I&amp;rsquo;m just a curious learner and a teacher how is curious enough to teach.&lt;/li&gt;&#xA;&lt;li&gt;If i make any mistake, i happy to get it right and learn from you.&lt;/li&gt;&#xA;&lt;li&gt;Thank You!!!&lt;/li&gt;&#xA;&lt;/ul&gt;&lt;/blockquote&gt;&#xA;&lt;h2 id=&#34;contents&#34;&gt;Contents:&lt;/h2&gt;&#xA;&lt;p&gt;-&lt;a href=&#34;#mux&#34;&gt;Mux&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;-&lt;a href=&#34;#dmux&#34;&gt;DMux&lt;/a&gt;&lt;/p&gt;&#xA;&lt;h2 id=&#34;mux&#34;&gt;Mux&lt;/h2&gt;&#xA;&lt;h4 id=&#34;what-is-multiplexer&#34;&gt;What is multiplexer??&lt;/h4&gt;&#xA;&lt;p&gt;A. Mulitpler as it called as MUX in short. It takes multiple inputs (signal/pulse) and gives single output(signals).&#xA;Basically MUX selects one of several inputs.&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Understanding Basics Of Gates to Build Computer</title>
       <link>http://localhost:1313/itsmaniblog/posts/understanding-computer-from-gates/</link>
