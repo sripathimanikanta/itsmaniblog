@@ -1,6 +1,6 @@
 +++
 title = 'Building Mux and Dmux Gates'
-date = '2025-05-09T09:54:31+05:30'
+date = '2025-05-25T09:54:31+05:30'
 draft = false 
 +++
 > ### ***DISCLAMINER:***
